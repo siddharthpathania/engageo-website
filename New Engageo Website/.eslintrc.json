@@ -1,0 +1,16 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "rules": {
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "react/self-closing-comp": "warn",
+    "react/jsx-curly-brace-presence": ["warn", { "props": "never", "children": "never" }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  }
+}

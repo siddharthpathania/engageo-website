@@ -44,7 +44,7 @@ const TIERS: readonly Tier[] = [
       'Analytics dashboard',
     ],
     ctaLabel: 'Book a Strategy Call',
-    ctaHref: '/contact?plan=growth',
+    ctaHref: 'https://calendly.com/engageoagency',
     featured: true,
   },
   {

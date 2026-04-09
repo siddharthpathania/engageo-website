@@ -111,7 +111,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   /* ── Send email via Resend (if configured) ── */
   const resendKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_FORM_TO || 'hello@engageoagency.digital';
+  const toEmail = process.env.CONTACT_FORM_TO || 'engageoagency@gmail.com';
 
   if (resendKey) {
     try {

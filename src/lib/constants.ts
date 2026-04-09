@@ -95,7 +95,12 @@ export const CTA = {
   },
   book: {
     label: 'Book a 20-min Call',
-    href: '/contact?intent=demo',
+    href: 'https://calendly.com/engageoagency',
+    shortLabel: 'Book Call',
+  },
+  calendly: {
+    label: 'Book a Strategy Call',
+    href: 'https://calendly.com/engageoagency',
     shortLabel: 'Book Call',
   },
 } as const;
@@ -103,8 +108,8 @@ export const CTA = {
 // ─── Contact info ────────────────────────────────────────────────
 
 export const CONTACT = {
-  email: 'hello@engageoagency.digital',
-  emailSupport: 'support@engageoagency.digital',
+  email: 'engageoagency@gmail.com',
+  emailSupport: 'engageoagency@gmail.com',
   phone: '+91 96996 70806',
   phoneE164: '+919699670806',
   whatsapp: '+91 96996 70806',

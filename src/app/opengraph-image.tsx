@@ -64,7 +64,8 @@ export default async function OpenGraphImage(): Promise<ImageResponse> {
             letterSpacing: '-0.02em',
           }}
         >
-          <img src={logoBase64} width={48} height={48} style={{ borderRadius: 10 }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="" src={logoBase64} width={48} height={48} style={{ borderRadius: 10 }} />
           <span>Engageo</span>
         </div>
 
@@ -91,6 +92,8 @@ export default async function OpenGraphImage(): Promise<ImageResponse> {
           </div>
           <div
             style={{
+              display: 'flex',
+              flexWrap: 'wrap',
               fontSize: 82,
               fontWeight: 700,
               lineHeight: 1.04,

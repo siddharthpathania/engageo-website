@@ -22,7 +22,8 @@ export default async function Icon(): Promise<ImageResponse> {
           height: '100%',
         }}
       >
-        <img src={logoBase64} width={32} height={32} style={{ borderRadius: 4 }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img alt="" src={logoBase64} width={32} height={32} style={{ borderRadius: 4 }} />
       </div>
     ),
     { ...size },

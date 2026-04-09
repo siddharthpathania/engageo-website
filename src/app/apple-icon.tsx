@@ -22,7 +22,8 @@ export default async function AppleIcon(): Promise<ImageResponse> {
           height: '100%',
         }}
       >
-        <img src={logoBase64} width={180} height={180} style={{ borderRadius: 36 }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img alt="" src={logoBase64} width={180} height={180} style={{ borderRadius: 36 }} />
       </div>
     ),
     { ...size },

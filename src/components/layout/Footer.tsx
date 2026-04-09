@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 
@@ -69,19 +70,13 @@ export function Footer(): JSX.Element {
               aria-label={`${SITE_CONFIG.name} — home`}
               className="flex items-center gap-1.5"
             >
-              <span
-                aria-hidden="true"
-                className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-brand text-surface shadow-glow-sm"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path
-                    d="M7 1v12M1 7h12"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
+              <Image
+                src="/logo.png"
+                alt=""
+                width={28}
+                height={28}
+                className="rounded-lg"
+              />
               <span className="font-display text-[17px] font-semibold tracking-tight text-obsidian">
                 {SITE_CONFIG.name}
               </span>

@@ -80,12 +80,12 @@ export const MAIN_NAV: readonly NavLink[] = [
 export const CTA = {
   audit: {
     label: 'Free Audit — See What You\u2019re Losing',
-    href: '/#audit',
+    href: 'https://calendly.com/engageoagency',
     shortLabel: 'Free Audit',
   },
   demo: {
     label: 'Watch a Real Recovery Call',
-    href: '/#decision-lifecycle',
+    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
     shortLabel: 'Watch Demo',
   },
   whatsapp: {

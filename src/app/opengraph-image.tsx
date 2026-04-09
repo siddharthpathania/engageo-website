@@ -1,12 +1,17 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const alt = 'Engageo — AI missed-call recovery for Indian clinics';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function OpenGraphImage(): ImageResponse {
+export default async function OpenGraphImage(): Promise<ImageResponse> {
+  const logoData = await readFile(join(process.cwd(), 'public', 'logo.png'));
+  const logoBase64 = `data:image/png;base64,${logoData.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -59,22 +64,7 @@ export default function OpenGraphImage(): ImageResponse {
             letterSpacing: '-0.02em',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 48,
-              height: 48,
-              background: 'linear-gradient(135deg, #3D5AFE 0%, #6B80FF 100%)',
-              borderRadius: 10,
-              color: '#FFFFFF',
-              fontSize: 30,
-              fontWeight: 700,
-            }}
-          >
-            E
-          </div>
+          <img src={logoBase64} width={48} height={48} style={{ borderRadius: 10 }} />
           <span>Engageo</span>
         </div>
 

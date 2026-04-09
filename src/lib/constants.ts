@@ -90,7 +90,7 @@ export const CTA = {
   },
   whatsapp: {
     label: 'Chat on WhatsApp',
-    href: 'https://wa.me/919876543210?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
+    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
     shortLabel: 'WhatsApp',
   },
   book: {
@@ -105,12 +105,12 @@ export const CTA = {
 export const CONTACT = {
   email: 'hello@engageoagency.digital',
   emailSupport: 'support@engageoagency.digital',
-  phone: '+91 98765 43210',
-  phoneE164: '+919876543210',
-  whatsapp: '+91 98765 43210',
-  whatsappE164: '919876543210',
+  phone: '+91 96996 70806',
+  phoneE164: '+919699670806',
+  whatsapp: '+91 96996 70806',
+  whatsappE164: '919699670806',
   whatsappLink:
-    'https://wa.me/919876543210?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
+    'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
   address: {
     line1: 'Engageo HQ',
     line2: 'Koramangala',
@@ -197,10 +197,10 @@ export type SocialLink = {
 };
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
-  { label: 'LinkedIn',  href: 'https://linkedin.com/company/engageo',  handle: 'engageo' },
-  { label: 'Twitter',   href: 'https://twitter.com/engageo',           handle: '@engageo' },
-  { label: 'Instagram', href: 'https://instagram.com/engageo.in',      handle: '@engageo.in' },
-  { label: 'YouTube',   href: 'https://youtube.com/@engageo',          handle: '@engageo' },
+  { label: 'LinkedIn',  href: 'https://www.linkedin.com/company/engageo-agency/',  handle: 'engageo-agency' },
+  { label: 'Twitter',   href: 'https://twitter.com/engageo',                     handle: '@engageo' },
+  { label: 'Instagram', href: 'https://www.instagram.com/engageo.agency/',        handle: '@engageo.agency' },
+  { label: 'YouTube',   href: 'https://youtube.com/@engageo',                     handle: '@engageo' },
   { label: 'WhatsApp',  href: CONTACT.whatsappLink,                    handle: CONTACT.whatsapp },
 ] as const;
 

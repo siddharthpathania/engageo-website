@@ -16,7 +16,7 @@ export function CTASection({
   headlineAccent = 'today.',
   body = 'Every missed call you read past right now is ₹6,000–₹12,000 in patient LTV walking to the clinic down the road. Plug Engageo in this week. See your first recovery by Friday.',
   primaryCta = { label: 'Book Your Strategy Call', href: '/contact' },
-  secondaryCta = { label: 'WhatsApp Us Instead', href: 'https://wa.me/919876543210' },
+  secondaryCta = { label: 'WhatsApp Us Instead', href: 'https://wa.me/919699670806' },
 }: CTASectionProps): JSX.Element {
   return (
     <SectionWrapper id="cta" ariaLabel="Call to action" dark bleed className="py-24 md:py-32">

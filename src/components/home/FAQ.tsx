@@ -134,7 +134,7 @@ export function FAQ(): JSX.Element {
         <p className="text-[13px] text-subtle">
           More questions?{' '}
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/919699670806"
             className="font-medium text-obsidian underline-offset-4 hover:text-primary-600 hover:underline"
           >
             WhatsApp us directly

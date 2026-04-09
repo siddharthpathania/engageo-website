@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 type CTASectionProps = {
@@ -56,8 +55,10 @@ export function CTASection({
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
+            <a
               href={primaryCta.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover"
             >
               {primaryCta.label}
@@ -77,10 +78,12 @@ export function CTASection({
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </a>
 
-            <Link
+            <a
               href={secondaryCta.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full border border-surface/30 bg-transparent px-7 py-4 text-[14px] font-semibold text-surface transition-all duration-300 hover:border-surface/60 hover:bg-surface/5"
             >
               <svg
@@ -99,7 +102,7 @@ export function CTASection({
                 />
               </svg>
               {secondaryCta.label}
-            </Link>
+            </a>
           </div>
 
           {/* Trust row */}

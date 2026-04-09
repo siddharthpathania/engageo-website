@@ -1,7 +1,6 @@
 'use client';
 
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { CTA } from '@/lib/constants';
@@ -652,8 +651,10 @@ export function Hero(): JSX.Element {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Link
+          <a
             href={CTA.audit.href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex flex-1 items-center justify-center gap-2 border-2 border-obsidian bg-primary-500 px-5 py-3.5 text-[13px] font-bold tracking-wide text-surface transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] active:scale-[0.98] md:px-8 md:py-4 md:text-[13px]"
             style={{ boxShadow: '4px 4px 0px 0px #0F0D0B' }}
             onMouseEnter={(e) => {
@@ -682,9 +683,11 @@ export function Hero(): JSX.Element {
                 strokeLinejoin="round"
               />
             </svg>
-          </Link>
-          <Link
+          </a>
+          <a
             href={CTA.demo.href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex flex-1 items-center justify-center whitespace-nowrap border-2 border-obsidian bg-surface px-5 py-3.5 text-[13px] font-bold tracking-wide text-obsidian transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] md:px-7 md:py-4 md:text-[13px]"
             style={{ boxShadow: '4px 4px 0px 0px #0F0D0B' }}
             onMouseEnter={(e) => {
@@ -695,7 +698,7 @@ export function Hero(): JSX.Element {
             }}
           >
             Watch a Real Recovery Call
-          </Link>
+          </a>
         </motion.div>
 
         {/* Metric pills — animated counters */}

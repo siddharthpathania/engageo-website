@@ -15,7 +15,7 @@ export const SITE_CONFIG = {
   description:
     'Every missed call at your clinic is a patient your competitor books. Engageo intercepts that call in 8 seconds — qualifies the patient, books the slot, sends the WhatsApp confirmation. Live in 47+ Indian clinics.',
   tagline: 'Your clinic is losing ₹3L every month. We recover it.',
-  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://engageoagency.digital').replace(/\/$/, ''),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://engageoagency.com').replace(/\/$/, ''),
   ogImage: '/opengraph-image',
   ogImageAlt: 'Engageo — AI voice + WhatsApp recovery for Indian clinics',
   locale: 'en_IN',

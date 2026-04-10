@@ -31,36 +31,37 @@ type TeamMember = {
   bio: string;
   initials: string;
   accent: string;
+  linkedin: string;
+  photo?: string;
 };
 
 const TEAM: readonly TeamMember[] = [
   {
-    name: 'Arjun Mehta',
-    role: 'Co-founder & CEO',
-    bio: 'Built growth ops for 3 Indian healthcare startups. Watched 60% of clinic inbound leak through voicemail. Decided to fix it.',
-    initials: 'AM',
+    name: 'Siddharth Pathania',
+    role: 'Founder & CEO',
+    bio: 'Agentic developer, UI/UX engineer, and strategy lead. Saw firsthand how Indian clinics haemorrhage revenue through missed calls — and designed the system that stops it.',
+    initials: 'SP',
     accent: 'from-primary-400 to-primary-600',
+    linkedin: 'https://www.linkedin.com/in/its-siddharth/',
+    photo: '/team/siddharth.jpg',
   },
   {
-    name: 'Kavya Iyer',
+    name: 'Atul Hooda',
     role: 'Co-founder & CTO',
-    bio: 'Previously staff engineer at a voice AI company. Speaks fluent webhook, telephony, and Meta WABA.',
-    initials: 'KI',
+    bio: 'ML engineer leading the core AI operations — voice recognition, patient intent classification, and real-time call routing. Built the engine that intercepts in under 8 seconds.',
+    initials: 'AH',
     accent: 'from-accent-400 to-accent-600',
+    linkedin: 'https://www.linkedin.com/in/atulhooda/',
+    photo: '/team/atul.jpg',
   },
   {
-    name: 'Rohit Khanna',
-    role: 'Head of Clinics',
-    bio: 'Ran operations at a 12-clinic dental chain. Knows exactly where the front desk breaks down at 6:47 PM on a Tuesday.',
-    initials: 'RK',
+    name: 'Tanmay Mehta',
+    role: 'Co-founder & COO',
+    bio: 'Manages operations, growth, and partnerships. Published researcher on agentic AI — authored a paper on hybrid AI-automation frameworks integrating WhatsApp and Voice AI for healthcare response speed.',
+    initials: 'TM',
     accent: 'from-premium-400 to-premium-600',
-  },
-  {
-    name: 'Meera Bhat',
-    role: 'Head of Patient Experience',
-    bio: 'Built conversational flows at a unicorn fintech. Now tunes message tone so it sounds like a clinic, not a bot.',
-    initials: 'MB',
-    accent: 'from-success-400 to-success-600',
+    linkedin: 'https://www.linkedin.com/in/tanmay-mehta-79aa41320/',
+    photo: '/team/tanmay.jpg',
   },
 ];
 
@@ -250,32 +251,68 @@ export default function AboutPage(): JSX.Element {
             <span className="serif-hero">consultants.</span>
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            Every person on the founding team has lived the pain they
-            are now building against.
+            Three founders. One from product, one from ML, one from
+            operations. All three have lived the problem they built
+            Engageo to solve.
           </p>
         </div>
 
-        <ul className="mt-14 grid gap-5 md:mt-18 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="mt-14 grid gap-5 md:mt-18 md:grid-cols-3 lg:gap-6">
           {TEAM.map((member) => (
             <li
               key={member.name}
-              className="rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
+              className="group rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover md:p-7"
             >
-              <span
-                aria-hidden="true"
-                className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${member.accent} font-display text-lg font-semibold text-surface shadow-subtle`}
-              >
-                {member.initials}
-              </span>
-              <h3 className="mt-5 font-display text-[16px] font-semibold leading-tight tracking-tight text-obsidian md:text-[17px]">
+              {/* Avatar — gradient initials fallback, ready for real photos */}
+              <div className="relative">
+                {member.photo ? (
+                  <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-neutral-100 shadow-subtle">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      width={80}
+                      height={80}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${member.accent} font-display text-2xl font-semibold text-surface shadow-subtle`}
+                  >
+                    {member.initials}
+                  </span>
+                )}
+              </div>
+
+              <h3 className="mt-5 font-display text-lg font-semibold leading-tight tracking-tight text-obsidian">
                 {member.name}
               </h3>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-primary-600">
                 {member.role}
               </p>
-              <p className="mt-3 text-[13px] leading-relaxed text-subtle">
+              <p className="mt-3 text-sm leading-relaxed text-subtle">
                 {member.bio}
               </p>
+
+              {/* LinkedIn link */}
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${member.name} on LinkedIn (opens in new tab)`}
+                className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-medium text-obsidian/60 transition-colors hover:text-primary-600"
+              >
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path
+                    d="M4.5 3.5a1.5 1.5 0 11-.001 3.001A1.5 1.5 0 014.5 3.5zM3 8h3v10H3V8zm5 0h2.9v1.37h.04c.4-.76 1.4-1.57 2.88-1.57C16.9 7.8 18 9.3 18 12.1V18h-3v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V18H8V8z"
+                    fill="currentColor"
+                  />
+                </svg>
+                LinkedIn
+              </a>
             </li>
           ))}
         </ul>

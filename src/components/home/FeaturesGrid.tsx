@@ -1,6 +1,7 @@
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { StaggerContainer } from '@/components/shared/StaggerContainer';
+import { cn } from '@/lib/utils';
 
 type Feature = {
   title: string;
@@ -140,32 +141,73 @@ export function FeaturesGrid(): JSX.Element {
         as="ul"
         staggerDelay={0.07}
         amount={0.1}
-        className="mt-14 grid gap-4 md:mt-18 md:grid-cols-2 md:gap-5 lg:grid-cols-4"
+        className="mt-14 grid gap-4 md:mt-18 md:grid-cols-2 md:gap-5 lg:grid-cols-6"
       >
-        {FEATURES.map((feature) => (
-          <ScrollReveal
-            as="li"
-            key={feature.title}
-            direction="up"
-            distance={20}
-            className="group relative flex flex-col rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 will-change-transform hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
-          >
-            <span
-              aria-hidden="true"
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-primary-100 group-hover:text-primary-700"
+        {FEATURES.map((feature, index) => {
+          /* First 2 features are "hero" cards — span 3 cols each on lg */
+          const isHero = index < 2;
+
+          return (
+            <ScrollReveal
+              as="li"
+              key={feature.title}
+              direction="up"
+              distance={20}
+              className={cn(
+                'group relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-350 will-change-transform hover:-translate-y-1 hover:shadow-card-hover',
+                isHero
+                  ? 'border-primary-100 bg-gradient-to-br from-primary-50/80 to-surface p-8 hover:border-primary-300 md:p-10 lg:col-span-3'
+                  : 'border-neutral-200 bg-surface p-6 hover:border-primary-300 lg:col-span-2',
+              )}
             >
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
-                {feature.icon}
-              </svg>
-            </span>
-            <h3 className="mt-5 font-display text-base font-semibold leading-tight tracking-tight text-obsidian">
-              {feature.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-subtle">
-              {feature.body}
-            </p>
-          </ScrollReveal>
-        ))}
+              {/* Ghost numeral — visible on hero cards only */}
+              {isHero ? (
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-4 -top-6 select-none font-serif text-[140px] font-normal italic leading-none text-primary-500/[0.06]"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              ) : null}
+
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'flex items-center justify-center rounded-xl text-primary-600 transition-all duration-300 ease-out group-hover:scale-110 group-hover:text-primary-700',
+                  isHero
+                    ? 'h-14 w-14 bg-primary-100/80 group-hover:bg-primary-200/80'
+                    : 'h-11 w-11 bg-primary-50 group-hover:bg-primary-100',
+                )}
+              >
+                <svg
+                  width={isHero ? '28' : '22'}
+                  height={isHero ? '28' : '22'}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  {feature.icon}
+                </svg>
+              </span>
+
+              <h3
+                className={cn(
+                  'font-display font-semibold leading-tight tracking-tight text-obsidian',
+                  isHero ? 'mt-6 text-xl md:text-[22px]' : 'mt-5 text-base',
+                )}
+              >
+                {feature.title}
+              </h3>
+              <p
+                className={cn(
+                  'leading-relaxed text-subtle',
+                  isHero ? 'mt-3 text-sm md:text-base' : 'mt-2 text-sm',
+                )}
+              >
+                {feature.body}
+              </p>
+            </ScrollReveal>
+          );
+        })}
       </StaggerContainer>
     </SectionWrapper>
   );

@@ -1,6 +1,6 @@
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-import { StaggerContainer } from '@/components/shared/StaggerContainer';
+import { cn } from '@/lib/utils';
 
 type Testimonial = {
   quote: string;
@@ -59,56 +59,85 @@ export function Testimonials(): JSX.Element {
         </p>
       </div>
 
-      <StaggerContainer as="ul" staggerDelay={0.1} amount={0.15} className="mt-14 grid gap-5 md:mt-18 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        {TESTIMONIALS.map((item) => (
-          <ScrollReveal as="li" key={item.doctor} direction="up" distance={20}>
-            <figure className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-surface p-6 shadow-subtle md:p-7">
-              {/* Quote mark */}
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 28 28"
-                fill="none"
-                aria-hidden="true"
-                className="text-primary-500/30"
+      <div className="relative mt-14 md:mt-18">
+        {/* Cards container */}
+        <ul className="relative mx-auto grid max-w-5xl gap-5 md:grid-cols-3 lg:gap-6">
+          {TESTIMONIALS.map((item, index) => {
+            /* Center card (index 1) is featured — larger, no rotation */
+            const isCenter = index === 1;
+            const rotation =
+              index === 0 ? 'md:-rotate-1' : index === 2 ? 'md:rotate-1' : '';
+            const elevation = isCenter ? 'md:-translate-y-4 md:scale-[1.03]' : '';
+
+            return (
+              <ScrollReveal
+                as="li"
+                key={item.doctor}
+                direction="up"
+                distance={24}
+                delay={index * 0.12}
+                className={cn(
+                  'transition-all duration-500 ease-out hover:!rotate-0 hover:!scale-[1.02] hover:-translate-y-2',
+                  rotation,
+                  elevation,
+                )}
               >
-                <path
-                  d="M9 6C5.5 8 3 11 3 15.5V22h7v-7H6c0-3 2-5.5 5-6.5L9 6zm13 0c-3.5 2-6 5-6 9.5V22h7v-7h-4c0-3 2-5.5 5-6.5L22 6z"
-                  fill="currentColor"
-                />
-              </svg>
-
-              <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-obsidian/90 md:text-base">
-                &ldquo;{item.quote}&rdquo;
-              </blockquote>
-
-              {/* Recovery pill */}
-              <div className="mt-6 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
-                {item.recovered}
-              </div>
-
-              {/* Attribution */}
-              <figcaption className="mt-5 flex items-center gap-3 border-t border-neutral-200 pt-5">
-                <span
-                  aria-hidden="true"
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${item.accent} font-display text-sm font-semibold text-surface shadow-subtle`}
+                <figure
+                  className={cn(
+                    'relative flex h-full flex-col overflow-hidden rounded-2xl p-6 shadow-subtle transition-shadow duration-350 hover:shadow-card-hover md:p-7',
+                    isCenter
+                      ? 'border-2 border-primary-200 bg-gradient-to-b from-primary-50/50 to-surface'
+                      : 'border border-neutral-200 bg-surface',
+                  )}
                 >
-                  {item.initials}
-                </span>
-                <div className="min-w-0">
-                  <p className="font-display text-[13.5px] font-semibold text-obsidian">
-                    {item.doctor}
-                  </p>
-                  <p className="mt-0.5 text-[11px] text-subtle">
-                    {item.specialty} · {item.city}
-                  </p>
-                </div>
-              </figcaption>
-            </figure>
-          </ScrollReveal>
-        ))}
-      </StaggerContainer>
+                  {/* Oversized quote mark */}
+                  <svg
+                    width="80"
+                    height="80"
+                    viewBox="0 0 80 80"
+                    fill="none"
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-2 -top-2 select-none text-primary-500/[0.06]"
+                  >
+                    <path
+                      d="M26 18C16 24 9 32 9 44V64h20V44H18c0-8.5 5.7-16 14.3-18.6L26 18zm37 0c-10 6-17 14-17 26V64h20V44H55c0-8.5 5.7-16 14.3-18.6L63 18z"
+                      fill="currentColor"
+                    />
+                  </svg>
+
+                  <blockquote className="relative z-10 flex-1 text-[15px] leading-relaxed text-obsidian/90 md:text-base">
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+
+                  {/* Recovery pill */}
+                  <div className="relative z-10 mt-6 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary-700">
+                    <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-primary-500" />
+                    {item.recovered}
+                  </div>
+
+                  {/* Attribution */}
+                  <figcaption className="relative z-10 mt-5 flex items-center gap-3 border-t border-neutral-200 pt-5">
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${item.accent} font-display text-sm font-semibold text-surface shadow-subtle`}
+                    >
+                      {item.initials}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-display text-sm font-semibold text-obsidian">
+                        {item.doctor}
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-subtle">
+                        {item.specialty} · {item.city}
+                      </p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </ScrollReveal>
+            );
+          })}
+        </ul>
+      </div>
     </SectionWrapper>
   );
 }

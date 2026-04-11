@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useRef, type MouseEvent } from 'react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
 
@@ -118,15 +121,40 @@ export function PricingPreview(): JSX.Element {
 
 function PricingCard({ tier }: { tier: Tier }): JSX.Element {
   const featured = Boolean(tier.featured);
+  const cardRef = useRef<HTMLElement>(null);
+
+  function handleMouseMove(e: MouseEvent<HTMLElement>): void {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+  }
+
+  function handleMouseLeave(): void {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.transform =
+      'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+  }
 
   return (
     <article
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative flex flex-col rounded-3xl p-8 transition-all duration-450 ease-out-smooth md:p-9',
+        'relative flex flex-col rounded-3xl p-8 transition-all duration-300 ease-out will-change-transform md:p-9',
         featured
-          ? 'border border-primary-600 bg-primary-500 text-surface shadow-glow hover:-translate-y-1.5 hover:shadow-glow-lg'
-          : 'border border-neutral-200 bg-surface text-obsidian hover:-translate-y-1 hover:shadow-card-hover hover:border-primary-200',
+          ? 'border border-primary-600 bg-primary-500 text-surface shadow-glow'
+          : 'border border-neutral-200 bg-surface text-obsidian hover:shadow-card-hover',
       )}
+      style={{ transformStyle: 'preserve-3d' }}
     >
       {featured ? (
         <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center rounded-full bg-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary-600 shadow-subtle">
@@ -134,7 +162,7 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
         </span>
       ) : null}
 
-      <div>
+      <div style={{ transform: 'translateZ(20px)' }}>
         <h3
           className={cn(
             'font-display text-xl font-semibold tracking-tight md:text-[22px]',
@@ -153,7 +181,10 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
         </p>
       </div>
 
-      <div className="mt-7 flex items-baseline gap-2">
+      <div
+        className="mt-7 flex items-baseline gap-2"
+        style={{ transform: 'translateZ(30px)' }}
+      >
         <span
           className={cn(
             'font-display text-4xl font-semibold tracking-tight',
@@ -179,7 +210,7 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
         )}
       />
 
-      <ul className="flex-1 space-y-3">
+      <ul className="flex-1 space-y-3" style={{ transform: 'translateZ(15px)' }}>
         {tier.features.map((feature) => (
           <li key={feature} className="flex items-start gap-2.5 text-sm leading-snug">
             <svg
@@ -211,11 +242,12 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
       <Link
         href={tier.ctaHref}
         className={cn(
-          'mt-8 inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-[13px] font-medium transition-all',
+          'mt-8 inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-sm font-semibold transition-all',
           featured
             ? 'bg-surface text-primary-600 hover:bg-surface/90'
             : 'border border-obsidian bg-transparent text-obsidian hover:bg-obsidian hover:text-surface',
         )}
+        style={{ transform: 'translateZ(25px)' }}
       >
         {tier.ctaLabel}
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

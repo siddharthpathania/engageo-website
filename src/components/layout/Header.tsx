@@ -19,6 +19,7 @@ const HEADER_NAV: readonly HeaderLink[] = [
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 export function Header(): JSX.Element {

@@ -151,7 +151,7 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
       className={cn(
         'relative flex flex-col rounded-3xl p-8 transition-all duration-300 ease-out will-change-transform md:p-9',
         featured
-          ? 'border border-primary-600 bg-primary-500 text-surface shadow-glow'
+          ? 'border border-primary-600 bg-primary-500 text-surface shadow-glow gradient-border-spin'
           : 'border border-neutral-200 bg-surface text-obsidian hover:shadow-card-hover',
       )}
       style={{ transformStyle: 'preserve-3d' }}

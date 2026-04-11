@@ -1,8 +1,18 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+
+const COLUMN_VARIANTS = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] as const },
+  },
+};
 
 type FooterLink = { label: string; href: string };
 
@@ -62,9 +72,18 @@ export function Footer(): JSX.Element {
     <footer className="relative border-t border-neutral-200 bg-canvas" role="contentinfo">
       <div className="container py-14 md:py-20">
         {/* Top row: columns */}
-        <div className="grid gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+        <motion.div
+          className="grid gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+        >
           {/* Company */}
-          <div>
+          <motion.div variants={COLUMN_VARIANTS}>
             <Link
               href="/"
               aria-label={`${SITE_CONFIG.name} — home`}
@@ -112,10 +131,10 @@ export function Footer(): JSX.Element {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <nav aria-label="Quick links">
+          <motion.nav aria-label="Quick links" variants={COLUMN_VARIANTS}>
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-subtle">
               Quick Links
             </h4>
@@ -131,10 +150,10 @@ export function Footer(): JSX.Element {
                 </li>
               ))}
             </ul>
-          </nav>
+          </motion.nav>
 
           {/* Services */}
-          <nav aria-label="Services">
+          <motion.nav aria-label="Services" variants={COLUMN_VARIANTS}>
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-subtle">
               Services
             </h4>
@@ -150,10 +169,10 @@ export function Footer(): JSX.Element {
                 </li>
               ))}
             </ul>
-          </nav>
+          </motion.nav>
 
           {/* Contact */}
-          <div>
+          <motion.div variants={COLUMN_VARIANTS}>
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-subtle">
               Contact
             </h4>
@@ -194,8 +213,8 @@ export function Footer(): JSX.Element {
               </li>
               <li className="pt-2 text-[12px] text-subtle">{CONTACT.hours.label}</li>
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom bar */}
         <div className="mt-14 flex flex-col gap-4 border-t border-neutral-200 pt-6 md:flex-row md:items-center md:justify-between">

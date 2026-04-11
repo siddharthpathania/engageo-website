@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { GoogleAnalytics } from '@/components/shared/Analytics';
 import { ReducedMotionProvider } from '@/components/shared/ReducedMotionProvider';
+import { ScrollProgress } from '@/components/shared/ScrollProgress';
 import { SkipLink } from '@/components/shared/SkipLink';
 import { OrganizationSchema, WebSiteSchema } from '@/components/seo/StructuredData';
 import { COMPANY, SITE_CONFIG } from '@/lib/constants';
@@ -115,6 +116,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-canvas text-obsidian">
         <OrganizationSchema />
         <WebSiteSchema />
+        <ScrollProgress />
         <SkipLink />
         <ReducedMotionProvider>
           <Header />

@@ -113,10 +113,10 @@ export function FAQ(): JSX.Element {
                   <motion.div
                     id={`faq-panel-${index}`}
                     key="content"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ height: 0, opacity: 0, clipPath: 'inset(0 100% 100% 0)' }}
+                    animate={{ height: 'auto', opacity: 1, clipPath: 'inset(0 0% 0% 0)' }}
+                    exit={{ height: 0, opacity: 0, clipPath: 'inset(0 100% 100% 0)' }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="overflow-hidden"
                   >
                     <p className="pb-6 pr-10 text-sm leading-relaxed text-subtle md:text-base">

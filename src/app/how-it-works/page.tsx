@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { cn } from '@/lib/utils';
 
 const HIW_TITLE = 'How It Works — Patient Follow-Up Automation India';
 const HIW_DESCRIPTION =
@@ -186,45 +187,51 @@ export default function HowItWorksPage(): JSX.Element {
       </SectionWrapper>
 
       {/* Timeline flow */}
-      <SectionWrapper id="flow" className="bg-sand/40 pt-0 md:pt-0">
+      <SectionWrapper id="flow" className="bg-sand/40 pt-12 md:pt-16">
         <div className="mx-auto max-w-4xl">
           <ol className="relative">
             {/* Vertical rail */}
             <div
               aria-hidden="true"
-              className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-primary-300 via-neutral-300 to-transparent md:left-1/2"
+              className="absolute left-4 -top-16 bottom-8 w-px bg-gradient-to-b from-transparent via-primary-300 to-transparent md:-top-20 md:left-1/2"
             />
 
-            {FLOW.map((item) => (
-              <li
-                key={item.stage}
-                className={`relative pb-12 last:pb-0 md:grid md:grid-cols-2 md:gap-12 ${
-                  item.side === 'right' ? 'md:[&>div:first-child]:order-2' : ''
-                }`}
-              >
-                {/* Dot */}
-                <div
-                  aria-hidden="true"
-                  className="absolute left-4 top-1.5 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary-500 bg-surface shadow-subtle md:left-1/2"
-                />
+            {FLOW.map((item) => {
+              const isLeft = item.side === 'left';
+              return (
+                <li
+                  key={item.stage}
+                  className="relative pb-12 last:pb-0"
+                >
+                  {/* Dot on center rail */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-4 top-1.5 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary-500 bg-surface shadow-subtle md:left-1/2"
+                  />
 
-                <div className={`ml-10 md:ml-0 ${item.side === 'left' ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-700">
-                    <span className="h-1 w-1 rounded-full bg-primary-500" />
-                    {item.stage} · {item.latency}
-                  </span>
-                  <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-subtle md:text-[15px]">
-                    {item.body}
-                  </p>
-                </div>
-
-                {/* Spacer column */}
-                <div className="hidden md:block" aria-hidden="true" />
-              </li>
-            ))}
+                  {/* Card — anchored left or right of the rail */}
+                  <div
+                    className={cn(
+                      'ml-10 rounded-2xl border border-neutral-200 bg-surface p-5 shadow-subtle md:ml-0 md:w-[calc(50%-2rem)] md:p-6',
+                      isLeft
+                        ? 'md:mr-auto md:text-right'
+                        : 'md:ml-auto md:text-left',
+                    )}
+                  >
+                    <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-700">
+                      <span className="h-1 w-1 rounded-full bg-primary-500" />
+                      {item.stage} · {item.latency}
+                    </span>
+                    <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[14px] leading-relaxed text-subtle md:text-[15px]">
+                      {item.body}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
 
           <div className="mt-10 flex flex-col items-center gap-2 text-center">

@@ -208,7 +208,7 @@ export default function PricingPage(): JSX.Element {
                       key={`${section.title}-${row.feature}`}
                       className="border-t border-neutral-200"
                     >
-                      <td className="px-6 py-3.5 text-[13.5px] font-medium text-obsidian">
+                      <td className="px-6 py-3.5 text-sm font-medium text-obsidian">
                         {row.feature}
                       </td>
                       <td className="px-6 py-3.5 text-center">
@@ -238,7 +238,7 @@ export default function PricingPage(): JSX.Element {
               <ul className="mt-3 divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-surface">
                 {section.rows.map((row) => (
                   <li key={row.feature} className="p-4">
-                    <p className="font-display text-[13.5px] font-semibold text-obsidian">
+                    <p className="font-display text-sm font-semibold text-obsidian">
                       {row.feature}
                     </p>
                     <dl className="mt-2 grid grid-cols-3 gap-2 text-[12px]">

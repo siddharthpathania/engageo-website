@@ -10,7 +10,7 @@
 
 @layer base {
   :root {
-    /* Brand palette — electric blue (matches engageoagency.digital) */
+    /* Brand palette — electric blue (matches engageoagency.com) */
     --color-primary-50:  238 241 255;
     --color-primary-100: 221 227 255;
     --color-primary-200: 188 200 255;
@@ -486,6 +486,11 @@
 
   .animate-marquee { animation: marquee 24s linear infinite; }
 
+  /* ─── Smooth section transitions ─────────────────────────────── */
+  .section-fade-in {
+    animation: sectionReveal 0.8s var(--ease-out-expo) both;
+  }
+
   /* ─── Animated gradient border ──────────────────────────────── */
   .gradient-border-spin {
     position: relative;
@@ -519,6 +524,17 @@
 
 @keyframes gradient-spin {
   to { --gradient-angle: 360deg; }
+}
+
+@keyframes sectionReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-fade-in {
+    animation: none;
+  }
 }
 
 @property --gradient-angle {

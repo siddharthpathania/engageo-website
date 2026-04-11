@@ -685,9 +685,7 @@ export function Hero(): JSX.Element {
             </svg>
           </a>
           <a
-            href={CTA.demo.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#roi-calculator"
             className="flex flex-1 items-center justify-center whitespace-nowrap border-2 border-obsidian bg-surface px-5 py-3.5 text-[13px] font-bold tracking-wide text-obsidian transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] md:px-7 md:py-4 md:text-[13px]"
             style={{ boxShadow: '4px 4px 0px 0px #0F0D0B' }}
             onMouseEnter={(e) => {
@@ -697,7 +695,7 @@ export function Hero(): JSX.Element {
               e.currentTarget.style.boxShadow = '4px 4px 0px 0px #0F0D0B';
             }}
           >
-            Watch a Real Recovery Call
+            Calculate Your Loss →
           </a>
         </motion.div>
 

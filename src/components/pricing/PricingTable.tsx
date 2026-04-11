@@ -1,5 +1,6 @@
 'use client';
 
+import { Check, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -254,25 +255,15 @@ export function PricingTable(): JSX.Element {
                     key={feature}
                     className="flex items-start gap-2.5 text-sm leading-snug"
                   >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
+                    <Check
+                      size={16}
+                      strokeWidth={2}
+                      aria-hidden="true"
                       className={cn(
                         'mt-0.5 shrink-0',
                         featured ? 'text-surface' : 'text-primary-500',
                       )}
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M3 8l3.5 3.5L13 4.5"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    />
                     <span
                       className={featured ? 'text-surface/95' : 'text-obsidian/85'}
                     >
@@ -292,15 +283,7 @@ export function PricingTable(): JSX.Element {
                 )}
               >
                 {tier.ctaLabel}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path
-                    d="M5 3l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
               </Link>
             </article>
           );

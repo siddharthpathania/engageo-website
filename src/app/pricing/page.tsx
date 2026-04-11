@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Fragment } from 'react';
 import { CTASection } from '@/components/home/CTASection';
@@ -102,22 +103,12 @@ const MATRIX: readonly MatrixSection[] = [
 function MatrixCell({ value }: { value: string | boolean }): JSX.Element {
   if (value === true) {
     return (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        fill="none"
+      <Check
+        size={18}
+        strokeWidth={2}
         aria-label="Included"
         className="mx-auto text-primary-500"
-      >
-        <path
-          d="M4 9l3.5 3.5L14 6"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      />
     );
   }
   if (value === false) {

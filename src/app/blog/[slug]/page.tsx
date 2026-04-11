@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
@@ -108,21 +109,7 @@ export default function BlogPostPage({
             href="/blog"
             className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-subtle transition-colors hover:text-primary-700"
           >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronLeft size={12} strokeWidth={2} aria-hidden="true" />
             Back to all posts
           </Link>
 

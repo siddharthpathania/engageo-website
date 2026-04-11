@@ -1,3 +1,4 @@
+import { Quote } from 'lucide-react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
@@ -91,19 +92,12 @@ export function Testimonials(): JSX.Element {
                   )}
                 >
                   {/* Oversized quote mark */}
-                  <svg
-                    width="80"
-                    height="80"
-                    viewBox="0 0 80 80"
-                    fill="none"
+                  <Quote
+                    size={80}
+                    strokeWidth={1.75}
                     aria-hidden="true"
                     className="pointer-events-none absolute -right-2 -top-2 select-none text-primary-500/[0.06]"
-                  >
-                    <path
-                      d="M26 18C16 24 9 32 9 44V64h20V44H18c0-8.5 5.7-16 14.3-18.6L26 18zm37 0c-10 6-17 14-17 26V64h20V44H55c0-8.5 5.7-16 14.3-18.6L63 18z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  />
 
                   <blockquote className="relative z-10 flex-1 text-[15px] leading-relaxed text-obsidian/90 md:text-base">
                     &ldquo;{item.quote}&rdquo;

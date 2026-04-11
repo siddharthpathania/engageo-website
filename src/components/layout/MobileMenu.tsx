@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -144,20 +145,7 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                 onClick={() => setOpen(false)}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-obsidian transition-colors hover:bg-sand"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M4 4l10 10M14 4L4 14"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <X size={18} strokeWidth={1.75} aria-hidden="true" />
               </button>
             </div>
 
@@ -190,22 +178,12 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                         )}
                       >
                         <span>{item.label}</span>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden="true"
+                        <ChevronRight
+                          size={16}
+                          strokeWidth={1.75}
                           className="text-subtle"
-                        >
-                          <path
-                            d="M6 4l4 4-4 4"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                          aria-hidden="true"
+                        />
                       </Link>
                     </motion.li>
                   );
@@ -219,21 +197,7 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                 className="flex w-full items-center justify-center gap-1.5 rounded-full bg-obsidian px-4 py-3.5 text-[15px] font-medium text-surface shadow-subtle"
               >
                 Book a Demo
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M5 3l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
               </Link>
             </div>
                 </motion.div>

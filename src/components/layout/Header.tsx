@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -115,22 +116,12 @@ export function Header(): JSX.Element {
               className="group hidden items-center gap-1.5 rounded-full bg-obsidian px-4 py-2 text-[13px] font-medium text-surface shadow-subtle transition-all hover:shadow-card md:inline-flex"
             >
               Book a Demo
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
+              <ChevronRight
+                size={14}
+                strokeWidth={2}
                 className="transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
-              >
-                <path
-                  d="M5 3l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </Link>
             <MobileMenu nav={HEADER_NAV} />
           </div>

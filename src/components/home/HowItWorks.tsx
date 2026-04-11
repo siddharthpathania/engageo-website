@@ -1,3 +1,10 @@
+import {
+  CalendarCheck,
+  type LucideIcon,
+  MessageCircle,
+  PhoneForwarded,
+  PhoneIncoming,
+} from 'lucide-react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
@@ -5,75 +12,29 @@ import { cn } from '@/lib/utils';
 type Step = {
   title: string;
   body: string;
-  icon: JSX.Element;
+  Icon: LucideIcon;
 };
 
 const STEPS: readonly Step[] = [
   {
     title: 'Forward your unanswered calls',
     body: 'Set your clinic number to forward calls that go unanswered after 15 seconds. Takes under 20 minutes. Your receptionist\u2019s workflow doesn\u2019t change at all.',
-    icon: (
-      <path
-        d="M6 4h8a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm2 4h4m-4 3h4m-4 3h2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: PhoneForwarded,
   },
   {
     title: 'Every missed call gets answered',
     body: 'Whether it\u2019s 11 AM during a packed waiting room or 10 PM on a Sunday, the patient hears a warm, trained voice that knows your clinic inside out. Nothing goes to voicemail.',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M10 10L13 7M10 6v4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: PhoneIncoming,
   },
   {
     title: 'Appointment booked on the spot',
     body: 'The patient\u2019s questions get answered — timings, fees, procedures, directions. If they want to book, a slot is confirmed right there on the call and synced to your Google Calendar in real time.',
-    icon: (
-      <path
-        d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0zm4-6h4m-4 3h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: CalendarCheck,
   },
   {
     title: 'Confirmed, reminded, followed up',
     body: 'WhatsApp confirmation goes out immediately. Reminders at 24 hours and 3 hours before. After the visit, follow-ups adapt — no-show rebooking, treatment aftercare, or a feedback request. All automatic.',
-    icon: (
-      <>
-        <rect
-          x="3"
-          y="4"
-          width="14"
-          height="13"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-        <path
-          d="M3 8h14M7 2v4m6-4v4M7 12l2 2 4-4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: MessageCircle,
   },
 ];
 
@@ -109,6 +70,7 @@ export function HowItWorks(): JSX.Element {
         <ol className="relative grid gap-10 md:gap-12 lg:grid-cols-4 lg:gap-8">
           {STEPS.map((step, index) => {
             const isEven = index % 2 === 0;
+            const Icon = step.Icon;
             return (
               <ScrollReveal
                 as="li"
@@ -145,9 +107,7 @@ export function HowItWorks(): JSX.Element {
                     aria-hidden="true"
                     className="mt-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary-100"
                   >
-                    <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
-                      {step.icon}
-                    </svg>
+                    <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
                   </span>
 
                   <h3 className="mt-4 font-display text-base font-semibold leading-tight tracking-tight text-obsidian md:text-lg">

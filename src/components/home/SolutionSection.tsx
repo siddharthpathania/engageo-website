@@ -1,13 +1,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import {
+  CalendarCheck,
+  Check,
+  type LucideIcon,
+  MessageCircle,
+  Phone,
+  PhoneMissed,
+  Sparkles,
+} from 'lucide-react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 type FlowStep = {
   label: string;
   sub: string;
-  icon: JSX.Element;
+  Icon: LucideIcon;
   accent: 'neutral' | 'danger' | 'brand' | 'success';
 };
 
@@ -16,84 +25,31 @@ const FLOW_STEPS: readonly FlowStep[] = [
     label: 'Patient calls',
     sub: '+91 98••• rings',
     accent: 'neutral',
-    icon: (
-      <path
-        d="M7 4l3 2-1.5 3 3 3 3-1.5 2 3-1.5 2a3 3 0 01-3 .8C9.4 16 5 11.6 4.2 7.5A3 3 0 015 4.5L7 3"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Phone,
   },
   {
     label: 'No answer in 15s',
     sub: 'Call auto-forwards',
     accent: 'danger',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M7 7l6 6M13 7l-6 6"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </>
-    ),
+    Icon: PhoneMissed,
   },
   {
     label: 'Patient gets answered',
     sub: 'In their language',
     accent: 'brand',
-    icon: (
-      <path
-        d="M10 2a6 6 0 00-6 6c0 2.5 1.5 4 2 5v2a1 1 0 001 1h6a1 1 0 001-1v-2c.5-1 2-2.5 2-5a6 6 0 00-6-6zM8 17h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Sparkles,
   },
   {
     label: 'Appointment booked',
     sub: 'Synced to your calendar',
     accent: 'success',
-    icon: (
-      <path
-        d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0zm3-6h6m-6 3h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: CalendarCheck,
   },
   {
     label: 'Confirmed & reminded',
     sub: 'WhatsApp · 24hr · 3hr',
     accent: 'brand',
-    icon: (
-      <>
-        <rect
-          x="3"
-          y="4"
-          width="14"
-          height="13"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-        <path
-          d="M3 8h14M7 2v4m6-4v4M7 12l2 2 4-4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: MessageCircle,
   },
 ];
 
@@ -151,15 +107,7 @@ export function SolutionSection(): JSX.Element {
                   aria-hidden="true"
                   className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary-500/10 text-primary-600"
                 >
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                    <path
-                      d="M1.5 5l2.5 2.5L8.5 2"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Check size={10} strokeWidth={2.5} aria-hidden="true" />
                 </span>
                 <span>{bullet}</span>
               </li>
@@ -179,6 +127,7 @@ export function SolutionSection(): JSX.Element {
               {FLOW_STEPS.map((step, index) => {
                 const styles = ACCENT_STYLES[step.accent];
                 const isLast = index === FLOW_STEPS.length - 1;
+                const Icon = step.Icon;
 
                 return (
                   <motion.li
@@ -198,9 +147,7 @@ export function SolutionSection(): JSX.Element {
                         <span
                           className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 ${styles.wrap} shadow-subtle transition-transform duration-300 hover:scale-110`}
                         >
-                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            {step.icon}
-                          </svg>
+                          <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
                         </span>
                       </div>
 

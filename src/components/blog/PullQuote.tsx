@@ -1,3 +1,4 @@
+import { Quote } from 'lucide-react';
 import { type ReactNode } from 'react';
 
 export type PullQuoteProps = {
@@ -15,19 +16,12 @@ export function PullQuote({
 }: PullQuoteProps): JSX.Element {
   return (
     <figure className="my-10 border-l-2 border-primary-500 pl-6 md:my-12 md:pl-8">
-      <svg
-        width="32"
-        height="24"
-        viewBox="0 0 32 24"
-        fill="none"
+      <Quote
+        size={32}
+        strokeWidth={1.75}
         aria-hidden="true"
         className="mb-3 text-primary-500/40"
-      >
-        <path
-          d="M0 24V14C0 6.268 6.268 0 14 0v4c-5.523 0-10 4.477-10 10h10v10H0zm18 0V14C18 6.268 24.268 0 32 0v4c-5.523 0-10 4.477-10 10h10v10H18z"
-          fill="currentColor"
-        />
-      </svg>
+      />
       <blockquote className="serif-hero text-[22px] font-normal leading-[1.4] tracking-tight text-obsidian md:text-[28px] md:leading-[1.35]">
         {children}
       </blockquote>

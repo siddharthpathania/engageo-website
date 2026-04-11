@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
@@ -201,22 +202,12 @@ export default function CaseStudiesPage(): JSX.Element {
                     </span>
                     <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-obsidian transition-colors group-hover:text-primary-600">
                       Full story coming soon
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
+                      <ChevronRight
+                        size={12}
+                        strokeWidth={2}
                         aria-hidden="true"
                         className="transition-transform group-hover:translate-x-0.5"
-                      >
-                        <path
-                          d="M4 2l4 4-4 4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      />
                     </span>
                   </div>
                 </div>
@@ -266,15 +257,7 @@ export default function CaseStudiesPage(): JSX.Element {
             className="inline-flex items-center gap-2 text-[13px] font-semibold text-obsidian hover:text-primary-600"
           >
             Want us to write about your clinic? Get in touch
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>
       </SectionWrapper>

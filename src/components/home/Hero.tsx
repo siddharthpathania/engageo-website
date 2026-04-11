@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import { ArrowRight, Zap } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { CTA } from '@/lib/constants';
@@ -262,20 +263,12 @@ function LiveDashboard(): JSX.Element {
               className="flex h-14 w-14 items-center justify-center rounded-full"
               style={{ background: 'rgba(61,90,254,0.07)' }}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="#3D5AFE"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
+              <Zap
+                size={24}
+                strokeWidth={1.75}
+                color="#3D5AFE"
                 aria-hidden="true"
-              >
-                <path
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </div>
             <div
               className="absolute inset-0 animate-ping rounded-full opacity-20"
@@ -668,22 +661,12 @@ export function Hero(): JSX.Element {
             <span className="whitespace-nowrap">
               See What You&rsquo;re Losing — Free Audit
             </span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
+            <ArrowRight
+              size={16}
+              strokeWidth={2}
               className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
               aria-hidden="true"
-            >
-              <path
-                d="M6 4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            />
           </a>
           <a
             href="#roi-calculator"

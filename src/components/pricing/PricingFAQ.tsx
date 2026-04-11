@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -77,20 +78,7 @@ export function PricingFAQ(): JSX.Element {
                     : 'border-neutral-300 bg-surface text-obsidian group-hover:border-primary-400',
                 )}
               >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 2v8M2 6h8"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <Plus size={12} strokeWidth={2} aria-hidden="true" />
               </span>
             </button>
 

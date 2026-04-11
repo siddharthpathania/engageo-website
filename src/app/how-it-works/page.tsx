@@ -1,3 +1,4 @@
+import { ChevronRight, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
@@ -351,21 +352,7 @@ export default function HowItWorksPage(): JSX.Element {
                 aria-hidden="true"
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-success-50 text-success-600"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path
-                    d="M10 2l6 3v5c0 3.5-2.5 6.5-6 8-3.5-1.5-6-4.5-6-8V5l6-3z"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M7 10l2 2 4-4"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ShieldCheck size={20} strokeWidth={1.75} aria-hidden="true" />
               </span>
               <h3 className="mt-4 font-display text-[15px] font-semibold leading-tight tracking-tight text-obsidian">
                 {point.title}
@@ -383,15 +370,7 @@ export default function HowItWorksPage(): JSX.Element {
             className="inline-flex items-center gap-2 text-[13px] font-semibold text-obsidian hover:text-primary-600"
           >
             Request our security whitepaper
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>
       </SectionWrapper>

@@ -1,5 +1,6 @@
 'use client';
 
+import { AlertCircle, RotateCcw } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function Error({
@@ -18,16 +19,7 @@ export default function Error({
     <section className="flex min-h-[70vh] flex-col items-center justify-center px-5 py-24 text-center">
       {/* Icon */}
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-error-50 text-error-500">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.75" />
-          <path
-            d="M12 8v4m0 4h.01"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <AlertCircle size={28} strokeWidth={1.75} aria-hidden="true" />
       </div>
 
       <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight text-obsidian md:text-4xl">
@@ -50,15 +42,7 @@ export default function Error({
           onClick={reset}
           className="inline-flex items-center gap-2 rounded-full bg-obsidian px-6 py-3 text-[13px] font-semibold text-surface transition-all hover:shadow-card"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path
-              d="M1.5 7a5.5 5.5 0 019.5-3.75M12.5 7a5.5 5.5 0 01-9.5 3.75M12.5 2v3h-3M1.5 12V9h3"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <RotateCcw size={14} strokeWidth={2} aria-hidden="true" />
           Try Again
         </button>
         <a

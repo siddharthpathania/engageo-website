@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MAIN_NAV } from '@/lib/constants';
@@ -46,22 +47,12 @@ export default function NotFound(): JSX.Element {
           href="/"
           className="group inline-flex items-center gap-2 rounded-full bg-obsidian px-6 py-3 text-[13px] font-semibold text-surface transition-all hover:shadow-card"
         >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
+          <ChevronLeft
+            size={14}
+            strokeWidth={2}
             aria-hidden="true"
             className="transition-transform group-hover:-translate-x-0.5"
-          >
-            <path
-              d="M9 3L5 7l4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
           Back to Home
         </Link>
         <Link

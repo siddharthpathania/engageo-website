@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { absoluteUrl, cn } from '@/lib/utils';
 import { JsonLd } from './StructuredData';
@@ -64,22 +65,12 @@ export function BreadcrumbSchema({
                     </Link>
                   )}
                   {isLast ? null : (
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      fill="none"
+                    <ChevronRight
+                      size={10}
+                      strokeWidth={2}
                       aria-hidden="true"
                       className="text-neutral-300"
-                    >
-                      <path
-                        d="M3.5 2l3 3-3 3"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    />
                   )}
                 </li>
               );

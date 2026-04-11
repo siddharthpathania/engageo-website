@@ -1,5 +1,6 @@
 'use client';
 
+import { ChevronRight, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useRef, type MouseEvent } from 'react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
@@ -97,22 +98,12 @@ export function PricingPreview(): JSX.Element {
           className="group inline-flex items-center gap-2 text-[13px] font-medium text-obsidian transition-colors hover:text-primary-600"
         >
           View full pricing + feature comparison
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
+          <ChevronRight
+            size={14}
+            strokeWidth={2}
             className="transition-transform group-hover:translate-x-0.5"
             aria-hidden="true"
-          >
-            <path
-              d="M5 3l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
         </Link>
         <p className="text-[11px] text-subtle">
           All plans include the 15-booking guarantee. No setup fees. No
@@ -217,25 +208,15 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
       <ul className="flex-1 space-y-3" style={{ transform: 'translateZ(15px)' }}>
         {tier.features.map((feature) => (
           <li key={feature} className="flex items-start gap-2.5 text-sm leading-snug">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
+            <Check
+              size={16}
+              strokeWidth={2.25}
               className={cn(
                 'mt-0.5 shrink-0',
                 featured ? 'text-surface' : 'text-primary-500',
               )}
               aria-hidden="true"
-            >
-              <path
-                d="M3 8l3.5 3.5L13 4.5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            />
             <span className={featured ? 'text-surface/95' : 'text-obsidian/85'}>
               {feature}
             </span>
@@ -254,15 +235,7 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
         style={{ transform: 'translateZ(25px)' }}
       >
         {tier.ctaLabel}
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path
-            d="M5 3l4 4-4 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
       </Link>
     </article>
   );

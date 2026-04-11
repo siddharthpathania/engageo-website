@@ -1,3 +1,4 @@
+import { Globe, type LucideIcon, PhoneCall, Receipt, Star } from 'lucide-react';
 import type { Metadata } from 'next';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -68,63 +69,29 @@ const TEAM: readonly TeamMember[] = [
 type Value = {
   title: string;
   body: string;
-  icon: JSX.Element;
+  Icon: LucideIcon;
 };
 
 const VALUES: readonly Value[] = [
   {
     title: 'No patient walks away unheard',
     body: 'This is the only metric that matters. Everything we build starts and ends with the unanswered call on a Sunday night.',
-    icon: (
-      <path
-        d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: PhoneCall,
   },
   {
     title: 'Built in India, for Indian clinics',
     body: 'Hindi, Marathi, Tamil on day one. Indian telecom quirks understood. Indian price points respected. This is not a Bay Area SaaS tool with a localisation pass.',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M3 10h14M10 3c2 2 3 4 3 7s-1 5-3 7c-2-2-3-4-3-7s1-5 3-7z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: Globe,
   },
   {
     title: 'Receipts, not rhetoric',
     body: 'Every claim we make is backed by a live ledger in your dashboard. If we do not recover 15 bookings in your first 30 days, you do not pay.',
-    icon: (
-      <path
-        d="M5 3h7l3 3v11a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1zm2 7h6m-6 3h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Receipt,
   },
   {
     title: 'Ship on Friday',
     body: 'Clinics do not care about our sprint ceremonies. They care about whether the WhatsApp goes out when the 9 PM toothache call comes in. We ship weekly.',
-    icon: (
-      <path
-        d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8L10 2z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Star,
   },
 ];
 
@@ -227,9 +194,7 @@ export default function AboutPage(): JSX.Element {
                 aria-hidden="true"
                 className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600"
               >
-                <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
-                  {value.icon}
-                </svg>
+                <value.Icon size={22} strokeWidth={1.75} aria-hidden="true" />
               </span>
               <h3 className="mt-5 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
                 {value.title}
@@ -305,11 +270,14 @@ export default function AboutPage(): JSX.Element {
                 aria-label={`${member.name} on LinkedIn (opens in new tab)`}
                 className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-medium text-obsidian/60 transition-colors hover:text-primary-600"
               >
-                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path
-                    d="M4.5 3.5a1.5 1.5 0 11-.001 3.001A1.5 1.5 0 014.5 3.5zM3 8h3v10H3V8zm5 0h2.9v1.37h.04c.4-.76 1.4-1.57 2.88-1.57C16.9 7.8 18 9.3 18 12.1V18h-3v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V18H8V8z"
-                    fill="currentColor"
-                  />
+                <svg
+                  width={14}
+                  height={14}
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 LinkedIn
               </a>

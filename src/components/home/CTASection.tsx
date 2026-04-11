@@ -1,3 +1,4 @@
+import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 type CTASectionProps = {
@@ -62,22 +63,12 @@ export function CTASection({
               className="group inline-flex items-center gap-2 rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover"
             >
               {primaryCta.label}
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
+              <ArrowRight
+                size={16}
+                strokeWidth={2}
                 aria-hidden="true"
                 className="transition-transform group-hover:translate-x-1"
-              >
-                <path
-                  d="M6 3l5 5-5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </a>
 
             <a
@@ -86,21 +77,7 @@ export function CTASection({
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full border border-surface/30 bg-transparent px-7 py-4 text-[14px] font-semibold text-surface transition-all duration-300 hover:border-surface/60 hover:bg-surface/5"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M3 13l1-3a5 5 0 117 2 5 5 0 01-8 1zm3-5h4m-4 2h3"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
               {secondaryCta.label}
             </a>
           </div>
@@ -113,22 +90,12 @@ export function CTASection({
               'Live in 48 hours',
             ].map((item) => (
               <li key={item} className="flex items-center gap-2">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
+                <Check
+                  size={14}
+                  strokeWidth={2.25}
                   aria-hidden="true"
                   className="text-primary-400"
-                >
-                  <path
-                    d="M2.5 7l3 3 6-6"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                />
                 {item}
               </li>
             ))}

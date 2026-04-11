@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
@@ -101,22 +102,12 @@ export function FounderStrip(): JSX.Element {
           className="group inline-flex items-center gap-1.5 text-sm font-medium text-obsidian transition-colors hover:text-primary-600"
         >
           Read our full story
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
+          <ChevronRight
+            size={14}
+            strokeWidth={2}
             className="transition-transform group-hover:translate-x-0.5"
             aria-hidden="true"
-          >
-            <path
-              d="M5 3l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
         </Link>
       </div>
     </SectionWrapper>

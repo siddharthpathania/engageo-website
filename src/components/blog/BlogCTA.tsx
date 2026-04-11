@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export type BlogCTAProps = {
@@ -42,22 +43,12 @@ export function BlogCTA({
           className="group inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-full bg-surface px-6 py-3.5 text-[13.5px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 md:self-center"
         >
           {ctaLabel}
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
+          <ChevronRight
+            size={14}
+            strokeWidth={2}
             aria-hidden="true"
             className="transition-transform group-hover:translate-x-0.5"
-          >
-            <path
-              d="M6 3l5 5-5 5"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
         </Link>
       </div>
     </aside>

@@ -1,3 +1,10 @@
+import {
+  ArrowRight,
+  type LucideIcon,
+  Moon,
+  PhoneOff,
+  Users,
+} from 'lucide-react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
@@ -5,64 +12,29 @@ import { cn } from '@/lib/utils';
 type PainPoint = {
   title: string;
   body: string;
-  icon: JSX.Element;
+  Icon: LucideIcon;
 };
 
 const PAIN_POINTS: readonly PainPoint[] = [
   {
     title: 'Calls ring out during consults',
     body: "You're with a patient, the phone rings, nobody picks up. The caller doesn't leave a voicemail — they just dial the next clinic.",
-    icon: (
-      <path
-        d="M6 4l3 2-1.5 3 3 3 3-1.5 2 3-1.5 2a3 3 0 01-3 .8C8.4 16 4 11.6 3.2 7.5A3 3 0 014 4.5L6 3"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: PhoneOff,
   },
   {
     title: 'After-hours calls vanish',
     body: 'Someone calls at 9:42 PM with a toothache. You see it at 9 AM. They booked at Apollo by 9:15 PM the night before.',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M10 6v4l2.5 2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: Moon,
   },
   {
     title: 'Front desk overwhelmed at peak',
     body: 'Between 10 AM and 2 PM, three calls land at once. The receptionist picks one up. Two go to voicemail — and then the void.',
-    icon: (
-      <path
-        d="M3 14v-2a2 2 0 012-2h10a2 2 0 012 2v2M7 6a3 3 0 116 0 3 3 0 01-6 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Users,
   },
   {
     title: 'Patients scroll to the next clinic',
     body: "If they can't reach you in 60 seconds, they're on a competitor's Google listing. Hair transplant patients comparison-shop in real time.",
-    icon: (
-      <path
-        d="M4 10h12m0 0l-4-4m4 4l-4 4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: ArrowRight,
   },
 ];
 
@@ -118,6 +90,7 @@ export function ProblemSection(): JSX.Element {
           <div className="flex flex-col gap-8 md:gap-12">
             {PAIN_POINTS.map((point, index) => {
               const isLeft = index % 2 === 0;
+              const Icon = point.Icon;
               return (
                 <ScrollReveal
                   key={point.title}
@@ -154,9 +127,7 @@ export function ProblemSection(): JSX.Element {
                         aria-hidden="true"
                         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-neutral-700 bg-neutral-800/60 text-primary-400 transition-colors group-hover:border-primary-500/40 group-hover:text-primary-300"
                       >
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                          {point.icon}
-                        </svg>
+                        <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
                       </span>
                       <div>
                         <h3 className="font-display text-lg font-semibold leading-tight tracking-tight text-surface md:text-xl">

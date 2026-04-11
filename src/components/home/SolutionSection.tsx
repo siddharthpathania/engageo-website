@@ -171,58 +171,70 @@ export function SolutionSection(): JSX.Element {
             aria-hidden="true"
             className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-gradient-to-br from-primary-100/50 via-transparent to-accent-100/30 blur-3xl"
           />
-          <ol className="relative flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-surface/80 p-5 shadow-card backdrop-blur-sm md:p-6">
-            {FLOW_STEPS.map((step, index) => {
-              const styles = ACCENT_STYLES[step.accent];
-              return (
-                <motion.li
-                  key={step.label}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.45,
-                    delay: index * 0.12,
-                    ease: [0.25, 1, 0.5, 1],
-                  }}
-                >
-                  <div
-                    className={`flex items-center gap-4 rounded-2xl border px-4 py-3.5 ${styles.wrap}`}
+
+          <div className="relative rounded-3xl border border-neutral-200 bg-surface/80 p-6 shadow-card backdrop-blur-sm md:p-8">
+            <ol className="relative flex flex-col gap-0">
+              {FLOW_STEPS.map((step, index) => {
+                const styles = ACCENT_STYLES[step.accent];
+                const isLast = index === FLOW_STEPS.length - 1;
+
+                return (
+                  <motion.li
+                    key={step.label}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.12,
+                      ease: [0.25, 1, 0.5, 1],
+                    }}
                   >
-                    <span
-                      aria-hidden="true"
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${styles.icon}`}
-                    >
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        {step.icon}
-                      </svg>
-                    </span>
-                    <div className="flex-1">
-                      <p className="font-display text-[15px] font-semibold leading-tight tracking-tight">
-                        {step.label}
-                      </p>
-                      <p className="mt-0.5 font-mono text-[11px] uppercase tracking-widest opacity-75">
-                        {step.sub}
-                      </p>
+                    <div className="flex items-center gap-4">
+                      {/* Node circle */}
+                      <div className="relative flex flex-col items-center">
+                        <span
+                          className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 ${styles.wrap} shadow-subtle transition-transform duration-300 hover:scale-110`}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            {step.icon}
+                          </svg>
+                        </span>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 py-3">
+                        <div className="flex items-center gap-3">
+                          <p className="font-display text-[15px] font-semibold leading-tight tracking-tight text-obsidian">
+                            {step.label}
+                          </p>
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-subtle">
+                            0{index + 1}
+                          </span>
+                        </div>
+                        <p className="mt-0.5 font-mono text-[11px] uppercase tracking-widest text-subtle/75">
+                          {step.sub}
+                        </p>
+                      </div>
                     </div>
-                    <span className="font-mono text-[10px] font-semibold uppercase tracking-widest opacity-60">
-                      0{index + 1}
-                    </span>
-                  </div>
-                  {index < FLOW_STEPS.length - 1 ? (
-                    <motion.div
-                      aria-hidden="true"
-                      className="mx-auto my-0.5 h-3 w-px bg-neutral-300 origin-top"
-                      initial={{ scaleY: 0 }}
-                      whileInView={{ scaleY: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.25, delay: index * 0.12 + 0.25 }}
-                    />
-                  ) : null}
-                </motion.li>
-              );
-            })}
-          </ol>
+
+                    {/* Connecting line */}
+                    {!isLast ? (
+                      <motion.div
+                        aria-hidden="true"
+                        className="ml-[23px] h-5 w-0.5 rounded-full bg-neutral-200"
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: index * 0.12 + 0.2 }}
+                        style={{ transformOrigin: 'top' }}
+                      />
+                    ) : null}
+                  </motion.li>
+                );
+              })}
+            </ol>
+          </div>
         </ScrollReveal>
       </div>
     </SectionWrapper>

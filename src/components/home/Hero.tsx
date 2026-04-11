@@ -733,10 +733,12 @@ export function Hero(): JSX.Element {
 
       {/* Live Dashboard */}
       <motion.div
-        className="relative w-full max-w-md lg:max-w-xl lg:scale-[1.15] lg:origin-center"
-        initial={{ opacity: 0, scale: 0.94, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+        className="relative w-full max-w-lg lg:max-w-xl lg:scale-[1.15] lg:origin-center"
+        initial={{ opacity: 0, scale: 0.94, y: 20, rotateY: -8, rotateX: 3 }}
+        animate={{ opacity: 1, scale: 1, y: 0, rotateY: -3, rotateX: 1 }}
+        whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
+        transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+        style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
       >
         <div
           aria-hidden="true"

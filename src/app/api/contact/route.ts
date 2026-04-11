@@ -122,7 +122,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Engageo Website <noreply@engageoagency.com>',
+          from: 'Engageo Website <onboarding@resend.dev>',
           to: [toEmail],
           reply_to: data.email,
           subject: `New enquiry from ${data.name} — ${data.clinic}`,

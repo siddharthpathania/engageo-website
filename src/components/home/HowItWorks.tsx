@@ -1,6 +1,6 @@
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-import { StaggerContainer } from '@/components/shared/StaggerContainer';
+import { cn } from '@/lib/utils';
 
 type Step = {
   title: string;
@@ -91,59 +91,77 @@ export function HowItWorks(): JSX.Element {
         </p>
       </div>
 
-      <StaggerContainer
-        as="ol"
-        staggerDelay={0.12}
-        amount={0.1}
-        className="relative mt-14 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:gap-6"
-      >
-        {/* Connecting line (desktop only) */}
+      <div className="relative mt-14 md:mt-20">
+        {/* Dotted connecting line — desktop only */}
         <div
           aria-hidden="true"
-          className="absolute left-0 right-0 top-[46px] hidden h-px bg-gradient-to-r from-transparent via-neutral-300 to-transparent lg:block"
-        />
+          className="absolute left-0 right-0 top-1/2 hidden -translate-y-1/2 lg:block"
+        >
+          <div
+            className="h-px w-full"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(to right, rgb(202 191 176) 0px, rgb(202 191 176) 6px, transparent 6px, transparent 14px)',
+            }}
+          />
+        </div>
 
-        {STEPS.map((step, index) => (
-          <ScrollReveal
-            as="li"
-            key={step.title}
-            direction="up"
-            distance={24}
-            className="group relative"
-          >
-            <div className="flex flex-col">
-              {/* Numbered circle */}
-              <div className="relative flex items-center gap-3 lg:block">
-                <span
-                  aria-hidden="true"
-                  className="relative z-10 flex h-[92px] w-[92px] items-center justify-center rounded-full border-2 border-obsidian bg-surface font-display text-3xl font-semibold text-obsidian shadow-card transition-transform duration-300 ease-out group-hover:scale-[1.04]"
-                >
-                  <span className="absolute left-4 top-4 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-600">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+        <ol className="relative grid gap-10 md:gap-12 lg:grid-cols-4 lg:gap-8">
+          {STEPS.map((step, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <ScrollReveal
+                as="li"
+                key={step.title}
+                direction="up"
+                distance={30}
+                delay={index * 0.15}
+                className={cn(
+                  'group relative',
+                  /* Zigzag: even steps nudge up, odd steps nudge down — desktop only */
+                  isEven ? 'lg:-translate-y-6' : 'lg:translate-y-6',
+                )}
+              >
+                {/* Step card */}
+                <div className="relative flex flex-col items-center text-center lg:items-start lg:text-left">
+                  {/* Number circle */}
+                  <div className="relative">
+                    <span
+                      aria-hidden="true"
+                      className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-obsidian bg-surface font-mono text-sm font-bold text-obsidian shadow-card transition-all duration-350 group-hover:border-primary-500 group-hover:bg-primary-50 group-hover:text-primary-600 group-hover:shadow-glow-sm lg:h-20 lg:w-20 lg:text-base"
+                    >
+                      0{index + 1}
+                    </span>
+                    {/* Glow ring on hover */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-350 group-hover:opacity-100"
+                      style={{ boxShadow: '0 0 24px rgba(61,90,254,0.25)' }}
+                    />
+                  </div>
+
+                  {/* Icon */}
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-10 items-center justify-center text-primary-500 transition-transform duration-300 ease-out group-hover:scale-110"
+                    className="mt-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary-100"
                   >
-                    <svg width="26" height="26" viewBox="0 0 20 20" fill="none">
+                    <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
                       {step.icon}
                     </svg>
                   </span>
-                </span>
-              </div>
 
-              <div className="mt-5">
-                <h3 className="font-display text-[17px] font-semibold leading-tight tracking-tight text-obsidian md:text-lg">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-subtle">
-                  {step.body}
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
-        ))}
-      </StaggerContainer>
+                  <h3 className="mt-4 font-display text-base font-semibold leading-tight tracking-tight text-obsidian md:text-lg">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-subtle">
+                    {step.body}
+                  </p>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+        </ol>
+      </div>
     </SectionWrapper>
   );
 }

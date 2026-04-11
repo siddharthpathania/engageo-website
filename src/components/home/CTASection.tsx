@@ -13,7 +13,7 @@ export function CTASection({
   label = 'Your move',
   headline = 'Stop losing patients',
   headlineAccent = 'today.',
-  body = 'Every missed call you read past right now is ₹6,000–₹12,000 in patient LTV walking to the clinic down the road. Plug Engageo in this week. See your first recovery by Friday.',
+  body = 'Somewhere right now, a patient is calling your clinic and nobody\u2019s picking up. That patient is worth \u20B96,000\u2013\u20B912,000 over their lifetime. With Engageo, that call still gets answered, that patient still gets booked. Set it up this week \u2014 see your first recovery by Friday.',
   primaryCta = { label: 'Book Your Strategy Call', href: 'https://calendly.com/engageoagency' },
   secondaryCta = { label: 'WhatsApp Us Instead', href: 'https://wa.me/919699670806' },
 }: CTASectionProps): JSX.Element {

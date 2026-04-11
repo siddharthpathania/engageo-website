@@ -12,9 +12,9 @@ import { COMPANY, SITE_CONFIG } from '@/lib/constants';
 import { fontVariables } from '@/lib/fonts';
 import '@/styles/globals.css';
 
-const DEFAULT_TITLE = 'Engageo — Missed Call Recovery for Clinics India';
+const DEFAULT_TITLE = 'Engageo — Missed Call Recovery for Indian Clinics';
 const DEFAULT_DESCRIPTION =
-  'AI missed-call recovery for Indian clinics. Every unanswered call is qualified, booked, and WhatsApped back in 8 seconds. Live in 47+ clinics today.';
+  'Indian clinics lose \u20B92\u20134 lakhs monthly to unanswered calls. Engageo answers every missed call, handles patient questions in their language, and books appointments into your calendar. Live in 47+ clinics.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),

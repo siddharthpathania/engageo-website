@@ -12,36 +12,44 @@ type QA = {
 
 const FAQS: readonly QA[] = [
   {
-    q: 'How does Engageo work with my existing phone system?',
-    a: 'Engageo sits on top of whatever you already use — landline, VoIP, Exotel, Knowlarity, MTNL, or a staff mobile. We do not replace your number or ask you to install new hardware. Your number either ports to us or simply forwards unanswered calls, and we handle the rest. Setup takes under 20 minutes.',
+    q: 'How does Engageo work with my existing phone?',
+    a: 'You set your clinic number to auto-forward calls that go unanswered after 15 seconds. When your receptionist is busy or the clinic is closed, the call reaches Engageo instead of voicemail. The patient hears a trained voice, gets their questions answered, and can book an appointment \u2014 all on the same call. No hardware, no porting, no app for your team.',
   },
   {
-    q: 'Which Indian languages does the AI support?',
-    a: 'WhatsApp recovery messages go out in Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system picks the language based on the patient\u2019s number region and prior interactions, or you can hard-set a default for your clinic. Templates are Meta-verified, which keeps delivery rates high.',
+    q: 'What happens on the call when a patient reaches Engageo?',
+    a: 'The patient hears a warm greeting in their own language \u2014 \u201CNamaste, mein Dr. Sharma\u2019s clinic se bol rahi hun, aapka naam kya hai?\u201D The system then answers whatever the patient asks \u2014 clinic timings, consultation fees, which doctor treats their condition, directions to the clinic. If they want to book, it checks your calendar for availability and confirms a slot right there on the call.',
   },
   {
-    q: 'Is patient data secure and compliant?',
-    a: 'Yes. Call metadata and WhatsApp conversations are encrypted in transit and at rest. We run on ISO 27001 infrastructure, store data in Mumbai (ap-south-1), and never share patient information with third parties. Clinic-owned data can be exported or deleted on request within 72 hours.',
+    q: 'Which languages are supported?',
+    a: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system detects the patient\u2019s language from their first response and switches accordingly. You can also set a default language for each clinic number.',
   },
   {
-    q: 'How long does setup actually take?',
-    a: 'Most solo clinics go live within one business day. Multi-doctor groups take 2\u20133 days because we configure routing rules and message templates per specialty. You will be sending recovery WhatsApps by Friday if you sign off on Monday.',
+    q: 'Does the patient know they\u2019re not speaking to a person?',
+    a: 'The system introduces itself by name as calling from your clinic and speaks naturally in the patient\u2019s language. Most patients experience it as speaking with a knowledgeable receptionist. The focus is on making the patient feel heard and getting them booked \u2014 not on disclosing the technology behind it.',
   },
   {
-    q: 'What does pricing look like and are there hidden fees?',
-    a: 'Plans start at \u20B925,000/month for solo practitioners and scale to custom enterprise contracts for hospital chains. No setup fees, no contracts, no per-message surcharges. WhatsApp conversation costs (Meta\u2019s charge, not ours) are passed through at cost with full transparency in your dashboard.',
+    q: 'How does the appointment show up in my calendar?',
+    a: 'Booked appointments sync to Google Calendar, iCal, or your existing HMS in real time. Your receptionist sees the slot appear the moment it\u2019s confirmed. After the call, the patient gets a WhatsApp message with the date, time, doctor name, and clinic address.',
   },
   {
-    q: 'Can I customise the message tone and content?',
-    a: 'Completely. We ship with Meta-approved templates tuned for Indian clinics, and you can edit tone, doctor names, CTAs, and booking flows from the dashboard. Many clinics A/B test two variants for a week and lock in whichever recovers more patients.',
+    q: 'What about reminders and follow-ups?',
+    a: 'Two WhatsApp reminders go out automatically \u2014 24 hours and 3 hours before the appointment. After the visit, follow-ups adapt: if the patient didn\u2019t show, a rebooking message. If they started treatment, aftercare instructions. If they completed treatment, a feedback request. All of this runs without your team lifting a finger.',
   },
   {
-    q: 'What happens if a patient does not respond to the WhatsApp?',
-    a: 'The Growth plan includes a 4-touchpoint journey: initial recovery WhatsApp, a gentle 24-hour nudge, a 72-hour re-engagement with a different offer angle, and a 7-day final check-in. After that the lead is archived \u2014 no spam, no burning your clinic\u2019s reputation.',
+    q: 'Can patients text the clinic number with questions?',
+    a: 'Yes. Once a patient has your clinic number saved, they can message anytime on WhatsApp. Engageo handles the conversation \u2014 answering questions, rebooking appointments, or flagging issues for your team to call back. It works like a 24/7 text receptionist on your existing number.',
   },
   {
-    q: 'Do you integrate with my calendar or HMS?',
-    a: 'Yes. Google Calendar, iCal, Outlook, Practo, and common Indian HMS/PMS systems (DocPulse, Halemind, Medixcel, eClinicWorks) are supported out of the box. Custom integrations are included on Enterprise plans.',
+    q: 'What if a patient\u2019s request is too complex to handle?',
+    a: 'If the system encounters something outside its knowledge \u2014 a complex medical question, an upset patient, or an edge case \u2014 it flags the conversation and alerts your team for a human callback. The patient is told someone from the clinic will reach out shortly. No dead ends, no frustrated patients.',
+  },
+  {
+    q: 'Is patient data secure?',
+    a: 'All conversations are encrypted in transit and at rest. Data is stored in India (AWS Mumbai, ap-south-1) and never leaves the country. We operate under ISO 27001 controls and are aligned with DPDP 2023 from day one. Your clinic owns the data \u2014 export or delete it within 72 hours on request.',
+  },
+  {
+    q: 'What does pricing look like?',
+    a: 'Recovery plans start at \u20B925,000/month for solo clinics (up to 400 recovered calls). Growth plans for multi-doctor clinics are \u20B955,000/month with unlimited calls and post-visit follow-ups. Enterprise pricing is custom. No setup fees, no contracts. Every plan includes a 14-day free trial.',
   },
 ];
 

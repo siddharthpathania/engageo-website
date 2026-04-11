@@ -371,7 +371,7 @@ function LiveDashboard(): JSX.Element {
               style={{ color: accentColor }}
             >
               {isWhatsapp
-                ? 'WhatsApp Engine'
+                ? 'Booking Confirmed'
                 : isRecovery
                   ? 'Engageo Active'
                   : 'Without Engageo'}
@@ -424,7 +424,7 @@ function LiveDashboard(): JSX.Element {
             </span>
             <span className="flex-1 truncate font-sans text-[11px] font-medium text-obsidian">
               {isWhatsapp
-                ? 'Dispatching'
+                ? 'Confirming'
                 : isRecovery
                   ? 'Intercepting'
                   : 'Incoming'}
@@ -462,7 +462,7 @@ function LiveDashboard(): JSX.Element {
             <div className="flex h-28 items-center justify-center">
               <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                 {isWhatsapp
-                  ? 'Awaiting slot confirms\u2026'
+                  ? 'Sending confirmations\u2026'
                   : isRecovery
                     ? 'Ready to intercept\u2026'
                     : 'Monitoring calls\u2026'}
@@ -493,7 +493,7 @@ function LiveDashboard(): JSX.Element {
               }}
             >
               {isRecovery || isWhatsapp
-                ? "Calls that would've been missed."
+                ? 'Recovered by Engageo.'
                 : "And it's not even noon yet."}
             </p>
           </div>
@@ -531,8 +531,8 @@ type Metric = {
 
 const METRICS: readonly Metric[] = [
   { label: 'AVG RECOVERY',       prefix: '\u20B9', value: 24, suffix: 'K' },
-  { label: 'CALL RECOVERY',      prefix: '<',      value: 8,  suffix: 's' },
-  { label: 'WHATSAPP OPEN RATE',                    value: 94, suffix: '%' },
+  { label: 'RESPONSE TIME',      prefix: '<',      value: 15, suffix: 's' },
+  { label: 'BOOKING RATE',                          value: 34, suffix: '%' },
   { label: 'CLINICS LIVE',                          value: 47, suffix: '+' },
 ] as const;
 
@@ -588,7 +588,7 @@ export function Hero(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           >
-            ● Voice + WhatsApp Recovery — Live in 47 Clinics
+            ● Missed Call Recovery — Live in 47 Indian Clinics
           </motion.div>
 
           <h1 className="text-left tracking-tighter">
@@ -637,10 +637,11 @@ export function Hero(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            Every missed call triggers a full recovery sequence — AI voice
-            callback in 8 seconds, patient qualified, slot booked to your
-            calendar, WhatsApp confirmation sent, 24-hour reminder fired.
-            While you&rsquo;re with your next patient.
+            When your front desk can&rsquo;t pick up, the call forwards
+            automatically. The patient hears a warm voice in their own
+            language, gets their questions answered, and books an
+            appointment — all before they think to call another clinic.
+            You don&rsquo;t even know a call was missed.
           </motion.p>
         </div>
 

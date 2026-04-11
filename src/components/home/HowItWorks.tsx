@@ -10,8 +10,8 @@ type Step = {
 
 const STEPS: readonly Step[] = [
   {
-    title: 'Connect your clinic number',
-    body: 'Port your existing line or point it at Engageo. Takes under 20 minutes — no hardware, no new app for your team to learn.',
+    title: 'Forward your unanswered calls',
+    body: 'Set your clinic number to forward calls that go unanswered after 15 seconds. Takes under 20 minutes. Your receptionist\u2019s workflow doesn\u2019t change at all.',
     icon: (
       <path
         d="M6 4h8a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm2 4h4m-4 3h4m-4 3h2"
@@ -23,8 +23,8 @@ const STEPS: readonly Step[] = [
     ),
   },
   {
-    title: 'AI monitors calls 24/7',
-    body: 'Every missed call — consult hours, lunch break, 11 PM — gets intercepted in 3 seconds. Nothing falls through.',
+    title: 'Every missed call gets answered',
+    body: 'Whether it\u2019s 11 AM during a packed waiting room or 10 PM on a Sunday, the patient hears a warm, trained voice that knows your clinic inside out. Nothing goes to voicemail.',
     icon: (
       <>
         <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
@@ -39,8 +39,8 @@ const STEPS: readonly Step[] = [
     ),
   },
   {
-    title: 'Recovery message fires',
-    body: 'Personalised WhatsApp goes out in under 30 seconds — clinic name, doctor, one-tap booking link. Supports Hindi, Marathi, Tamil, English.',
+    title: 'Appointment booked on the spot',
+    body: 'The patient\u2019s questions get answered — timings, fees, procedures, directions. If they want to book, a slot is confirmed right there on the call and synced to your Google Calendar in real time.',
     icon: (
       <path
         d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0zm4-6h4m-4 3h4"
@@ -52,8 +52,8 @@ const STEPS: readonly Step[] = [
     ),
   },
   {
-    title: 'Patient books — you see it',
-    body: 'Confirmed slots land in your calendar, reminders go out automatically. Open the dashboard to see every recovery, every week.',
+    title: 'Confirmed, reminded, followed up',
+    body: 'WhatsApp confirmation goes out immediately. Reminders at 24 hours and 3 hours before. After the visit, follow-ups adapt — no-show rebooking, treatment aftercare, or a feedback request. All automatic.',
     icon: (
       <>
         <rect
@@ -86,8 +86,8 @@ export function HowItWorks(): JSX.Element {
           Four steps. Live by Friday.
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          No lengthy onboarding. No change management. The recovery engine
-          starts working the moment your number points at us.
+          No hardware. No app for your team. Forward your unanswered calls
+          to Engageo and every missed patient gets recovered from day one.
         </p>
       </div>
 

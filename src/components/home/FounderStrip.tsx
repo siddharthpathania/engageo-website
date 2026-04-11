@@ -14,7 +14,7 @@ const FOUNDERS: readonly Founder[] = [
   {
     name: 'Siddharth Pathania',
     role: 'CEO',
-    oneLiner: 'Product architect. Designed the agentic recovery system from first principles.',
+    oneLiner: 'Product architect. Designed the recovery system from first principles.',
     initials: 'SP',
     accent: 'from-primary-400 to-primary-600',
     photo: '/team/siddharth.jpg',
@@ -22,7 +22,7 @@ const FOUNDERS: readonly Founder[] = [
   {
     name: 'Atul Hooda',
     role: 'CTO',
-    oneLiner: 'ML engineer. Built the voice AI engine that intercepts calls in < 8 seconds.',
+    oneLiner: 'ML engineer. Built the intelligence behind every recovered call.',
     initials: 'AH',
     accent: 'from-accent-400 to-accent-600',
     photo: '/team/atul.jpg',

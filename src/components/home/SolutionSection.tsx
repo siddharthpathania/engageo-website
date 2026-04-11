@@ -27,8 +27,8 @@ const FLOW_STEPS: readonly FlowStep[] = [
     ),
   },
   {
-    label: 'Missed',
-    sub: 'Nobody picks up',
+    label: 'No answer in 15s',
+    sub: 'Call auto-forwards',
     accent: 'danger',
     icon: (
       <>
@@ -43,8 +43,8 @@ const FLOW_STEPS: readonly FlowStep[] = [
     ),
   },
   {
-    label: 'AI detects',
-    sub: 'Intercepted in 3s',
+    label: 'Patient gets answered',
+    sub: 'In their language',
     accent: 'brand',
     icon: (
       <path
@@ -57,8 +57,8 @@ const FLOW_STEPS: readonly FlowStep[] = [
     ),
   },
   {
-    label: 'WhatsApp sent',
-    sub: 'Personalised · <30s',
+    label: 'Appointment booked',
+    sub: 'Synced to your calendar',
     accent: 'success',
     icon: (
       <path
@@ -71,8 +71,8 @@ const FLOW_STEPS: readonly FlowStep[] = [
     ),
   },
   {
-    label: 'Patient books',
-    sub: 'Slot in your calendar',
+    label: 'Confirmed & reminded',
+    sub: 'WhatsApp · 24hr · 3hr',
     accent: 'brand',
     icon: (
       <>
@@ -124,22 +124,24 @@ export function SolutionSection(): JSX.Element {
         <ScrollReveal direction="left" distance={30}>
           <span className="section-label">The Aha Moment</span>
           <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-            Engageo catches every call{' '}
-            <span className="serif-hero">you can&rsquo;t.</span>
+            Every unanswered call,{' '}
+            <span className="serif-hero">answered.</span>
           </h2>
           <p className="mt-6 text-[15px] leading-relaxed text-subtle md:text-base">
-            An AI layer sits on top of your existing phone number. The second
-            a call goes unanswered, it triggers a personalised WhatsApp
-            message back to the patient — with your clinic name, the doctor
-            they were trying to reach, and a one-tap booking link. Sent in
-            under 30 seconds, read in under 2 minutes.
+            Engageo sits behind your existing clinic number. When your
+            receptionist can&rsquo;t pick up within 15 seconds, the call
+            forwards automatically. The patient hears a trained voice in
+            their own language — &ldquo;Namaste, mein Dr. Sharma&rsquo;s
+            clinic se bol rahi hun&rdquo; — gets their questions
+            answered, and books an appointment that lands straight in your
+            calendar. No hardware. No app. No change to your workflow.
           </p>
 
           <ul className="mt-8 space-y-3.5">
             {[
-              'No new hardware. Works with any phone system — landline, VoIP, mobile.',
-              'Every interaction logged to your dashboard — you see who called, who booked, who ghosted.',
-              'You stay in the consultation room. Patients get answered. That is the whole product.',
+              'Works with your existing number. Landline, VoIP, mobile — nothing changes for your team.',
+              'Every call logged with a full transcript. See who called, what they asked, and whether they booked.',
+              'You stay with your patient. The missed call still gets answered, the appointment still gets booked. That is the whole product.',
             ].map((bullet) => (
               <li
                 key={bullet}

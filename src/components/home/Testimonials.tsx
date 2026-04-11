@@ -15,7 +15,7 @@ type Testimonial = {
 const TESTIMONIALS: readonly Testimonial[] = [
   {
     quote:
-      'We were losing ₹2.8 lakhs a month to missed calls. Engageo recovered 23 patients in the first 30 days. I didn&rsquo;t change a thing about my practice.',
+      'I had no idea how many calls we were missing during consultations. Engageo recovered 23 patients in the first month — patients who would have called the next dermatologist on Google. I didn&rsquo;t change a single thing about how I run my practice.',
     doctor: 'Dr. Priya Krishnan',
     specialty: 'Dermatologist',
     city: 'Bengaluru',
@@ -25,7 +25,7 @@ const TESTIMONIALS: readonly Testimonial[] = [
   },
   {
     quote:
-      'Patients called me after-hours all the time. Now they get a WhatsApp in 30 seconds with a booking link. Last month we booked 41 appointments that would have gone to Apollo Clinic down the road.',
+      'Our biggest leak was after 7 PM — patients calling about implant consultations when nobody was at the front desk. Now those calls get answered in Marathi, their questions get handled, and they book for the next morning. 41 appointments last month that would have walked to Apollo down the road.',
     doctor: 'Dr. Rajesh Malhotra',
     specialty: 'Dental & Oral Surgery',
     city: 'Mumbai',
@@ -35,7 +35,7 @@ const TESTIMONIALS: readonly Testimonial[] = [
   },
   {
     quote:
-      'I was skeptical about AI for patient calls. But the messages go out in my clinic&rsquo;s voice, in Hindi and English. My receptionist now focuses on in-clinic patients instead of chasing voicemails.',
+      'I was skeptical at first — would patients actually book through this? But callers get their questions about our IVF packages answered properly, in Hindi or English, and the booking shows up in our calendar before I even finish my current consultation. My receptionist finally has time for the patients sitting in front of her.',
     doctor: 'Dr. Ananya Reddy',
     specialty: 'IVF & Fertility',
     city: 'Hyderabad',

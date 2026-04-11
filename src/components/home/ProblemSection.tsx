@@ -100,9 +100,10 @@ export function ProblemSection(): JSX.Element {
             every month. Here&rsquo;s where.
           </h2>
           <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-neutral-400 md:text-base">
-            Most clinic owners see the revenue number. Almost none see the
-            four places it bleeds out. These are the calls nobody&rsquo;s
-            tracking — and the patients nobody&rsquo;s recovering.
+            Most clinic owners know they miss calls. Almost none know how
+            much it actually costs. These are the four gaps bleeding revenue
+            every single day — and the patients walking to the clinic
+            down the road.
           </p>
         </div>
 

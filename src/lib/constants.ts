@@ -13,8 +13,8 @@ export const SITE_CONFIG = {
   title: 'Engageo — Missed Call Recovery for Indian Clinics',
   titleTemplate: '%s · Engageo',
   description:
-    'Every missed call at your clinic is a patient your competitor books. Engageo intercepts that call in 8 seconds — qualifies the patient, books the slot, sends the WhatsApp confirmation. Live in 47+ Indian clinics.',
-  tagline: 'Your clinic is losing ₹3L every month. We recover it.',
+    'Indian clinics lose ₹2\u20134 lakhs every month to calls that go unanswered. Engageo makes sure every missed call gets answered, every patient gets heard, and every appointment gets booked \u2014 without adding staff or changing your workflow.',
+  tagline: 'Every missed call answered. Every patient booked.',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.engageoagency.com').replace(/\/$/, ''),
   ogImage: '/opengraph-image',
   ogImageAlt: 'Engageo — AI voice + WhatsApp recovery for Indian clinics',
@@ -23,16 +23,16 @@ export const SITE_CONFIG = {
   region: 'IN',
   currency: 'INR',
   keywords: [
-    'missed call recovery',
-    'ai receptionist india',
-    'clinic automation',
-    'whatsapp automation clinic',
-    'dental clinic booking',
-    'ivf clinic crm',
-    'hair transplant clinic software',
-    'ai voice agent india',
+    'missed call recovery for clinics',
+    'clinic appointment recovery india',
+    'never miss a patient call',
+    'automated clinic receptionist india',
+    'dental clinic missed calls',
+    'ivf clinic patient recovery',
+    'clinic call answering service india',
     'patient booking automation',
-    'clinic lead recovery',
+    'whatsapp reminders for clinics',
+    'reduce missed calls healthcare india',
   ],
   twitterHandle: '@engageo',
   creator: 'Engageo',
@@ -79,14 +79,14 @@ export const MAIN_NAV: readonly NavLink[] = [
 
 export const CTA = {
   audit: {
-    label: 'Free Audit — See What You\u2019re Losing',
+    label: 'See What You\u2019re Losing \u2014 Free Audit',
     href: 'https://calendly.com/engageoagency',
     shortLabel: 'Free Audit',
   },
   demo: {
-    label: 'Watch a Real Recovery Call',
+    label: 'Hear a Recovery in Action',
     href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
-    shortLabel: 'Watch Demo',
+    shortLabel: 'Hear Demo',
   },
   whatsapp: {
     label: 'Chat on WhatsApp',
@@ -142,7 +142,7 @@ export const COMPANY = {
   foundingLocation: 'Bengaluru, India',
   liveClinics: 47,
   avgRecoveryINR: 24_000,
-  responseSeconds: 8,
+  responseSeconds: 15,
 } as const;
 
 // ─── Footer navigation ───────────────────────────────────────────
@@ -212,10 +212,10 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
 // ─── Key metrics (for hero / trust bar) ──────────────────────────
 
 export const KEY_METRICS = [
-  { label: 'Avg Recovery', value: '\u20B924K',   hint: 'per clinic / month' },
-  { label: 'Response Time', value: '< 8s',        hint: 'voice callback' },
-  { label: 'Clinics Live',  value: '47+',         hint: 'across India' },
-  { label: 'Guarantee',     value: '15 bookings', hint: 'first 30 days' },
+  { label: 'Revenue Recovered', value: '\u20B924K',   hint: 'per clinic / month' },
+  { label: 'Response Time',     value: '< 15s',       hint: 'call answered' },
+  { label: 'Clinics Live',      value: '47+',         hint: 'across India' },
+  { label: 'Guarantee',         value: '15 bookings', hint: 'first 30 days' },
 ] as const;
 
 // ─── Pricing tiers ───────────────────────────────────────────────
@@ -241,7 +241,7 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     priceLabel: '\u20B925,000',
     cadence: '/ month',
     description:
-      'Your clinic already gets inbound calls. We make sure not one of them goes to voicemail. Answered, qualified, and booked \u2014 in under 8 seconds.',
+      'Your clinic already gets inbound calls. We make sure the ones your team can\u2019t pick up still get answered, the patient\u2019s questions still get handled, and the appointment still lands in your calendar.',
   },
   {
     id: 'grow',
@@ -252,7 +252,7 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     cadence: '/ month',
     addOn: '+ your ad spend',
     description:
-      'We run your ads, drive inbound calls, and convert every single one into a confirmed booking. You stay in the consultation room. We make sure it stays full.',
+      'We drive more inbound calls through ads and SEO \u2014 then make sure every single one gets answered, booked, confirmed, and followed up. You stay in the consultation room. We keep it full.',
     featured: true,
   },
   {
@@ -264,7 +264,7 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     cadence: '/ month',
     addOn: '+ ad spend',
     description:
-      'Every patient in your city who searches your specialty should find you first, trust you immediately, and call you directly. We build that system.',
+      'Full-stack clinic growth: patient acquisition, call recovery, booking automation, WhatsApp follow-ups, and a dedicated growth strategist. Every patient touchpoint \u2014 from first search to post-treatment review \u2014 handled.',
   },
 ] as const;
 

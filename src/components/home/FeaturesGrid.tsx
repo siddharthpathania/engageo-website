@@ -11,8 +11,8 @@ type Feature = {
 
 const FEATURES: readonly Feature[] = [
   {
-    title: 'WhatsApp Integration',
-    body: 'Official Meta Business API. Template-verified. 94% open rate within 2 minutes — the only channel patients actually read.',
+    title: 'Intelligent Call Answering',
+    body: 'When your receptionist can\u2019t pick up, the patient hears a trained voice in their own language. Not a recording. Not a menu. A real conversation that answers their questions and earns their trust.',
     icon: (
       <path
         d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0zm4-6h4m-4 3h4"
@@ -24,8 +24,8 @@ const FEATURES: readonly Feature[] = [
     ),
   },
   {
-    title: 'Multi-language Support',
-    body: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, English. Messages match the patient, not the clinic owner.',
+    title: 'Seven Indian Languages',
+    body: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system matches the patient\u2019s language automatically — because a dermatology patient in Chennai shouldn\u2019t have to navigate in English.',
     icon: (
       <path
         d="M3 5h9M7 3v2c0 4-2 6-4 7m4-4c0 3 2 5 5 5m3 2l3-7 3 7m-5-2h4"
@@ -37,8 +37,8 @@ const FEATURES: readonly Feature[] = [
     ),
   },
   {
-    title: 'Smart Scheduling Links',
-    body: 'One-tap booking. Syncs with Google Calendar, iCal, Practo, or your HMS. No back-and-forth DMs.',
+    title: 'Live Calendar Booking',
+    body: 'Appointments are booked during the call itself — real-time availability check, slot confirmation, and sync to Google Calendar, iCal, or your HMS. Your receptionist sees the booking appear instantly.',
     icon: (
       <>
         <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
@@ -54,7 +54,7 @@ const FEATURES: readonly Feature[] = [
   },
   {
     title: 'Real-time Dashboard',
-    body: 'Every call, every recovery, every booking — in one ledger. See exactly what Engageo saved you this week.',
+    body: 'Every recovered call, every conversation, every booking — in one place. See what patients are asking about, which hours you miss the most calls, and exactly how much revenue Engageo recovered this week.',
     icon: (
       <path
         d="M3 17V7m4 10v-6m4 6V5m4 12v-8"
@@ -66,8 +66,8 @@ const FEATURES: readonly Feature[] = [
     ),
   },
   {
-    title: 'Custom Message Templates',
-    body: "Your clinic's voice, not ours. Edit tone, add doctor names, swap CTAs — we ship with defaults, you tune from there.",
+    title: 'Trained on Your Clinic',
+    body: 'Fees, timings, doctor specialties, procedures offered, parking directions — whatever your receptionist knows, the system knows. You feed it once. It handles every call with that knowledge.',
     icon: (
       <path
         d="M4 4h12a1 1 0 011 1v9a1 1 0 01-1 1H8l-4 3V5a1 1 0 011-1zm3 4h6m-6 3h4"
@@ -79,8 +79,8 @@ const FEATURES: readonly Feature[] = [
     ),
   },
   {
-    title: 'After-hours Auto-response',
-    body: 'The 9 PM toothache call gets answered. The 2 AM laser-pigmentation query gets answered. You do not.',
+    title: '24/7 Coverage',
+    body: 'The 9 PM toothache call gets answered. The Sunday morning skin concern gets answered. The lunch-break overflow gets answered. Your team works regular hours. Your patients get served around the clock.',
     icon: (
       <path
         d="M15 11A7 7 0 018 4a1 1 0 00-1.2 1.2A7 7 0 0015 13a1 1 0 001.2-1.2A6.9 6.9 0 0115 11z"
@@ -93,7 +93,7 @@ const FEATURES: readonly Feature[] = [
   },
   {
     title: 'Analytics & Reports',
-    body: 'Weekly email: calls missed, calls recovered, revenue locked. Monthly: trends, conversion by doctor, hour-of-day heatmap.',
+    body: 'Weekly summary: calls recovered, appointments booked, revenue saved. Monthly deep-dive: peak call hours, most-asked patient questions, conversion by doctor, and follow-up completion rates.',
     icon: (
       <>
         <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
@@ -108,8 +108,8 @@ const FEATURES: readonly Feature[] = [
     ),
   },
   {
-    title: 'Works with Any Phone',
-    body: 'Landline, VoIP, Exotel, Knowlarity, MTNL, a mobile — doesn&rsquo;t matter. We sit on top of what you already have.',
+    title: 'WhatsApp Confirmations & Follow-ups',
+    body: 'After every booking: instant WhatsApp confirmation with date, time, and doctor name. Reminders at 24 hours and 3 hours before. Post-visit follow-ups adapt to whether the patient showed up, started treatment, or needs aftercare.',
     icon: (
       <path
         d="M4 4h4l1 4-2 1a8 8 0 004 4l1-2 4 1v4a1 1 0 01-1 1A13 13 0 013 5a1 1 0 011-1z"
@@ -128,12 +128,12 @@ export function FeaturesGrid(): JSX.Element {
       <div className="mx-auto max-w-3xl text-center">
         <span className="section-label justify-center">Capabilities</span>
         <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-          Built for Indian clinics,{' '}
-          <span className="serif-hero">end to end.</span>
+          Everything between the missed call{' '}
+          <span className="serif-hero">and the booked patient.</span>
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          Eight pieces doing one job: never let a patient hang up and not
-          hear back.
+          From the moment the call goes unanswered to the post-treatment
+          follow-up — every touchpoint, handled.
         </p>
       </div>
 

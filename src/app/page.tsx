@@ -8,6 +8,7 @@ import { PricingPreview } from '@/components/home/PricingPreview';
 import { ProblemSection } from '@/components/home/ProblemSection';
 import { SolutionSection } from '@/components/home/SolutionSection';
 import { Testimonials } from '@/components/home/Testimonials';
+import { FounderStrip } from '@/components/home/FounderStrip';
 
 /* Dynamic import for the heaviest client component — Hero contains
    framer-motion AnimatePresence, typewriter, live dashboard phases,
@@ -54,6 +55,7 @@ export default function HomePage(): JSX.Element {
       <HowItWorks />
       <FeaturesGrid />
       <Testimonials />
+      <FounderStrip />
       <PricingPreview />
       <FAQ />
       <CTASection />

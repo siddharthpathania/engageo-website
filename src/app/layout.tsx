@@ -69,7 +69,24 @@ export const metadata: Metadata = {
     },
   },
   category: 'technology',
-  // icons auto-injected from src/app/icon.tsx, icon1.tsx, icon2.tsx, apple-icon.tsx
+  // Static favicons — stable URLs that Google's favicon crawler can cache.
+  // We previously generated these dynamically via src/app/icon*.tsx but the
+  // hashed URLs and ImageResponse runtime caused both indexing and Vercel
+  // build issues. All sizes below come from public/ and are pre-generated
+  // from the source logo.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+  },
   // manifest auto-injected from src/app/manifest.ts
   ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
     verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION },

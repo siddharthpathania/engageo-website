@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { CTA } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
@@ -11,9 +12,15 @@ type MobileNavLink = { label: string; href: string };
 
 export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Element {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  // Mark mounted so the portal only renders client-side (avoids SSR mismatch)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on route change
   useEffect(() => {
@@ -110,21 +117,23 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
         </div>
       </button>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            key="mobile-menu"
-            ref={panelRef}
-            id="mobile-menu-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile navigation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-canvas/95 backdrop-blur-xl md:hidden"
-          >
+      {mounted
+        ? createPortal(
+            <AnimatePresence>
+              {open ? (
+                <motion.div
+                  key="mobile-menu"
+                  ref={panelRef}
+                  id="mobile-menu-panel"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Mobile navigation"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
+                  className="fixed inset-0 z-[60] flex flex-col bg-canvas/[0.98] backdrop-blur-2xl md:hidden"
+                >
             <div className="flex h-16 items-center justify-between border-b border-neutral-200/70 px-5">
               <span className="font-display text-[17px] font-semibold tracking-tight text-obsidian">
                 Menu
@@ -165,8 +174,8 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                       initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
-                        delay: 0.05 + index * 0.05,
-                        duration: 0.3,
+                        delay: 0.08 + index * 0.06,
+                        duration: 0.35,
                         ease: [0.16, 1, 0.3, 1],
                       }}
                     >
@@ -174,7 +183,7 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                         href={item.href}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          'flex items-center justify-between rounded-2xl px-4 py-3.5 text-[18px] font-medium transition-colors',
+                          'flex items-center justify-between rounded-2xl px-4 py-3.5 text-[17px] font-medium transition-all active:scale-[0.98]',
                           active
                             ? 'bg-sand text-obsidian'
                             : 'text-obsidian/85 hover:bg-sand hover:text-obsidian',
@@ -204,7 +213,7 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
               </ul>
             </nav>
 
-            <div className="border-t border-neutral-200/70 bg-surface/60 p-5">
+            <div className="border-t border-neutral-200/70 bg-surface/80 px-5 py-6">
               <Link
                 href={CTA.book.href}
                 className="flex w-full items-center justify-center gap-1.5 rounded-full bg-obsidian px-4 py-3.5 text-[15px] font-medium text-surface shadow-subtle"
@@ -227,9 +236,12 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                 </svg>
               </Link>
             </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

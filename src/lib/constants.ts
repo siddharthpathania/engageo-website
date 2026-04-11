@@ -118,10 +118,10 @@ export const CONTACT = {
     'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
   address: {
     line1: 'Engageo HQ',
-    line2: 'Koramangala',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    postalCode: '560034',
+    line2: 'Viman Nagar',
+    city: 'Pune',
+    state: 'Maharashtra',
+    postalCode: '411014',
     country: 'India',
     countryCode: 'IN',
   },
@@ -139,7 +139,7 @@ export const CONTACT = {
 export const COMPANY = {
   legalName: 'Engageo Technologies Pvt. Ltd.',
   foundingYear: 2024,
-  foundingLocation: 'Bengaluru, India',
+  foundingLocation: 'Pune, India',
   liveClinics: 47,
   avgRecoveryINR: 24_000,
   responseSeconds: 15,

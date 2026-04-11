@@ -5,9 +5,9 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { CONTACT } from '@/lib/constants';
 
-const CONTACT_TITLE = 'Contact Engageo — Bengaluru, India';
+const CONTACT_TITLE = 'Contact Engageo — Pune, India';
 const CONTACT_DESCRIPTION =
-  'Book a demo for AI missed call recovery for your Indian clinic. Bengaluru HQ. We reply within 4 working hours, Mon–Sat, 10am–7pm IST. Email, WhatsApp, or call.';
+  'Book a demo for AI missed call recovery for your Indian clinic. Pune HQ. We reply within 4 working hours, Mon–Sat, 10am–7pm IST. Email, WhatsApp, or call.';
 
 export const metadata: Metadata = {
   title: { absolute: `${CONTACT_TITLE} | Engageo` },

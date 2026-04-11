@@ -244,7 +244,7 @@ export function FAQPageSchema({ items }: FAQPageSchemaProps): JSX.Element {
  * geo (if provided), and contact channels.
  */
 export type LocalBusinessSchemaProps = {
-  /** Optional geo coordinates (Bengaluru used as default). */
+  /** Optional geo coordinates (Viman Nagar, Pune used as default). */
   geo?: { latitude: number; longitude: number };
   /** Override business type (defaults to "LocalBusiness"). */
   businessType?: string;
@@ -281,7 +281,7 @@ function parseOpeningHours(): Array<Record<string, unknown>> {
 }
 
 export function LocalBusinessSchema({
-  geo = { latitude: 12.9352, longitude: 77.6245 }, // Koramangala, Bengaluru
+  geo = { latitude: 18.5679, longitude: 73.9143 }, // Viman Nagar, Pune
   businessType = 'LocalBusiness',
 }: LocalBusinessSchemaProps = {}): JSX.Element {
   const data = {

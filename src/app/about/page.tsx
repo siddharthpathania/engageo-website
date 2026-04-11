@@ -6,7 +6,7 @@ import { COMPANY } from '@/lib/constants';
 
 const ABOUT_TITLE = 'About Engageo — Built for Indian Clinics';
 const ABOUT_DESCRIPTION =
-  'Engageo was built in Bengaluru by operators who watched Indian clinics lose crores to missed calls. Our mission: every patient call gets a reply in 8 seconds.';
+  'Engageo was built in Pune by operators who watched Indian clinics lose crores to missed calls. Our mission: every patient call gets a reply in 8 seconds.';
 
 export const metadata: Metadata = {
   title: { absolute: `${ABOUT_TITLE} | Engageo` },
@@ -160,7 +160,7 @@ export default function AboutPage(): JSX.Element {
             <span className="serif-hero">9 PM toothache call.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
-            Engageo started in Bengaluru in {COMPANY.foundingYear}, after
+            Engageo started in Pune in {COMPANY.foundingYear}, after
             we watched {COMPANY.liveClinics}+ clinics leak lakhs every
             month through the same hole: the unanswered phone.
           </p>
@@ -382,7 +382,7 @@ export default function AboutPage(): JSX.Element {
                   <div className="flex-1 bg-[#138808]" />
                 </div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-obsidian/70">
-                  Made in Bengaluru · HQ in Koramangala
+                  Made in Pune · HQ in Viman Nagar
                 </p>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -183,6 +184,21 @@ export default function BlogPostPage({
             </time>
           </div>
         </div>
+
+        {post.coverImage ? (
+          <div className="mx-auto mt-10 max-w-5xl md:mt-14">
+            <div className="relative aspect-[1200/630] overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                priority
+                sizes="(min-width: 1024px) 960px, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        ) : null}
       </header>
 
       {/* ─── Article body + TOC sidebar ──────────────────────────── */}

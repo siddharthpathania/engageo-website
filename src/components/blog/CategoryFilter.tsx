@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { BlogCategory, BlogPostMeta, CategorySummary } from '@/lib/blog';
@@ -66,35 +67,48 @@ export function CategoryFilter({
           <li key={post.slug}>
             <Link
               href={`/blog/${post.slug}`}
-              className="group flex h-full flex-col gap-4 rounded-3xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover md:p-7"
+              className="group flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-neutral-200 bg-surface transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
             >
-              <div className="flex items-center justify-between gap-2">
-                <span
-                  className={cn(
-                    'inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest',
-                    CATEGORY_TONE[post.category],
-                  )}
-                >
-                  {post.category}
-                </span>
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-subtle">
-                  {post.readingMinutes} min
-                </span>
-              </div>
-              <h2 className="font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian transition-colors group-hover:text-primary-600 md:text-xl">
-                {post.title}
-              </h2>
-              <p className="line-clamp-3 text-[13.5px] leading-relaxed text-subtle">
-                {post.description}
-              </p>
-              <div className="mt-auto flex items-center gap-3 border-t border-neutral-100 pt-4 text-[11.5px] font-medium text-subtle">
-                <span className="truncate text-obsidian">{post.author}</span>
-                <span aria-hidden="true" className="text-neutral-300">
-                  ·
-                </span>
-                <time dateTime={post.publishedAt}>
-                  {formatDate(post.publishedAt)}
-                </time>
+              {post.coverImage ? (
+                <div className="relative aspect-[1200/630] overflow-hidden bg-neutral-100">
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              ) : null}
+              <div className="flex flex-1 flex-col gap-4 p-6 md:p-7">
+                <div className="flex items-center justify-between gap-2">
+                  <span
+                    className={cn(
+                      'inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest',
+                      CATEGORY_TONE[post.category],
+                    )}
+                  >
+                    {post.category}
+                  </span>
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-subtle">
+                    {post.readingMinutes} min
+                  </span>
+                </div>
+                <h2 className="font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian transition-colors group-hover:text-primary-600 md:text-xl">
+                  {post.title}
+                </h2>
+                <p className="line-clamp-3 text-[13.5px] leading-relaxed text-subtle">
+                  {post.description}
+                </p>
+                <div className="mt-auto flex items-center gap-3 border-t border-neutral-100 pt-4 text-[11.5px] font-medium text-subtle">
+                  <span className="truncate text-obsidian">{post.author}</span>
+                  <span aria-hidden="true" className="text-neutral-300">
+                    ·
+                  </span>
+                  <time dateTime={post.publishedAt}>
+                    {formatDate(post.publishedAt)}
+                  </time>
+                </div>
               </div>
             </Link>
           </li>

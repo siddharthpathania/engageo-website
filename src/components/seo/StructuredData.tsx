@@ -101,6 +101,7 @@ export type ArticleSchemaProps = {
   publishedAt: string;
   updatedAt?: string;
   author: string;
+  authorUrl?: string;
   cover?: string;
 };
 
@@ -111,6 +112,7 @@ export function ArticleSchema({
   publishedAt,
   updatedAt,
   author,
+  authorUrl,
   cover,
 }: ArticleSchemaProps): JSX.Element {
   const data = {
@@ -125,6 +127,7 @@ export function ArticleSchema({
     author: {
       '@type': 'Person',
       name: author,
+      ...(authorUrl ? { url: authorUrl, sameAs: [authorUrl] } : {}),
     },
     publisher: {
       '@type': 'Organization',

@@ -99,6 +99,7 @@ export default function BlogPostPage({
         publishedAt={post.publishedAt}
         updatedAt={post.updatedAt}
         author={post.author}
+        authorUrl={post.authorLinkedin}
         cover={post.coverImage}
       />
 
@@ -144,8 +145,27 @@ export default function BlogPostPage({
                 {post.authorInitials ?? post.author.slice(0, 2).toUpperCase()}
               </span>
               <div className="leading-tight">
-                <p className="text-[13.5px] font-semibold text-obsidian">
+                <p className="flex items-center gap-2 text-[13.5px] font-semibold text-obsidian">
                   {post.author}
+                  {post.authorLinkedin ? (
+                    <a
+                      href={post.authorLinkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${post.author} on LinkedIn (opens in new tab)`}
+                      className="inline-flex h-5 w-5 items-center justify-center rounded-full text-subtle transition-colors hover:text-primary-700"
+                    >
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </a>
+                  ) : null}
                 </p>
                 {post.authorRole ? (
                   <p className="text-[11.5px] text-subtle">{post.authorRole}</p>

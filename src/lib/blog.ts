@@ -19,6 +19,7 @@ export type BlogFrontmatter = {
   author: string;
   authorRole?: string;
   authorInitials?: string;
+  authorLinkedin?: string;
   category: BlogCategory;
   tags?: string[];
   coverImage?: string;
@@ -93,6 +94,7 @@ export function getAllPosts(): BlogPost[] {
         author: frontmatter.author ?? 'Engageo Team',
         authorRole: frontmatter.authorRole,
         authorInitials: frontmatter.authorInitials,
+        authorLinkedin: frontmatter.authorLinkedin,
         category,
         tags: frontmatter.tags ?? [],
         coverImage: frontmatter.coverImage ?? frontmatter.cover,

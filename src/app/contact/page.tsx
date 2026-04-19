@@ -1,5 +1,6 @@
 import { Calendar, ChevronRight, MessageCircle, Phone } from 'lucide-react';
 import type { Metadata } from 'next';
+import { ContactFAQ } from '@/components/contact/ContactFAQ';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -202,6 +203,8 @@ export default function ContactPage(): JSX.Element {
           </aside>
         </div>
       </SectionWrapper>
+
+      <ContactFAQ />
 
       <CTASection />
     </>

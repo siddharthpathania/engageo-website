@@ -107,9 +107,9 @@ export function Footer(): JSX.Element {
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-subtle">
-              We recover the calls your clinic misses. Every missed call is a
-              patient someone else books if we don&rsquo;t. Live in 47+ Indian
-              clinics.
+              AI missed call recovery + WhatsApp automation built for Indian
+              clinics and hospitals. Every missed call is a patient someone
+              else books if we don&rsquo;t. Live in 47+ clinics across India.
             </p>
 
             <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-success-200 bg-success-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-success-700">
@@ -230,7 +230,7 @@ export function Footer(): JSX.Element {
                 aria-hidden="true"
                 className="h-2.5 w-3.5 rounded-[1px] bg-gradient-to-b from-accent-500 via-surface to-success-600"
               />
-              Made in India · Built for Indian clinics
+              Made in India · Built for Indian clinics &amp; hospitals
             </span>
           </div>
 

@@ -630,11 +630,12 @@ export function Hero(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            When your front desk can&rsquo;t pick up, the call forwards
-            automatically. The patient hears a warm voice in their own
-            language, gets their questions answered, and books an
-            appointment — all before they think to call another clinic.
-            You don&rsquo;t even know a call was missed.
+            Built for Indian clinics and hospitals. When your front desk
+            can&rsquo;t pick up, the call forwards automatically — our AI
+            voice + WhatsApp recovery system greets the patient in their
+            own language, answers their questions, and books the
+            appointment before they think to call a rival. You don&rsquo;t
+            even know a call was missed.
           </motion.p>
         </div>
 

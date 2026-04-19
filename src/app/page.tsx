@@ -33,9 +33,10 @@ const Hero = dynamic(
   },
 );
 
-const HOME_TITLE = 'Engageo — Missed Call Recovery for Indian Clinics';
+const HOME_TITLE =
+  'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals';
 const HOME_DESCRIPTION =
-  'Indian clinics lose \u20B92\u20134 lakhs monthly to unanswered calls. Engageo answers every missed call, handles patient questions in their language, and books appointments into your calendar. Live in 47+ clinics.';
+  'AI missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call answered in 7 languages within 15 seconds. Live in 47+ practices.';
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

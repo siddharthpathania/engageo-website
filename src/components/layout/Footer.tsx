@@ -5,6 +5,10 @@ import { ArrowUp, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+// Email address is intentionally NOT rendered in HTML. Cloudflare Email
+// Obfuscation rewrites any visible email into /cdn-cgi/l/email-protection,
+// which crawlers see as a broken internal link. The contact form posts
+// to /api/contact where the recipient address lives server-side.
 
 const COLUMN_VARIANTS = {
   hidden: { opacity: 0, y: 16 },
@@ -180,12 +184,12 @@ export function Footer(): JSX.Element {
             </h4>
             <ul className="mt-4 space-y-2.5 text-[13px] text-obsidian/75">
               <li>
-                <a
-                  href={`mailto:${CONTACT.email}`}
+                <Link
+                  href="/contact"
                   className="transition-colors hover:text-obsidian"
                 >
-                  {CONTACT.email}
-                </a>
+                  Send us a message
+                </Link>
               </li>
               <li>
                 <a

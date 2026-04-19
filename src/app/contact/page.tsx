@@ -1,4 +1,4 @@
-import { Calendar, ChevronRight, Mail, MessageCircle, Phone } from 'lucide-react';
+import { Calendar, ChevronRight, MessageCircle, Phone } from 'lucide-react';
 import type { Metadata } from 'next';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { CTASection } from '@/components/home/CTASection';
@@ -99,31 +99,6 @@ export default function ContactPage(): JSX.Element {
                       </p>
                       <p className="mt-1 text-[12px] text-subtle">
                         Usually replies in under 8 seconds during IST hours.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href={`mailto:${CONTACT.email}`}
-                    className="group flex items-start gap-3 rounded-2xl border border-neutral-200 bg-surface p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/40"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600"
-                    >
-                      <Mail size={20} strokeWidth={1.75} aria-hidden="true" />
-                    </span>
-                    <div className="flex-1">
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-primary-600">
-                        Email
-                      </p>
-                      <p className="mt-1 font-display text-[15px] font-semibold text-obsidian break-all">
-                        {CONTACT.email}
-                      </p>
-                      <p className="mt-1 text-[12px] text-subtle">
-                        Support: {CONTACT.emailSupport}
                       </p>
                     </div>
                   </a>

@@ -15,11 +15,12 @@ type HeaderLink = { label: string; href: string };
 const HEADER_NAV: readonly HeaderLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
+  { label: 'Clinics', href: '/clinics' },
+  { label: 'Hospitals', href: '/hospitals' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 

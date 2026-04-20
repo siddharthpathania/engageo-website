@@ -39,7 +39,7 @@ type TeamMember = {
 const TEAM: readonly TeamMember[] = [
   {
     name: 'Siddharth Pathania',
-    role: 'Founder & CEO',
+    role: 'Co-founder & CEO',
     bio: 'Agentic developer, UI/UX engineer, and strategy lead. Saw firsthand how Indian clinics haemorrhage revenue through missed calls — and designed the system that stops it.',
     initials: 'SP',
     accent: 'from-primary-400 to-primary-600',

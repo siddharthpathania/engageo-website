@@ -164,13 +164,16 @@ export const FOOTER_NAV: readonly FooterSection[] = [
     ],
   },
   {
-    title: 'Clinics',
+    title: 'By specialty',
     links: [
       { label: 'Dental', href: '/clinics/dental' },
       { label: 'Dermatology', href: '/clinics/dermatology' },
       { label: 'IVF & Fertility', href: '/clinics/ivf' },
       { label: 'Hair Transplant', href: '/clinics/hair-transplant' },
       { label: 'Orthopaedics', href: '/clinics/orthopaedics' },
+      { label: 'Ophthalmology', href: '/clinics/ophthalmology' },
+      { label: 'Gynaecology', href: '/clinics/gynaecology' },
+      { label: 'Hospitals', href: '/hospitals' },
     ],
   },
   {

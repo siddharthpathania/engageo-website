@@ -19,7 +19,6 @@ const HEADER_NAV: readonly HeaderLink[] = [
   { label: 'Hospitals', href: '/hospitals' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Case Studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ] as const;

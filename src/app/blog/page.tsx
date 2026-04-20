@@ -65,8 +65,8 @@ export default function BlogIndexPage(): JSX.Element {
             </p>
             <p className="mt-2 text-[13.5px] leading-relaxed text-subtle">
               We&rsquo;re editing the first batch now — clinic playbooks,
-              onboarding teardowns, and real recovery case studies.
-              Subscribe on WhatsApp to get the first post when it ships.
+              onboarding teardowns, and product deep-dives. Subscribe on
+              WhatsApp to get the first post when it ships.
             </p>
           </div>
         ) : (

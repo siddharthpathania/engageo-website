@@ -64,11 +64,6 @@ export const MAIN_NAV: readonly NavLink[] = [
     description: 'Three tiers from Recover to Dominate.',
   },
   {
-    label: 'Case Studies',
-    href: '/case-studies',
-    description: 'Real recovery numbers from 47+ clinics.',
-  },
-  {
     label: 'FAQ',
     href: '/#faq',
     description: 'Legality, AI detection, HMS integration.',
@@ -180,7 +175,6 @@ export const FOOTER_NAV: readonly FooterSection[] = [
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Case Studies', href: '/case-studies' },
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],

@@ -55,15 +55,6 @@ const TEAM: readonly TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/atulhooda/',
     photo: '/team/atul.jpg',
   },
-  {
-    name: 'Tanmay Mehta',
-    role: 'Co-founder & COO',
-    bio: 'Manages operations, growth, and partnerships. Published researcher on agentic AI — authored a paper on hybrid AI-automation frameworks integrating WhatsApp and Voice AI for healthcare response speed.',
-    initials: 'TM',
-    accent: 'from-premium-400 to-premium-600',
-    linkedin: 'https://www.linkedin.com/in/tanmay-mehta-79aa41320/',
-    photo: '/team/tanmay.jpg',
-  },
 ];
 
 type Value = {

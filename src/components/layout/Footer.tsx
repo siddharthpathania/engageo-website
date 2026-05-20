@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowUp, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+import { COMPANY, CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 // Email address is intentionally NOT rendered in HTML. Cloudflare Email
 // Obfuscation rewrites any visible email into /cdn-cgi/l/email-protection,
 // which crawlers see as a broken internal link. The contact form posts
@@ -218,7 +218,7 @@ export function Footer(): JSX.Element {
         <div className="mt-14 flex flex-col gap-4 border-t border-neutral-200 pt-6 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-2 text-xs text-subtle md:flex-row md:items-center md:gap-4">
             <p>
-              &copy; {year} {SITE_CONFIG.name}. All rights reserved.
+              &copy; {year} {COMPANY.legalName}. All rights reserved.
             </p>
             <span
               aria-hidden="true"

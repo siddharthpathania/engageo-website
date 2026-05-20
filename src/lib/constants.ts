@@ -132,7 +132,7 @@ export const CONTACT = {
 // ─── Company info ────────────────────────────────────────────────
 
 export const COMPANY = {
-  legalName: 'Engageo Technologies Pvt. Ltd.',
+  legalName: 'Engageo Agency LLP',
   foundingYear: 2024,
   foundingLocation: 'Pune, India',
   liveClinics: 47,

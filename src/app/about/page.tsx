@@ -55,15 +55,6 @@ const TEAM: readonly TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/atulhooda/',
     photo: '/team/atul.jpg',
   },
-  {
-    name: 'Tanmay Mehta',
-    role: 'Co-founder & COO',
-    bio: 'Manages operations, growth, and partnerships. Published researcher on agentic AI — authored a paper on hybrid AI-automation frameworks integrating WhatsApp and Voice AI for healthcare response speed.',
-    initials: 'TM',
-    accent: 'from-premium-400 to-premium-600',
-    linkedin: 'https://www.linkedin.com/in/tanmay-mehta-79aa41320/',
-    photo: '/team/tanmay.jpg',
-  },
 ];
 
 type Value = {
@@ -216,13 +207,12 @@ export default function AboutPage(): JSX.Element {
             <span className="serif-hero">consultants.</span>
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            Three founders. One from product, one from ML, one from
-            operations. All three have lived the problem they built
-            Engageo to solve.
+            Two founders. One from product, one from ML. Both have lived
+            the problem they built Engageo to solve.
           </p>
         </div>
 
-        <ul className="mt-14 grid gap-5 md:mt-18 md:grid-cols-3 lg:gap-6">
+        <ul className="mx-auto mt-14 grid max-w-2xl gap-5 md:mt-18 md:grid-cols-2 lg:gap-6">
           {TEAM.map((member) => (
             <li
               key={member.name}

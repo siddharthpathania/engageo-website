@@ -28,14 +28,6 @@ const FOUNDERS: readonly Founder[] = [
     accent: 'from-accent-400 to-accent-600',
     photo: '/team/atul.jpg',
   },
-  {
-    name: 'Tanmay Mehta',
-    role: 'COO',
-    oneLiner: 'Operations lead. Published researcher on hybrid AI-automation in healthcare.',
-    initials: 'TM',
-    accent: 'from-premium-400 to-premium-600',
-    photo: '/team/tanmay.jpg',
-  },
 ];
 
 export function FounderStrip(): JSX.Element {
@@ -48,12 +40,12 @@ export function FounderStrip(): JSX.Element {
           <span className="serif-hero">not outsiders.</span>
         </h2>
         <p className="mt-5 text-sm leading-relaxed text-subtle md:text-base">
-          Three founders who watched Indian clinics lose crores to
+          Two founders who watched Indian clinics lose crores to
           unanswered phones — and decided to fix it.
         </p>
       </div>
 
-      <ul className="mt-14 grid gap-5 md:mt-18 md:grid-cols-3 lg:gap-6">
+      <ul className="mx-auto mt-14 grid max-w-2xl gap-5 md:mt-18 md:grid-cols-2 lg:gap-6">
         {FOUNDERS.map((founder) => (
           <li
             key={founder.name}

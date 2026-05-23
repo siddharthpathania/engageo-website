@@ -34,7 +34,7 @@ export const SITE_CONFIG = {
     'hospital call answering service india',
     'patient booking automation india',
   ],
-  twitterHandle: '@engageo',
+  twitterHandle: '@EngageoAgency',
   creator: 'Engageo',
 } as const;
 
@@ -200,8 +200,9 @@ export type SocialLink = {
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/company/engageo-agency/',  handle: 'engageo-agency' },
-  { label: 'Twitter',   href: 'https://twitter.com/engageo',                     handle: '@engageo' },
+  { label: 'Twitter',   href: 'https://x.com/EngageoAgency',                      handle: '@EngageoAgency' },
   { label: 'Instagram', href: 'https://www.instagram.com/engageo.agency/',        handle: '@engageo.agency' },
+  { label: 'Pinterest', href: 'https://in.pinterest.com/engageoagency/',          handle: 'engageoagency' },
   { label: 'YouTube',   href: 'https://youtube.com/@engageo',                     handle: '@engageo' },
   { label: 'WhatsApp',  href: CONTACT.whatsappLink,                    handle: CONTACT.whatsapp },
 ] as const;

@@ -90,9 +90,15 @@ export const metadata: Metadata = {
     apple: { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
   },
   // manifest auto-injected from src/app/manifest.ts
-  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
-    verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION },
-  }),
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
+      google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    }),
+    // Pinterest domain verification ("Add HTML tag" method).
+    other: {
+      'p:domain_verify': '29e30c5fcee4735fed84d7da4c77e72e',
+    },
+  },
 };
 
 export const viewport: Viewport = {

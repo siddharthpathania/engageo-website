@@ -53,10 +53,13 @@ export function HowItWorks(): JSX.Element {
       </div>
 
       <div className="relative mt-14 md:mt-20">
-        {/* Dotted connecting line — desktop only */}
+        {/* Dotted connecting line — desktop only.
+            top-10 → vertical center of the h-20 number boxes.
+            left-10 → horizontal center of box 01 (boxes are 80px wide, left-aligned in column 1).
+            right-[calc(25%-64px)] → horizontal center of box 04 (column 4 spans the rightmost 25%, box sits left-aligned with 40px to its center). */}
         <div
           aria-hidden="true"
-          className="absolute left-0 right-0 top-1/2 hidden -translate-y-1/2 lg:block"
+          className="absolute left-10 right-[calc(25%-64px)] top-10 hidden lg:block"
         >
           <div
             className="h-px w-full"

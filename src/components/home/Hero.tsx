@@ -1,6 +1,13 @@
 'use client';
 
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from 'framer-motion';
 import { ArrowRight, Zap } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
@@ -556,24 +563,51 @@ const headlineWordVariants: Variants = {
    ────────────────────────────────────────────────────────────── */
 
 export function Hero(): JSX.Element {
+  const heroRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  /* Scroll-linked parallax — background drifts slower than scroll;
+     copy fades + lifts on the way out for a cinematic exit. */
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const bgShape1Y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const bgShape2Y = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.4, 0]);
+
   return (
-    <section className="relative flex min-h-[85vh] flex-col items-center justify-between gap-12 overflow-hidden px-5 pb-16 pt-24 md:gap-16 md:px-12 md:pb-20 md:pt-32 lg:flex-row lg:px-20 lg:min-h-[92vh]">
-      {/* Floating background shapes — subtle, GPU-only transforms */}
+    <section
+      ref={heroRef}
+      className="relative flex min-h-[85vh] flex-col items-center justify-between gap-12 overflow-hidden px-5 pb-16 pt-24 md:gap-16 md:px-12 md:pb-20 md:pt-32 lg:flex-row lg:px-20 lg:min-h-[92vh]"
+    >
+      {/* Floating background shapes — scroll-linked parallax + idle drift */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute left-[-6rem] top-24 h-64 w-64 rounded-full bg-primary-500/[0.06] blur-3xl"
-        animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
+        style={shouldReduceMotion ? undefined : { y: bgShape1Y }}
+        animate={
+          shouldReduceMotion ? undefined : { x: [0, 12, 0] }
+        }
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute right-[-4rem] top-[60%] h-72 w-72 rounded-full bg-accent-400/[0.05] blur-3xl"
-        animate={{ y: [0, 20, 0], x: [0, -14, 0] }}
+        style={shouldReduceMotion ? undefined : { y: bgShape2Y }}
+        animate={
+          shouldReduceMotion ? undefined : { x: [0, -14, 0] }
+        }
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
 
-      {/* Copy */}
-      <div className="relative z-10 mx-auto w-full max-w-2xl space-y-8 md:space-y-10 lg:mx-0">
+      {/* Copy — fades + lifts as you scroll past hero */}
+      <motion.div
+        className="relative z-10 mx-auto w-full max-w-2xl space-y-8 md:space-y-10 lg:mx-0"
+        style={shouldReduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+      >
         <div className="space-y-8">
           <motion.div
             className="section-label mb-6 text-xs md:text-sm"
@@ -712,7 +746,7 @@ export function Hero(): JSX.Element {
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Live Dashboard */}
       <motion.div

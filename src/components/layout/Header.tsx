@@ -59,14 +59,20 @@ export function Header(): JSX.Element {
             aria-label={`${SITE_CONFIG.name} — home`}
             className="group flex items-center gap-2"
           >
-            <Image
-              src="/logo.png"
-              alt=""
-              width={32}
-              height={32}
-              className="rounded-lg transition-transform group-hover:scale-105"
-              priority
-            />
+            <motion.span
+              className="inline-flex"
+              whileHover={{ rotate: [0, -8, 6, -4, 0], scale: 1.08 }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+            >
+              <Image
+                src="/logo.png"
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-lg"
+                priority
+              />
+            </motion.span>
             <span className="font-display text-[17px] font-semibold tracking-tight text-obsidian">
               {SITE_CONFIG.name}
             </span>

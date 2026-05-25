@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
@@ -20,13 +23,36 @@ export function CTASection({
 }: CTASectionProps): JSX.Element {
   return (
     <SectionWrapper id="cta" ariaLabel="Call to action" dark bleed className="py-24 md:py-32">
-      {/* Ambient gradient glow */}
+      {/* Ambient gradient glow — slow drifting motion */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-500/25 blur-3xl" />
-        <div className="absolute right-[-15%] bottom-[-20%] h-[500px] w-[500px] rounded-full bg-accent-500/15 blur-3xl" />
+        <motion.div
+          className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-500/25 blur-3xl"
+          animate={{
+            scale: [1, 1.06, 1],
+            opacity: [0.85, 1, 0.85],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-[-20%] right-[-15%] h-[500px] w-[500px] rounded-full bg-accent-500/15 blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.9, 1, 0.9],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 1.5,
+          }}
+        />
       </div>
 
       {/* Subtle grid overlay */}
@@ -60,14 +86,19 @@ export function CTASection({
               href={primaryCta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover motion-reduce:transform-none"
             >
-              {primaryCta.label}
+              {/* Shimmer sweep — runs on hover */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-primary-200/60 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
+              />
+              <span className="relative">{primaryCta.label}</span>
               <ArrowRight
                 size={16}
                 strokeWidth={2}
                 aria-hidden="true"
-                className="transition-transform group-hover:translate-x-1"
+                className="relative transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
               />
             </a>
 

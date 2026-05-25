@@ -65,7 +65,7 @@ const FEATURES: readonly Feature[] = [
 
 export function FeaturesGrid(): JSX.Element {
   return (
-    <SectionWrapper id="features" ariaLabel="Product capabilities">
+    <SectionWrapper id="features" ariaLabel="Product capabilities" animate={false}>
       <div className="mx-auto max-w-3xl text-center">
         <span className="section-label justify-center">Capabilities</span>
         <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
@@ -115,7 +115,7 @@ export function FeaturesGrid(): JSX.Element {
               <span
                 aria-hidden="true"
                 className={cn(
-                  'flex items-center justify-center rounded-xl text-primary-600 transition-all duration-300 ease-out group-hover:scale-110 group-hover:text-primary-700',
+                  'flex items-center justify-center rounded-xl text-primary-600 shadow-none transition-all duration-500 ease-out group-hover:-rotate-6 group-hover:scale-110 group-hover:text-primary-700 group-hover:shadow-glow-sm motion-reduce:transform-none motion-reduce:transition-none',
                   isHero
                     ? 'h-14 w-14 bg-primary-100/80 group-hover:bg-primary-200/80'
                     : 'h-11 w-11 bg-primary-50 group-hover:bg-primary-100',
@@ -125,6 +125,7 @@ export function FeaturesGrid(): JSX.Element {
                   size={isHero ? 28 : 22}
                   strokeWidth={1.75}
                   aria-hidden="true"
+                  className="transition-transform duration-500 ease-out group-hover:rotate-12 motion-reduce:transform-none"
                 />
               </span>
 

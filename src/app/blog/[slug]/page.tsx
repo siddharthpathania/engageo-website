@@ -265,7 +265,7 @@ export default function BlogPostPage({
       {related.length > 0 ? (
         <section
           aria-label="Related posts"
-          className="container mt-20 md:mt-28"
+          className="container mt-20 mb-20 md:mt-28 md:mb-28"
         >
           <div className="mx-auto max-w-6xl">
             <div className="flex items-end justify-between gap-4 border-b border-neutral-200 pb-5">

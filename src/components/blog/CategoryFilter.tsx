@@ -19,6 +19,7 @@ const CATEGORY_TONE: Record<BlogCategory, string> = {
   Playbook: 'text-success-700 bg-success-50 border-success-100',
   Product: 'text-primary-700 bg-primary-50 border-primary-100',
   Announcements: 'text-premium-700 bg-premium-50 border-premium-200',
+  'Research Paper': 'text-warning-700 bg-warning-50 border-warning-100',
 };
 
 /**
@@ -69,10 +70,10 @@ export function CategoryFilter({
               href={`/blog/${post.slug}`}
               className="group flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-neutral-200 bg-surface transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
             >
-              {post.coverImage ? (
+              {post.cardImage ?? post.coverImage ? (
                 <div className="relative aspect-[1200/630] overflow-hidden bg-neutral-100">
                   <Image
-                    src={post.coverImage}
+                    src={(post.cardImage ?? post.coverImage)!}
                     alt={post.title}
                     fill
                     sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 100vw"

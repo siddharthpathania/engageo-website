@@ -1,0 +1,245 @@
+---
+title: 'Inside Engageo: How We Built a Multilingual Voice AI for Indian Clinics — Now Peer-Reviewed in JETIR'
+description: 'Our paper on Engageo''s architecture, multilingual conversation design, and production engineering lessons is now published in the Journal of Emerging Technologies and Innovative Research (JETIR). Here is the plain-English version — what we built, what broke, and what we learned across 5 pilot clinics.'
+publishedAt: 2026-05-26
+author: Atul Hooda
+authorRole: CTO
+authorInitials: AH
+authorLinkedin: https://www.linkedin.com/in/atulhooda/
+category: 'Announcements'
+tags:
+  - research
+  - voice ai
+  - multilingual
+  - missed call recovery
+  - india
+draft: false
+---
+
+<BlogImage
+  src="/blog/covers/jetir-confirmation-letter.jpg"
+  alt="JETIR confirmation letter for paper JETIR2605676 — Engageo: A Multilingual Voice and Messaging System for Missed-Call Recovery in Indian Specialty Clinics"
+  caption="Confirmation of publication — JETIR, Volume 13, Issue 5, May 2026."
+  width={1241}
+  height={1754}
+/>
+
+When you build a voice AI for real Indian clinics, the part that breaks first is almost never the part you were proud of.
+
+The natural language understanding handles a patient saying *"appointment kal subah 11 baje chahiye, is that okay?"* — half Hindi, half English, with a Devanagari numeral in the middle — without breaking a sweat. The text-to-speech sounds genuinely warm. The calendar integration writes cleanly to Google Calendar in under two seconds. None of that broke.
+
+What broke was an Aunty in Pune asking us to confirm a derm appointment in Marathi, while the agent's response slipped a single Devanagari word into a Gurmukhi sentence — because the LLM thought it was being helpful. The audio came back as a garbled half-second of nothing, then silence. The patient hung up. We almost didn't notice.
+
+That bug — and the small prompt-level rule we wrote to fix it — is one of five contributions in a paper we just got published in the **Journal of Emerging Technologies and Innovative Research (JETIR), Volume 13, Issue 5, May 2026**. Co-authored with our CEO **Siddharth Pathania**, the paper documents how Engageo handles missed-call recovery across 12 Indian languages, the architecture behind it, and the lessons from our first 5 pilot clinics.
+
+> **Paper title:** *Engageo: A Multilingual Voice and Messaging System for Missed-Call Recovery in Indian Specialty Clinics*
+> **Full paper:** [JETIR2605676](http://www.jetir.org/view?paper=JETIR2605676)
+
+This post is the plain-English version. If you run a clinic, this is what's actually under the hood when an Engageo call hits your line. If you're a builder, this is what we'd tell you to copy and what we'd tell you to avoid.
+
+## The problem we set out to solve
+
+Indian specialty clinics — dental, dermatology, hair transplant, fertility, ophthalmology — share a single, brutal bottleneck: the front desk. One receptionist, one phone line, 30 to 120 calls a day, and a doctor who needs that receptionist to stop answering the phone every time a patient is in the chair.
+
+So calls go to voicemail. Voicemails get heard the next morning. By then, the patient has called the next clinic on the Google search results and booked there.
+
+The cost is not abstract. From our customer-discovery interviews:
+
+| Specialty | Value of a single high-intent inquiry |
+| --- | --- |
+| Dental implant consultation | ₹40,000 – ₹2,00,000 |
+| IVF / fertility inquiry | ₹1,50,000+ |
+| Hair transplant inquiry | ₹80,000 – ₹3,00,000 |
+| Dermatology procedure | ₹20,000 – ₹1,00,000 |
+
+A clinic missing even three of these calls a week is bleeding ₹2–4 lakhs a month. That's the leak we wanted to plug.
+
+<Callout type="warning" title="Why the existing solutions didn't fit">
+- **IVR systems** can't understand natural speech — patients hang up the moment they hear a menu.
+- **Web contact forms** require patient action and lose the urgency window.
+- **Rule-based chatbots** break the second a patient code-switches between Hindi, English, and a regional language.
+- **Developer-first voice AI platforms** assume a clinic has an engineering team. None do.
+- **Booking marketplaces** intermediate the patient relationship and don't recover calls to your existing number.
+
+We needed something that plugs into the clinic's *existing* phone number, calendar, and WhatsApp — and works in the languages patients actually speak.
+</Callout>
+
+## The Decision Lifecycle — a 6-stage recovery framework
+
+The paper's first contribution is a framework we call the **Decision Lifecycle**. It breaks "recover a missed call" into six discrete stages, each with its own input, output, and failure mode:
+
+1. **Detection** — telephony layer emits a missed-call event with metadata (caller's number, time, prior history).
+2. **Routing** — classify the call. First-time vs returning caller? Business hours vs after-hours? Multiple calls in 24 hours? Decide whether/when/how to call back.
+3. **Engagement** — outbound callback in under 8 seconds. Opens in Hindi by default; switches to any of 11 other languages on the patient's first turn.
+4. **Qualification** — the agent collects booking details. Handles ambiguity, mid-call language switches, backchannel noises (*"haan"*, *"hmm"*, *"theek hai"*), and patient interruptions. Deflects clinical questions to staff.
+5. **Conversion** — convert intent into a calendar booking with real-time availability checks, race-condition guards against double-booking, and alternative-slot suggestions when needed.
+6. **Archive** — persist the interaction, write to the clinic's call log, send WhatsApp confirmation, and seed the downstream messaging workflows.
+
+This isn't just a story we tell customers. It's how the system is actually structured. Each stage is independently logged, monitored, and recoverable. A failure in qualification (the agent gets confused) routes to a human callback. A failure in conversion (the calendar slot was stolen) prompts the agent to offer an alternative *on the same turn*. A failure in archive doesn't affect the patient but sends an internal alert.
+
+That decomposition is what lets us deploy a new clinic in **4 days** instead of months.
+
+## The multilingual layer — and the one bug nobody saw coming
+
+The agent handles 12 Indian languages: **Hindi, Hinglish, English, Punjabi, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, Marathi, Odia**. Calls open in Hindi (the most widely understood across our deployment geographies) and switch to the patient's language at the next turn boundary — *not* mid-utterance, because mid-utterance language detection cascades into failure faster than you'd think.
+
+The clever part wasn't the multilingual support itself. It was a failure mode we discovered in production that we don't believe has been previously documented.
+
+### The Mixed-Script TTS Failure
+
+When the language model generated a response containing **two non-Latin Indic scripts in the same utterance** — say, a Devanagari word inside an otherwise Gurmukhi sentence, or a Tamil word inside a Devanagari one — the text-to-speech output came back broken. Words cut in half. Wrong prosody. Missing syllables. Sometimes total silence.
+
+The same exact words synthesized in a single script produced clean audio. Mixing Latin characters with Indic (the basic Hinglish case) was fine. The failure was specifically two non-Latin Indic scripts in one response.
+
+We checked. We couldn't find this written up anywhere.
+
+### The Script Coherence Rule
+
+The fix is a prompt-level constraint, not a post-processing filter. Three rules baked directly into the language model's system prompt:
+
+1. **Latin + one Indic script per response is allowed.** (Standard Hinglish works.)
+2. **Only one Indic script per response.** A Punjabi response is Gurmukhi only, with optional Latin English words. A Tamil response is Tamil only. No mixing.
+3. **Script-switching happens only at turn boundaries** — never within a single response.
+
+Two edge cases override the rule: patient names and proper nouns (often appear in a different script and synthesize fine), and numbers/dates/times (always spoken as words in the active language — *"subah gyarah baje"* instead of *"11 AM"* — because Indic-script digit synthesis is unreliable).
+
+<PullQuote attribution="From the paper, Section 7">
+To our knowledge, the mixed-script TTS failure has not been previously documented in academic papers about Indic language voice systems, and our practical remedy (commit to one script per turn, switch only between turns) was a small change with a huge positive impact on the system's audio output.
+</PullQuote>
+
+A one-paragraph rule in a system prompt. Zero post-processing. The synthesis errors stopped overnight.
+
+## The voice pipeline — what it takes to feel human
+
+A patient picks up the callback. The next eight seconds are where most voice systems lose them. Here's what's running underneath:
+
+- **16-bit PCM audio at 8 kHz** flows in over a bi-directional WebSocket as base64-encoded JSON chunks. (16 bytes per millisecond — a number we end up using everywhere.)
+- **Voice Activity Detection** filters out ambient noise before it reaches speech-to-text, using an RMS-energy threshold calibrated against real call distributions, not lab silence.
+- **Echo handling** ignores patient audio for 500ms after the agent finishes speaking — short enough that fast responders aren't cut off, long enough that telephony's residual echo doesn't get transcribed as a phantom utterance.
+- **Barge-in with generation IDs** lets the patient interrupt and get a fresh response immediately. Every LLM call is stamped with a monotonically increasing ID; if the patient barges in before the old response arrives, we silently drop it.
+- **Backchannel filtering** suppresses *"haan"*, *"hmm"*, *"okay"*, *"ji"*, *"achha"*, *"bilkul"*, *"theek hai"* and their regional variants when the agent is mid-utterance — they signal attention, not interruption.
+- **A finite call-state machine** — `IDLE → LISTENING → PROCESSING → SPEAKING → COOLDOWN → ENDED` — makes every transition explicit and loggable. Out-of-order event handling is a huge source of bugs in voice systems; an explicit state machine kills that class.
+- **Streaming everywhere** — STT returns partial transcripts as the patient is still speaking; TTS streams audio chunks before generation completes; the inference connection stays warm across turns. Each saves hundreds of milliseconds.
+
+The total per-turn latency budget — patient stops talking to agent starts talking — is **about 2 seconds**. That's the threshold below which a conversation feels like a conversation, not a walkie-talkie.
+
+## Cultural design — what the model can't tell you
+
+Indian clinic callers are often older, often calling on behalf of an ailing relative, and always sensitive to tone. A technically-correct agent that addresses them wrong burns the relationship before the booking even happens.
+
+So we made several choices that aren't in any paper on conversational AI design:
+
+- **"Ritu" is always female, always warm, always uses the *"ji"* honorific.** Indian patients expect it. The "ji" rule is hardcoded — we don't trust the LLM to remember.
+- **Feminine self-reference is enforced** (*"main bol rahi hoon"*, *"main karti hoon"*). LLMs default to masculine forms in Hindi unless you pin them.
+- **Anchored question phrasing** beats open-ended. *"Aap kab convenient hain — subah, dopahar, ya shaam?"* gets a usable answer. *"When would you like to come?"* gets a paragraph.
+- **Maximum three options per question** — anything more and the patient forgets the first one by the time the third arrives.
+- **Acknowledgment before continuing.** *"Rahul ji, theek hai..."* before the next question. Without it, the agent feels mechanical.
+- **No medical advice. Ever.** Every clinical question routes to a human: *"Yeh sawal doctor better answer kar sakte hain, main appointment fix karti hoon."*
+- **Honest about being AI when asked directly.** Getting caught lying mid-call costs more trust than admitting upfront.
+
+These aren't AI features. They're hospitality choices. They're the difference between a system that books appointments and a system that books appointments *and* doesn't get complained about to the clinic owner.
+
+## The messaging lifecycle — what happens after the call
+
+The voice call ends. The patient relationship doesn't. WhatsApp — not SMS, not email — is where the rest of the engagement happens, because WhatsApp delivery and read rates in India are an order of magnitude better than the alternatives.
+
+Five workflows run asynchronously on a scheduling layer, each triggered by an event in the patient journey:
+
+1. **Confirmation** — sent immediately after booking. Includes patient name, date, time, clinic identification, in the language detected on the call.
+2. **Reminder** — sent 24 hours before. Restates appointment details and asks the patient to acknowledge.
+3. **Visit-day follow-up** — sent the evening after the appointment. Asks how the visit went, invites feedback.
+4. **No-show recovery** — sent the evening when an appointment is flagged as no-show. Offers to reschedule, *prevents redundant follow-ups* once the patient has replied.
+5. **Missed-call sweep** — runs every hour, finds inbound missed calls from the last two hours that did *not* result in a successful booking, sends an opener inviting the patient to continue the conversation over text.
+
+Every workflow is template-driven, multilingual, and gated by atomic database guards so a webhook redelivery or a retry doesn't double-send.
+
+## Four engineering patterns we'd ship in any production telephony system
+
+The paper formalizes four engineering disciplines that aren't novel in computer science but are absolutely necessary in real-time telephony:
+
+### 1. Race conditions in calendar booking
+
+There's a small window between *"check if 11 AM is free"* and *"write 11 AM into the calendar."* At any meaningful load, another booking can steal that slot in those few hundred milliseconds. We re-check availability *inside the same function call* immediately before the write. If it's gone, the agent suggests an alternative on the same turn. One extra round-trip prevents an entire class of double-booking complaints.
+
+### 2. Atomic guards against duplicate sends
+
+A WhatsApp confirmation should be sent **once**. Retries, scheduler reruns, webhook redeliveries — all of them will try to send it again unless you stop them at the database layer.
+
+We guard every message send with a single atomic UPDATE:
+
+```sql
+UPDATE calls
+SET whatsapp_sent = true
+WHERE id = $1 AND whatsapp_sent = false
+RETURNING *;
+```
+
+Only one transaction returns a row. The message send is conditional on the row returning. The database does the de-duplication, not the application — because the application *will* get it wrong under concurrency.
+
+### 3. Bounded concurrent-call handling
+
+Active calls consume sockets, CPU, and memory. An unbounded queue is a cascading failure waiting to happen. We cap simultaneous calls at the connection-acceptance layer and reject overflow rather than degrade everyone's call quality. Combined with graceful shutdown (drain active calls before exit), this makes behaviour under load *predictable*, which is what oncall actually cares about.
+
+### 4. Phone-number normalization
+
+Indian phone numbers arrive in every format imaginable: `+91 9876543210`, `09876543210`, `9876543210`, `+919876543210`, with spaces, hyphens, or nothing. The same patient on the same handset can produce three different strings across three calls. **Normalize at the system boundary** to canonical E.164 (`+919876543210`) and every downstream lookup, dedup, and history merge becomes one operation instead of a janitorial mess.
+
+## What worked, what didn't — across 5 pilot clinics
+
+We deployed Engageo at 5 specialty clinics across dental, dermatology, hair transplant, and fertility. The paper is a systems-and-design contribution — the quantitative outcome study is in progress and will be reported separately — but the qualitative observations were directional:
+
+**What worked:**
+
+- The 6-stage Decision Lifecycle generalized cleanly. All 5 pilots deployed without modifying it.
+- The Script Coherence Rule eliminated the previously-common synthesis errors that had been eating our manual-review time.
+- The 5-stage messaging lifecycle executed reliably in async mode across every pilot.
+
+**What didn't, yet:**
+
+- **Region-specific accents** in the top 3–4 languages caused more transcription issues than we'd predicted, occasionally producing responses that sounded "off" to the caller.
+- **Mid-call language switches** were detected correctly at turn boundaries, but conversational context didn't always transfer cleanly across the switch.
+- **Regional dialect variants of backchannels** (*"haan"*, *"achha"*) were sometimes mis-classified as new turns, causing the agent to inappropriately stop talking. We iteratively grew the backchannel list as production logs surfaced new variants.
+- **WhatsApp Business template setup** at each new clinic took longer than we'd budgeted — a clinic-side configuration cost we now plan for.
+
+**Specialty-specific patterns:**
+
+- **Hair transplant** clinics produced the widest range of caller intents (pricing → timeline → booking) — agent flexibility mattered most here.
+- **Dental and dermatology** callers were more transactional — usually booking-ready, less price-negotiation.
+- **Fertility** callers had the longest, most emotionally complex calls. The slow pacing and acknowledgment-heavy design (Section 8 of the paper) earned its keep here more than anywhere else.
+
+## Limitations — and where we go next
+
+We're being deliberate about what the paper *doesn't* claim:
+
+- **5 clinics is a small N.** The conclusions are directional, not statistically powered.
+- **Multilingual coverage is uneven.** The top four languages perform noticeably better than the bottom four — a function of speech-recognition model quality, not anything we control directly.
+- **The system relies on the patient picking up the callback.** Miss that window and the recovery moves to WhatsApp, which converts more slowly.
+- **No EMR integration today.** That means no conversational personalization based on patient history — a real ceiling for return-patient flows.
+- **Best fit is appointment-setting in defined specialties.** General practice, with its higher variability and triage complexity, is not where we'd point this system today.
+
+The roadmap from here:
+
+- **Longitudinal outcome study** across more deployments — conversion uplift, live latency, patient satisfaction.
+- **Lower-tier language quality** through better ASR models or targeted fine-tuning on Indian clinical corpora.
+- **EMR/patient-history integration** for return-patient personalization.
+- **Proactive features** — no-show probability modelling, optimal callback timing based on observed pickup rates.
+
+## Read the paper
+
+The full paper — architecture diagrams, the state machine, the messaging lifecycle figure, comparison tables, and references — is open access:
+
+- **Title:** *Engageo: A Multilingual Voice and Messaging System for Missed-Call Recovery in Indian Specialty Clinics*
+- **Authors:** Atul Hooda, Siddharth Pathania
+- **Journal:** Journal of Emerging Technologies and Innovative Research (JETIR), Vol. 13, Issue 5, May 2026
+- **Paper ID:** JETIR2605676
+- **Pages:** g639–g648
+- **URL:** [http://www.jetir.org/view?paper=JETIR2605676](http://www.jetir.org/view?paper=JETIR2605676)
+
+If you build voice or multilingual systems for India and find any of this useful — or, more usefully, if you've hit the mixed-script TTS bug yourself and solved it differently — we'd love to hear from you.
+
+<BlogCTA
+  title="Run an Indian specialty clinic? See this live on your phone line."
+  body="The system in the paper is the same system live in our 5 pilot clinics today. We run a free 20-minute audit on your missed-call data — no integration, no commitment."
+  ctaLabel="Book a free audit"
+  ctaHref="/contact?intent=audit"
+/>

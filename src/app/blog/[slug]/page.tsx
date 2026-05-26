@@ -72,6 +72,7 @@ const CATEGORY_TONE: Record<BlogCategory, string> = {
   Playbook: 'text-success-700 bg-success-50 border-success-100',
   Product: 'text-primary-700 bg-primary-50 border-primary-100',
   Announcements: 'text-premium-700 bg-premium-50 border-premium-200',
+  'Research Paper': 'text-warning-700 bg-warning-50 border-warning-100',
 };
 
 export default function BlogPostPage({
@@ -187,16 +188,32 @@ export default function BlogPostPage({
 
         {post.coverImage ? (
           <div className="mx-auto mt-10 max-w-5xl md:mt-14">
-            <div className="relative aspect-[1200/630] overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                priority
-                sizes="(min-width: 1024px) 960px, 100vw"
-                className="object-cover"
-              />
-            </div>
+            {post.coverWidth && post.coverHeight ? (
+              /* Natural-aspect render — no crop. Used when the post supplies
+                 explicit pixel dimensions (e.g. a portrait scanned letter). */
+              <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  width={post.coverWidth}
+                  height={post.coverHeight}
+                  priority
+                  sizes="(min-width: 1024px) 960px, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
+            ) : (
+              <div className="relative aspect-[1200/630] overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 960px, 100vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            )}
           </div>
         ) : null}
       </header>

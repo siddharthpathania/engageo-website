@@ -1,3 +1,6 @@
+'use client';
+
+import { MotionConfig, motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowRight,
   type LucideIcon,
@@ -5,6 +8,7 @@ import {
   PhoneOff,
   Users,
 } from 'lucide-react';
+import { useRef } from 'react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
@@ -38,16 +42,22 @@ const PAIN_POINTS: readonly PainPoint[] = [
   },
 ];
 
+/* Scroll-driven reveal — each element occupies a slice of the header's
+   scroll-progress window, so the more the user scrolls down, the more
+   of the composition appears. The full reveal completes by the time
+   the header's center reaches the viewport center. */
+
 export function ProblemSection(): JSX.Element {
   return (
-    <SectionWrapper id="problem" ariaLabel="The missed call problem" dark>
-      {/* Top stripe bar */}
-      <div className="stripe-bar absolute inset-x-0 top-0">
-        <span />
-        <span />
-        <span />
-      </div>
+    <MotionConfig reducedMotion="never">
+      <ProblemSectionInner />
+    </MotionConfig>
+  );
+}
 
+function ProblemSectionInner(): JSX.Element {
+  return (
+    <SectionWrapper id="problem" ariaLabel="The missed call problem" dark>
       {/* Subtle grid texture */}
       <div
         aria-hidden="true"
@@ -59,25 +69,8 @@ export function ProblemSection(): JSX.Element {
         }}
       />
 
-      <div className="relative pt-4">
-        <div className="max-w-3xl">
-          <span className="inline-flex items-center rounded-full border border-neutral-700 bg-neutral-800/60 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-neutral-300">
-            The Leak
-          </span>
-          <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-surface md:text-5xl lg:text-[56px]">
-            Your clinic is losing{' '}
-            <span className="serif-hero-neutral text-primary-400">
-              ₹2–4 Lakhs
-            </span>{' '}
-            every month. Here&rsquo;s where.
-          </h2>
-          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-neutral-400 md:text-base">
-            Most clinic owners know they miss calls. Almost none know how
-            much it actually costs. These are the four gaps bleeding revenue
-            every single day — and the patients walking to the clinic
-            down the road.
-          </p>
-        </div>
+      <div className="relative">
+        <ScrollDrivenHeader />
 
         {/* Timeline */}
         <div className="relative mt-12 md:mt-16">
@@ -146,5 +139,132 @@ export function ProblemSection(): JSX.Element {
         </div>
       </div>
     </SectionWrapper>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Scroll-driven header — each element's opacity/transform is tied
+   to a slice of the header's scroll-progress window. The composition
+   "draws itself" as the user scrolls into the section.
+   ────────────────────────────────────────────────────────────── */
+
+function ScrollDrivenHeader(): JSX.Element {
+  const ref = useRef<HTMLDivElement>(null);
+
+  /* offset: progress = 0 when the header's top is at the viewport bottom;
+     progress = 1 when the header's bottom reaches the viewport top.
+     A full viewport-pass gives the reveal room to breathe so each element
+     lingers as the user scrolls. */
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  /* Each element gets its own [start, end] slice of progress.
+     Sliding slices overlap slightly so the reveal feels continuous,
+     not stepped. */
+  const stripeOpacity = useTransform(scrollYProgress, [0.0, 0.15], [0, 1]);
+  const stripeScaleX = useTransform(scrollYProgress, [0.0, 0.15], [0, 1]);
+
+  const dripLineOpacity = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
+  const dripLineScaleY = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
+
+  const dripBlobOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+  const dripBlobScale = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+
+  const pillOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
+  const pillY = useTransform(scrollYProgress, [0.28, 0.42], [-24, 0]);
+  const pillScale = useTransform(scrollYProgress, [0.28, 0.42], [0.7, 1]);
+
+  const headlineOpacity = useTransform(scrollYProgress, [0.38, 0.6], [0, 1]);
+  const headlineY = useTransform(scrollYProgress, [0.38, 0.6], [40, 0]);
+
+  const moneyOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
+  const moneyScale = useTransform(scrollYProgress, [0.5, 0.7], [0.6, 1]);
+
+  const moneyFlashOpacity = useTransform(
+    scrollYProgress,
+    [0.5, 0.65, 0.8],
+    [0, 0.9, 0.6],
+  );
+  const moneyFlashScale = useTransform(scrollYProgress, [0.5, 0.8], [0.4, 2.6]);
+
+  const subtitleOpacity = useTransform(scrollYProgress, [0.65, 0.85], [0, 1]);
+  const subtitleY = useTransform(scrollYProgress, [0.65, 0.85], [20, 0]);
+
+  return (
+    <div
+      ref={ref}
+      className="mx-auto flex max-w-3xl flex-col items-center text-center"
+    >
+      {/* Stripe bar — scales horizontally from center as you scroll in */}
+      <motion.div
+        className="stripe-bar w-full origin-center"
+        style={{ opacity: stripeOpacity, scaleX: stripeScaleX }}
+      >
+        <span />
+        <span />
+      </motion.div>
+
+      {/* Drip — vertical line + droplet under the stripe */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none flex flex-col items-center"
+      >
+        <motion.span
+          className="block h-12 w-px origin-top bg-gradient-to-b from-primary-400 to-primary-400/0"
+          style={{ opacity: dripLineOpacity, scaleY: dripLineScaleY }}
+        />
+        <motion.span
+          className="-mt-1 block h-2 w-2 rounded-full bg-primary-400 shadow-[0_0_16px_rgba(107,128,255,0.8)]"
+          style={{ opacity: dripBlobOpacity, scale: dripBlobScale }}
+        />
+      </div>
+
+      {/* "THE LEAK" pill */}
+      <motion.span
+        className="mt-2 inline-flex items-center rounded-full border border-neutral-700 bg-neutral-800/60 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-neutral-300"
+        style={{ opacity: pillOpacity, y: pillY, scale: pillScale }}
+      >
+        The Leak
+      </motion.span>
+
+      {/* Headline — slides up; money phrase gets the showcase */}
+      <motion.h2
+        className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-surface md:text-5xl lg:text-[56px]"
+        style={{ opacity: headlineOpacity, y: headlineY }}
+      >
+        Your clinic is losing{' '}
+        <span className="relative inline-block">
+          <motion.span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary-500/50 blur-2xl"
+            style={{ opacity: moneyFlashOpacity, scale: moneyFlashScale }}
+          />
+          <motion.span
+            className="serif-hero-neutral inline-block text-primary-400"
+            style={{
+              opacity: moneyOpacity,
+              scale: moneyScale,
+              willChange: 'transform',
+            }}
+          >
+            ₹2–4 Lakhs
+          </motion.span>
+        </span>{' '}
+        every month. Here&rsquo;s where.
+      </motion.h2>
+
+      {/* Subtitle */}
+      <motion.p
+        className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-neutral-400 md:text-base"
+        style={{ opacity: subtitleOpacity, y: subtitleY }}
+      >
+        Most clinic owners know they miss calls. Almost none know how
+        much it actually costs. These are the four gaps bleeding revenue
+        every single day — and the patients walking to the clinic
+        down the road.
+      </motion.p>
+    </div>
   );
 }

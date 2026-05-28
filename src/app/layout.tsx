@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { GoogleAnalytics } from '@/components/shared/Analytics';
+import { LeadPopup } from '@/components/shared/LeadPopup';
 import { ReducedMotionProvider } from '@/components/shared/ReducedMotionProvider';
 import { ScrollProgress } from '@/components/shared/ScrollProgress';
 import { SkipLink } from '@/components/shared/SkipLink';
@@ -132,6 +133,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ReducedMotionProvider>
+        <LeadPopup />
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics />

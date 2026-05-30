@@ -168,7 +168,7 @@ export const FOOTER_NAV: readonly FooterSection[] = [
       { label: 'Orthopaedics', href: '/clinics/orthopaedics' },
       { label: 'Ophthalmology', href: '/clinics/ophthalmology' },
       { label: 'Gynaecology', href: '/clinics/gynaecology' },
-      { label: 'Hospitals', href: '/hospitals' },
+      { label: 'Hospitals', href: '/clinics#hospitals-intro' },
     ],
   },
   {

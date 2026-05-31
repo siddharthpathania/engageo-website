@@ -8,12 +8,10 @@ const SESSION_KEY = 'engageo:lead-popup-shown';
 const SHOW_DELAY_MS = 3000;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_REGEX = /^[+]?[\d\s\-()]{8,16}$/;
 
 type FormState = {
   name: string;
   clinic: string;
-  phone: string;
   email: string;
   state: string;
   country: string;
@@ -24,7 +22,6 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 const INITIAL: FormState = {
   name: '',
   clinic: '',
-  phone: '',
   email: '',
   state: '',
   country: '',
@@ -34,8 +31,6 @@ function validate(v: FormState): FormErrors {
   const errors: FormErrors = {};
   if (!v.name.trim() || v.name.trim().length < 2) errors.name = 'Please enter your name.';
   if (!v.clinic.trim() || v.clinic.trim().length < 2) errors.clinic = 'Please enter your clinic or hospital name.';
-  if (!v.phone.trim()) errors.phone = 'Phone is required.';
-  else if (!PHONE_REGEX.test(v.phone.trim())) errors.phone = 'Enter a valid phone number.';
   if (!v.email.trim()) errors.email = 'Email is required.';
   else if (!EMAIL_REGEX.test(v.email.trim())) errors.email = 'Enter a valid email.';
   if (!v.state.trim() || v.state.trim().length < 2) errors.state = 'Please enter your state.';
@@ -101,7 +96,6 @@ export function LeadPopup(): JSX.Element | null {
     setTouched({
       name: true,
       clinic: true,
-      phone: true,
       email: true,
       state: true,
       country: true,
@@ -212,30 +206,17 @@ export function LeadPopup(): JSX.Element | null {
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  label="Phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  value={values.phone}
-                  error={touched.phone ? errors.phone : undefined}
-                  onChange={(v) => setField('phone', v)}
-                  onBlur={() => handleBlur('phone')}
-                  placeholder="+91 98765 43210"
-                />
-                <Field
-                  label="Email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={values.email}
-                  error={touched.email ? errors.email : undefined}
-                  onChange={(v) => setField('email', v)}
-                  onBlur={() => handleBlur('email')}
-                  placeholder="priya@clinic.com"
-                />
-              </div>
+              <Field
+                label="Email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                value={values.email}
+                error={touched.email ? errors.email : undefined}
+                onChange={(v) => setField('email', v)}
+                onBlur={() => handleBlur('email')}
+                placeholder="priya@clinic.com"
+              />
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field

@@ -14,9 +14,9 @@ type HeaderLink = { label: string; href: string };
 
 const HEADER_NAV: readonly HeaderLink[] = [
   { label: 'Home', href: '/' },
+  { label: 'Try Live Demo', href: '/experience-engageo' },
   { label: 'Services', href: '/services' },
-  { label: 'Clinics', href: '/clinics' },
-  { label: 'Hospitals', href: '/hospitals' },
+  { label: 'Clinics & Hospitals', href: '/clinics' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },

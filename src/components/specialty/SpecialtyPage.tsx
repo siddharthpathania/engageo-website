@@ -27,18 +27,14 @@ const TRUST: readonly Trust[] = [
 
 export type SpecialtyPageProps = {
   specialty: Specialty;
-  /** Base path for the URL — /clinics for clinical specialties, /hospitals for hospital page. */
-  basePath: '/clinics' | '/hospitals';
+  basePath: '/clinics';
 };
 
 export function SpecialtyPage({
   specialty,
   basePath,
 }: SpecialtyPageProps): JSX.Element {
-  const canonical =
-    basePath === '/hospitals'
-      ? '/hospitals'
-      : `${basePath}/${specialty.slug}`;
+  const canonical = `${basePath}/${specialty.slug}`;
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -50,17 +46,11 @@ export function SpecialtyPage({
     })),
   };
 
-  const breadcrumbItems =
-    basePath === '/hospitals'
-      ? [
-          { name: 'Home', href: '/' },
-          { name: 'Hospitals', href: '/hospitals' },
-        ]
-      : [
-          { name: 'Home', href: '/' },
-          { name: 'Clinics', href: '/clinics' },
-          { name: specialty.shortLabel, href: canonical },
-        ];
+  const breadcrumbItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Clinics', href: '/clinics' },
+    { name: specialty.shortLabel, href: canonical },
+  ];
 
   return (
     <>

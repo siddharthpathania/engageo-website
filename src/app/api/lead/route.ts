@@ -14,13 +14,11 @@ function isRateLimited(ip: string): boolean {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_RE = /^[+]?[\d\s\-()]{8,16}$/;
 
 type LeadBody = {
   name: string;
   clinic: string;
   email: string;
-  phone: string;
   state: string;
   country: string;
 };
@@ -35,18 +33,16 @@ function validateBody(
   const name = String(b.name ?? '').trim();
   const clinic = String(b.clinic ?? '').trim();
   const email = String(b.email ?? '').trim();
-  const phone = String(b.phone ?? '').trim();
   const state = String(b.state ?? '').trim();
   const country = String(b.country ?? '').trim();
 
   if (!name || name.length < 2) return { ok: false, error: 'Name is required (2+ chars).' };
   if (!clinic || clinic.length < 2) return { ok: false, error: 'Clinic or hospital name is required.' };
   if (!EMAIL_RE.test(email)) return { ok: false, error: 'Valid email is required.' };
-  if (!PHONE_RE.test(phone)) return { ok: false, error: 'Valid phone number is required.' };
   if (!state || state.length < 2) return { ok: false, error: 'State is required.' };
   if (!country || country.length < 2) return { ok: false, error: 'Country is required.' };
 
-  return { ok: true, data: { name, clinic, email, phone, state, country } };
+  return { ok: true, data: { name, clinic, email, state, country } };
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -116,7 +112,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             <table style="border-collapse:collapse;width:100%;max-width:600px;">
               <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Name</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(data.name)}</td></tr>
               <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Clinic / Hospital</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(data.clinic)}</td></tr>
-              <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Phone</td><td style="padding:8px;border-bottom:1px solid #eee;"><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
               <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Email</td><td style="padding:8px;border-bottom:1px solid #eee;"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
               <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">State</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(data.state)}</td></tr>
               <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Country</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(data.country)}</td></tr>

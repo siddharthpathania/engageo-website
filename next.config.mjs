@@ -71,6 +71,11 @@ const nextConfig = {
         destination: '/#faq',
         permanent: true,
       },
+      {
+        source: '/hospitals',
+        destination: '/clinics#hospitals-intro',
+        permanent: true,
+      },
     ];
   },
 

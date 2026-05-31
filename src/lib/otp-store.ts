@@ -21,6 +21,7 @@
  * stop silent in-memory state in serverless.
  */
 
+import { randomInt } from 'crypto';
 import { Redis } from '@upstash/redis';
 
 const OTP_TTL_SECONDS = 5 * 60;
@@ -142,6 +143,16 @@ function memDeleteNumber(key: string): void {
    OTP operations
    ────────────────────────────────────────────────────────────── */
 
+/**
+ * Issue a fresh OTP, overwriting any prior record for this phone. This is
+ * also the **resend** entry point — callers don't get a separate `resendOtp`;
+ * they just call `setOtp` again with a newly-generated code.
+ *
+ * Critical: the attempts counter is reset to `0` here (not just left to
+ * expire with the previous OTP's TTL). Without this, a user who fat-fingers
+ * the code 5× and then hits "resend" would be instantly locked out on the
+ * new code by a stale counter — silent conversion killer on the demo funnel.
+ */
 export async function setOtp(
   phone: string,
   code: string,
@@ -152,6 +163,7 @@ export async function setOtp(
   if (redis) {
     await Promise.all([
       redis.set(OTP_KEY(phone), json, { ex: OTP_TTL_SECONDS }),
+      // SET overwrites — fresh `0` with TTL, no stale attempts from a prior cycle.
       redis.set(ATTEMPTS_KEY(phone), 0, { ex: OTP_TTL_SECONDS }),
     ]);
     return;
@@ -257,8 +269,18 @@ export async function getAttribution(
    OTP code generation (no I/O)
    ────────────────────────────────────────────────────────────── */
 
+/**
+ * Generate a 6-digit OTP using a CSPRNG. The atomic INCR counter only
+ * defeats brute force if codes are unpredictable — `Math.random()` is a
+ * Mulberry32-grade PRNG, fine for animation jitter, useless for a
+ * security control.
+ *
+ * `randomInt(100_000, 1_000_000)` returns an integer in [100000, 999999]
+ * inclusive — exactly six digits, no leading-zero truncation when
+ * stringified.
+ */
 export function generateOtp(): string {
-  return String(Math.floor(100000 + Math.random() * 900000));
+  return String(randomInt(100_000, 1_000_000));
 }
 
 /** Used by callers (rate limiter, route) to know if we have real Redis. */

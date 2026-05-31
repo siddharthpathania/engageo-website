@@ -218,6 +218,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // StatusCallback → DemoCompleted, Cal.com booking → Schedule) can stitch
   // back to the browser session in PR2. Browser cookies fbc/fbp are set by
   // the Pixel — empty here until PR2 ships the Pixel.
+  //
+  // Best-effort: a tracking write failure never breaks the user-facing OTP
+  // flow. Worst case we lose attribution for one lead; locking them out of
+  // the demo because Redis hiccupped on a side write would be worse.
   const externalId = externalIdFor(lead.phone);
   if (externalId) {
     const fbc = request.cookies.get('_fbc')?.value;
@@ -233,7 +237,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       ...attribution,
       capturedAt: Date.now(),
     };
-    await setAttribution(externalId, attr);
+    try {
+      await setAttribution(externalId, attr);
+    } catch (err) {
+      console.error('[otp/send] Attribution write failed (continuing):', err);
+    }
   }
 
   const sms = await sendExotelSms(lead.phone, code);

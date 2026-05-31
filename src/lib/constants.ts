@@ -75,7 +75,7 @@ export const MAIN_NAV: readonly NavLink[] = [
 export const CTA = {
   audit: {
     label: 'See What You\u2019re Losing \u2014 Free Audit',
-    href: 'https://calendly.com/engageoagency',
+    href: 'https://cal.com/engageo',
     shortLabel: 'Free Audit',
   },
   demo: {
@@ -90,12 +90,12 @@ export const CTA = {
   },
   book: {
     label: 'Book a 20-min Call',
-    href: 'https://calendly.com/engageoagency',
+    href: 'https://cal.com/engageo',
     shortLabel: 'Book Call',
   },
-  calendly: {
+  cal: {
     label: 'Book a Strategy Call',
-    href: 'https://calendly.com/engageoagency',
+    href: 'https://cal.com/engageo',
     shortLabel: 'Book Call',
   },
 } as const;

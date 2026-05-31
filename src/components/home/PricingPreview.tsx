@@ -50,7 +50,7 @@ const TIERS: readonly Tier[] = [
       'Custom clinic knowledge training',
     ],
     ctaLabel: 'Book a Strategy Call',
-    ctaHref: 'https://calendly.com/engageoagency',
+    ctaHref: 'https://cal.com/engageo',
     featured: true,
   },
   {

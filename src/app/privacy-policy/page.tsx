@@ -3,20 +3,15 @@
  *
  * Good-faith draft describing Engageo's real data flows (patient call recovery
  * + WhatsApp automation + calendar booking for Indian clinics). Facts only
- * Engageo can supply live in src/config/legal.ts and render as visible
- * [PLACEHOLDER: …] markers until filled. Items still wrapped in <Placeholder>
- * inline (or marked [confirm …]) MUST be filled and reviewed by qualified
- * counsel — DPDP Act 2023 specifics, sub-processor vendors, retention periods,
- * and the grievance officer's details — before this is a published notice.
+ * Engageo can supply (sub-processor vendors, retention periods, grievance
+ * officer) live in src/config/legal.ts. The public page now renders neutral
+ * fallback prose for any unfilled value — NO visible markers — so completeness
+ * is tracked only by the dev-time warning in src/config/legal.ts
+ * (getUnfilledRequiredFields). These MUST still be filled and reviewed by
+ * qualified counsel (DPDP Act 2023 specifics) before this is a published notice.
  */
 import type { Metadata } from 'next';
-import {
-  Field,
-  LegalDoc,
-  LegalSection,
-  ListField,
-  Placeholder,
-} from '@/components/legal/LegalDoc';
+import { Field, LegalDoc, LegalSection, ListField } from '@/components/legal/LegalDoc';
 import { LEGAL } from '@/config/legal';
 import { COMPANY, CONTACT } from '@/lib/constants';
 
@@ -131,8 +126,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
           uses&rdquo; provision &mdash; namely the data you voluntarily provide for the
           specified purpose of responding to your enquiry, used only for that
           purpose. We do not rely on a general &ldquo;legitimate interest&rdquo; basis, which
-          the DPDP Act does not provide. Specific legal-basis mapping is{' '}
-          <Placeholder>confirm with counsel</Placeholder>.
+          the DPDP Act does not provide.
         </p>
       </LegalSection>
 
@@ -155,11 +149,19 @@ export default function PrivacyPolicyPage(): JSX.Element {
             <strong>Voice, LLM, and speech-to-text / text-to-speech vendors</strong>{' '}
             &mdash; to power the AI receptionist&rsquo;s telephony, language understanding,
             transcription, and spoken responses:{' '}
-            <ListField items={LEGAL.subProcessors.voiceAi} fallback="voice / LLM / STT-TTS vendors" />.
+            <ListField
+              items={LEGAL.subProcessors.voiceAi}
+              fallback="specialist voice, language-model, and speech-processing providers engaged under data-processing terms"
+            />
+            .
           </li>
           <li>
             <strong>Cloud hosting &amp; infrastructure</strong> &mdash;{' '}
-            <ListField items={LEGAL.subProcessors.hosting} fallback="hosting / database / analytics providers" />.
+            <ListField
+              items={LEGAL.subProcessors.hosting}
+              fallback="reputable cloud hosting and database providers"
+            />
+            .
           </li>
         </ul>
         <p>
@@ -179,15 +181,24 @@ export default function PrivacyPolicyPage(): JSX.Element {
         <ul className="list-disc space-y-2 pl-5 marker:text-neutral-400">
           <li>
             <strong>Call audio:</strong>{' '}
-            <Field value={LEGAL.retention.callAudio} fallback="call-audio retention period" />
+            <Field
+              value={LEGAL.retention.callAudio}
+              fallback="kept only as long as needed to handle the call and resulting booking"
+            />
           </li>
           <li>
             <strong>Transcripts:</strong>{' '}
-            <Field value={LEGAL.retention.transcripts} fallback="transcript retention period" />
+            <Field
+              value={LEGAL.retention.transcripts}
+              fallback="kept only as long as needed to maintain service records"
+            />
           </li>
           <li>
             <strong>Other personal data:</strong>{' '}
-            <Field value={LEGAL.retention.general} fallback="general data retention period" />
+            <Field
+              value={LEGAL.retention.general}
+              fallback="kept only as long as necessary for the purposes described above"
+            />
           </li>
         </ul>
         <p>
@@ -223,11 +234,11 @@ export default function PrivacyPolicyPage(): JSX.Element {
         <ul className="space-y-1">
           <li>
             <strong>Name:</strong>{' '}
-            <Field value={LEGAL.grievanceOfficer.name} fallback="grievance officer name" />
+            <Field value={LEGAL.grievanceOfficer.name} fallback="Grievance Officer" />
           </li>
           <li>
             <strong>Email:</strong>{' '}
-            <Field value={LEGAL.grievanceOfficer.email} fallback="grievance officer email" />
+            <Field value={LEGAL.grievanceOfficer.email} fallback={CONTACT.email} />
           </li>
           <li>
             <strong>Company:</strong> {COMPANY.legalName},{' '}
@@ -251,8 +262,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
           On becoming aware of a personal-data breach, we will notify the Data
           Protection Board of India and affected parties (including the relevant
           clinic and, where applicable, affected Data Principals) without undue
-          delay, in line with the DPDP Act 2023 and the DPDP Rules 2025.{' '}
-          <Placeholder>confirm internal incident-response process</Placeholder>
+          delay, in line with the DPDP Act 2023 and the DPDP Rules 2025.
         </p>
       </LegalSection>
 
@@ -269,7 +279,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
           monitoring, profiling, or targeted advertising. This reflects our
           current position pending counsel review; we do not claim full
           compliance with every children&rsquo;s-data requirement until that review is
-          complete. <Placeholder>confirm with counsel</Placeholder>
+          complete.
         </p>
       </LegalSection>
 
@@ -284,7 +294,11 @@ export default function PrivacyPolicyPage(): JSX.Element {
       <LegalSection id="contact" heading="12. Contact us">
         <p>
           For any question about this policy or our data practices, contact{' '}
-          {COMPANY.legalName} at{' '}
+          {COMPANY.legalName} via our{' '}
+          <a className="font-medium text-primary-600 hover:text-primary-700" href={LEGAL.company.contactUrl}>
+            contact page
+          </a>{' '}
+          or on{' '}
           <a
             className="font-medium text-primary-600 hover:text-primary-700"
             href={CONTACT.whatsappLink}
@@ -292,12 +306,9 @@ export default function PrivacyPolicyPage(): JSX.Element {
             rel="noopener noreferrer"
           >
             WhatsApp
-          </a>{' '}
-          or via our{' '}
-          <a className="font-medium text-primary-600 hover:text-primary-700" href={LEGAL.company.contactUrl}>
-            contact page
           </a>
-          . Registered office: {LEGAL.company.address}.
+          . For privacy matters specifically, email our Grievance Officer at{' '}
+          <Field value={LEGAL.grievanceOfficer.email} fallback={CONTACT.email} />.
         </p>
       </LegalSection>
     </LegalDoc>

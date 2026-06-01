@@ -340,7 +340,7 @@ export default function AboutPage(): JSX.Element {
                   <div className="flex-1 bg-[#138808]" />
                 </div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-obsidian/70">
-                  Made in Pune · HQ in Viman Nagar
+                  Made in Pune · Built for Indian clinics
                 </p>
               </div>
             </div>

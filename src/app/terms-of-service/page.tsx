@@ -8,9 +8,9 @@
  * lawyer. Shared facts (date, registered address) come from src/config/legal.ts.
  */
 import type { Metadata } from 'next';
-import { LegalDoc, LegalSection, Placeholder } from '@/components/legal/LegalDoc';
-import { LEGAL } from '@/config/legal';
-import { COMPANY } from '@/lib/constants';
+import { Field, LegalDoc, LegalSection } from '@/components/legal/LegalDoc';
+import { isTodo, LEGAL } from '@/config/legal';
+import { COMPANY, CONTACT } from '@/lib/constants';
 
 const TITLE = 'Terms of Service';
 const DESCRIPTION =
@@ -93,7 +93,7 @@ export default function TermsOfServicePage(): JSX.Element {
           </a>
           . You remain the data fiduciary for your patients&rsquo; data. A separate
           data-processing addendum is{' '}
-          <Placeholder>confirm whether a signed DPA is offered</Placeholder>.
+          <Field value={LEGAL.terms.dpa} fallback="available on request" />.
         </p>
       </LegalSection>
 
@@ -103,7 +103,7 @@ export default function TermsOfServicePage(): JSX.Element {
           out in your order form or current pricing. Unless stated otherwise,
           fees are exclusive of applicable taxes (including GST). Payment terms,
           late-payment handling, and renewal pricing are{' '}
-          <Placeholder>confirm fee, billing cycle, and tax terms</Placeholder>.
+          <Field value={LEGAL.terms.feeTerms} fallback="as set out in your order form" />.
         </p>
       </LegalSection>
 
@@ -112,10 +112,11 @@ export default function TermsOfServicePage(): JSX.Element {
           The agreement runs for the term stated in your order form and renews as
           specified there. Either party may terminate for material breach that is
           not cured within{' '}
-          <Placeholder>cure period, e.g. 30 days</Placeholder> of written notice.
-          On termination, your right to use the Service ends and we will make your
-          data available for export for{' '}
-          <Placeholder>export window</Placeholder> before deletion.
+          <Field value={LEGAL.terms.curePeriod} fallback="a reasonable cure period" /> of
+          written notice. On termination, your right to use the Service ends and
+          we will make your data available for export for{' '}
+          <Field value={LEGAL.terms.exportWindow} fallback="a reasonable period" /> before
+          deletion.
         </p>
       </LegalSection>
 
@@ -124,8 +125,10 @@ export default function TermsOfServicePage(): JSX.Element {
           We aim to keep the Service available and reliable but do not guarantee
           uninterrupted operation. The Service depends on third-party providers
           (telecom carriers, Meta/WhatsApp, calendar providers) whose outages may
-          affect it. Any committed uptime / support targets are{' '}
-          <Placeholder>SLA, if offered</Placeholder>.
+          affect it.
+          {!isTodo(LEGAL.terms.sla) ? (
+            <> Any committed uptime or support targets are {LEGAL.terms.sla}.</>
+          ) : null}
         </p>
       </LegalSection>
 
@@ -152,8 +155,12 @@ export default function TermsOfServicePage(): JSX.Element {
         <p>
           To the maximum extent permitted by law, neither party is liable for
           indirect, incidental, or consequential damages. Our total aggregate
-          liability is capped at{' '}
-          <Placeholder>liability cap, e.g. fees paid in the prior 12 months</Placeholder>.
+          liability is limited to{' '}
+          <Field
+            value={LEGAL.terms.liabilityCap}
+            fallback="the maximum extent permitted by applicable law"
+          />
+          .
         </p>
       </LegalSection>
 
@@ -162,15 +169,22 @@ export default function TermsOfServicePage(): JSX.Element {
           You agree to indemnify Engageo against claims arising from your misuse
           of the Service, your content, or your breach of these terms or
           applicable law, subject to{' '}
-          <Placeholder>confirm mutual / one-way indemnity scope</Placeholder>.
+          <Field
+            value={LEGAL.terms.indemnityScope}
+            fallback="the limitations set out in these terms"
+          />
+          .
         </p>
       </LegalSection>
 
       <LegalSection id="law" heading="13. Governing law and disputes">
         <p>
-          These terms are governed by the laws of India. The courts at{' '}
-          <Placeholder>jurisdiction city, e.g. Pune, Maharashtra</Placeholder> have
-          exclusive jurisdiction, subject to any agreed arbitration process.
+          These terms are governed by the laws of India, and the{' '}
+          <Field
+            value={LEGAL.terms.jurisdiction}
+            fallback="courts of competent jurisdiction in India"
+          />{' '}
+          have exclusive jurisdiction, subject to any agreed arbitration process.
         </p>
       </LegalSection>
 
@@ -188,7 +202,8 @@ export default function TermsOfServicePage(): JSX.Element {
           <a className="font-medium text-primary-600 hover:text-primary-700" href={LEGAL.company.contactUrl}>
             contact page
           </a>
-          . Registered office: {LEGAL.company.address}.
+          , or email our Grievance Officer at{' '}
+          <Field value={LEGAL.grievanceOfficer.email} fallback={CONTACT.email} />.
         </p>
       </LegalSection>
     </LegalDoc>

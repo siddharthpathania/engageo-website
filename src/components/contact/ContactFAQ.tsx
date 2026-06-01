@@ -43,7 +43,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'How do I book a demo or get a free missed-call audit?',
-    a: 'The fastest route is WhatsApp — tap the WhatsApp card above and we reply in under 8 seconds during IST working hours (Mon\u2013Sat, 10am\u20137pm). You can also pick a 20-minute slot on our Calendly for a live recovery walkthrough, or fill the form on this page and we will reply by email and WhatsApp within 4 working hours.',
+    a: 'The fastest route is WhatsApp — tap the WhatsApp card above and we reply in under 8 seconds during IST working hours (Mon\u2013Sat, 10am\u20137pm). You can also pick a 20-minute slot on our Cal.com page for a live recovery walkthrough, or fill the form on this page and we will reply by email and WhatsApp within 4 working hours.',
   },
 ];
 

@@ -132,7 +132,7 @@ export default function ContactPage(): JSX.Element {
               </ul>
             </div>
 
-            {/* Calendly embed placeholder */}
+            {/* Cal.com embed placeholder */}
             <div className="rounded-3xl border border-neutral-200 bg-gradient-to-br from-primary-50 via-surface to-accent-50/40 p-6 md:p-7">
               <div className="flex items-center gap-3">
                 <span
@@ -156,13 +156,13 @@ export default function ContactPage(): JSX.Element {
                 — then answer whatever you ask.
               </p>
 
-              {/* Calendly placeholder */}
+              {/* Cal.com placeholder */}
               <div
-                aria-label="Calendly booking widget"
+                aria-label="Cal.com booking widget"
                 className="mt-5 flex min-h-[180px] flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-primary-200 bg-surface/60 p-6 text-center"
               >
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-600">
-                  Calendly embed
+                  Cal.com embed
                 </span>
                 <p className="text-[12px] leading-relaxed text-subtle">
                   Calendar picker loads here. Meanwhile, book via

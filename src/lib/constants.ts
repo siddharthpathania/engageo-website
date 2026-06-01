@@ -147,6 +147,17 @@ export type FooterSection = {
   links: readonly NavLink[];
 };
 
+/**
+ * Legal pages that exist as real, server-reachable routes (each returns 200).
+ * Rendered in the footer bottom bar and reused in FOOTER_NAV. Order matches
+ * the footer's "Terms of Service | Security | Privacy Policy" display.
+ */
+export const LEGAL_LINKS: readonly NavLink[] = [
+  { label: 'Terms of Service', href: '/terms-of-service' },
+  { label: 'Security', href: '/security' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+] as const;
+
 export const FOOTER_NAV: readonly FooterSection[] = [
   {
     title: 'Product',
@@ -181,12 +192,7 @@ export const FOOTER_NAV: readonly FooterSection[] = [
   },
   {
     title: 'Legal',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Refund Policy', href: '/refund' },
-      { label: 'Data Processing', href: '/dpa' },
-    ],
+    links: [...LEGAL_LINKS],
   },
 ] as const;
 

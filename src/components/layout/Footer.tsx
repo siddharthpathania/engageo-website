@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowUp, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { COMPANY, CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+import { COMPANY, CONTACT, LEGAL_LINKS, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 // Email address is intentionally NOT rendered in HTML. Cloudflare Email
 // Obfuscation rewrites any visible email into /cdn-cgi/l/email-protection,
 // which crawlers see as a broken internal link. The contact form posts
@@ -245,8 +245,30 @@ export function Footer(): JSX.Element {
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
-<button
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-5">
+            <nav
+              aria-label="Legal"
+              className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-subtle"
+            >
+              {LEGAL_LINKS.map((link, index) => (
+                <span key={link.href} className="inline-flex items-center gap-4">
+                  {index > 0 ? (
+                    <span
+                      aria-hidden="true"
+                      className="h-1 w-1 rounded-full bg-neutral-300"
+                    />
+                  ) : null}
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-obsidian"
+                  >
+                    {link.label}
+                  </Link>
+                </span>
+              ))}
+            </nav>
+
+            <button
               type="button"
               onClick={scrollToTop}
               aria-label="Back to top"

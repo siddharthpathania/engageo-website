@@ -104,30 +104,51 @@ export function Placeholder({ children }: { children: ReactNode }): JSX.Element 
 }
 
 /**
- * Render a value from the legal config, falling back to a visible Placeholder
- * when the value is still an unfilled `TODO:` string. Keeps drafts obvious and
- * means a value is filled in exactly one place (src/config/legal.ts).
+ * Render a value from the legal config. Behaviour when the value is unfilled
+ * depends on whether the field is REQUIRED or FALLBACK (see src/config/legal.ts):
+ *
+ *   - value present       → render the value
+ *   - absent + required   → render a visible [PLACEHOLDER: label] marker so it
+ *                           can't ship unnoticed (the dev completeness check
+ *                           also warns)
+ *   - absent + fallback   → render the neutral `fallback` prose, NO marker, so
+ *                           the page reads as finished until counsel fills it
+ *
+ * Exactly one of `label` (required) or `fallback` should be provided.
  */
 export function Field({
   value,
-  fallback,
+  required = false,
+  label,
+  fallback = '',
 }: {
   value: string;
-  fallback: string;
+  /** Treat as a publish-blocking field: show a marker when unfilled. */
+  required?: boolean;
+  /** Marker text shown when a required field is unfilled. */
+  label?: string;
+  /** Neutral prose shown when a fallback field is unfilled. */
+  fallback?: string;
 }): JSX.Element {
-  return isTodo(value) ? <Placeholder>{fallback}</Placeholder> : <>{value}</>;
+  if (!isTodo(value)) return <>{value}</>;
+  return required ? <Placeholder>{label ?? 'value required'}</Placeholder> : <>{fallback}</>;
 }
 
 /**
- * Render a list of values from the legal config (e.g. vendor names), falling
- * back to a visible Placeholder when the list is empty (not yet confirmed).
+ * Render a list of values from the legal config (e.g. vendor names). When the
+ * list is empty, behaviour mirrors {@link Field}: a `fallback` renders neutral
+ * prose with no marker; otherwise a visible [PLACEHOLDER: label] marker shows.
  */
 export function ListField({
   items,
+  label,
   fallback,
 }: {
   items: readonly string[];
-  fallback: string;
+  label?: string;
+  fallback?: string;
 }): JSX.Element {
-  return items.length > 0 ? <>{items.join(', ')}</> : <Placeholder>{fallback}</Placeholder>;
+  if (items.length > 0) return <>{items.join(', ')}</>;
+  if (fallback !== undefined) return <>{fallback}</>;
+  return <Placeholder>{label ?? 'value required'}</Placeholder>;
 }

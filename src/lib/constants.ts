@@ -111,12 +111,12 @@ export const CONTACT = {
   whatsappE164: '919699670806',
   whatsappLink:
     'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
+  // Street address and postal code are intentionally omitted from the site —
+  // we publish only city/region/country. Keep it that way unless there's a
+  // deliberate decision to expose the registered office publicly.
   address: {
-    line1: 'Engageo HQ',
-    line2: 'Viman Nagar',
     city: 'Pune',
     state: 'Maharashtra',
-    postalCode: '411014',
     country: 'India',
     countryCode: 'IN',
   },

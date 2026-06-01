@@ -187,14 +187,9 @@ export default function ContactPage(): JSX.Element {
               </h2>
               <address className="mt-4 not-italic text-[13.5px] leading-relaxed text-subtle">
                 <p className="font-display font-semibold text-obsidian">
-                  {CONTACT.address.line1}
+                  {CONTACT.address.city}, {CONTACT.address.state}
                 </p>
-                <p className="mt-1">{CONTACT.address.line2}</p>
-                <p>
-                  {CONTACT.address.city}, {CONTACT.address.state}{' '}
-                  {CONTACT.address.postalCode}
-                </p>
-                <p>{CONTACT.address.country}</p>
+                <p className="mt-1">{CONTACT.address.country}</p>
               </address>
               <p className="mt-4 border-t border-neutral-200 pt-4 font-mono text-[10px] font-semibold uppercase tracking-widest text-subtle">
                 {CONTACT.hours.label}

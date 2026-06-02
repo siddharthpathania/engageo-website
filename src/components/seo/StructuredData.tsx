@@ -2,22 +2,20 @@ import { COMPANY, CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 import { absoluteUrl } from '@/lib/utils';
 
 // Shared sub-types used by multiple schemas below.
+// Street address and postal code are intentionally omitted — we publish only
+// city / region / country in structured data.
 type PostalAddressLD = {
   '@type': 'PostalAddress';
-  streetAddress: string;
   addressLocality: string;
   addressRegion: string;
-  postalCode: string;
   addressCountry: string;
 };
 
 function buildPostalAddress(): PostalAddressLD {
   return {
     '@type': 'PostalAddress',
-    streetAddress: `${CONTACT.address.line1}, ${CONTACT.address.line2}`,
     addressLocality: CONTACT.address.city,
     addressRegion: CONTACT.address.state,
-    postalCode: CONTACT.address.postalCode,
     addressCountry: CONTACT.address.countryCode,
   };
 }
@@ -247,7 +245,7 @@ export function FAQPageSchema({ items }: FAQPageSchemaProps): JSX.Element {
  * geo (if provided), and contact channels.
  */
 export type LocalBusinessSchemaProps = {
-  /** Optional geo coordinates (Viman Nagar, Pune used as default). */
+  /** Optional geo coordinates. Omitted from the schema when not provided. */
   geo?: { latitude: number; longitude: number };
   /** Override business type (defaults to "LocalBusiness"). */
   businessType?: string;
@@ -284,7 +282,7 @@ function parseOpeningHours(): Array<Record<string, unknown>> {
 }
 
 export function LocalBusinessSchema({
-  geo = { latitude: 18.5679, longitude: 73.9143 }, // Viman Nagar, Pune
+  geo,
   businessType = 'LocalBusiness',
 }: LocalBusinessSchemaProps = {}): JSX.Element {
   const data = {
@@ -300,11 +298,15 @@ export function LocalBusinessSchema({
     telephone: CONTACT.phoneE164,
     email: CONTACT.email,
     address: buildPostalAddress(),
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    },
+    ...(geo
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          },
+        }
+      : {}),
     openingHoursSpecification: parseOpeningHours(),
     areaServed: {
       '@type': 'Country',

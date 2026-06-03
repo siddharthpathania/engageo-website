@@ -199,6 +199,12 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                 Book a Demo
                 <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
               </Link>
+              <a
+                href="https://admin.engageoagency.com"
+                className="mt-3 flex w-full items-center justify-center rounded-full border border-neutral-200 px-4 py-3 text-[15px] font-medium text-obsidian/80 transition-colors hover:bg-sand"
+              >
+                Clinic Login
+              </a>
             </div>
                 </motion.div>
               ) : null}

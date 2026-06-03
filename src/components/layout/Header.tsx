@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CTA, SITE_CONFIG } from '@/lib/constants';
+import { SITE_CONFIG } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
@@ -120,22 +120,16 @@ export function Header(): JSX.Element {
           <div className="flex items-center gap-2">
             <a
               href="https://admin.engageoagency.com"
-              className="hidden items-center rounded-full px-3 py-2 text-[13px] font-medium text-subtle transition-colors hover:text-obsidian md:inline-flex"
-            >
-              Clinic Login
-            </a>
-            <Link
-              href={CTA.book.href}
               className="group hidden items-center gap-1.5 rounded-full bg-obsidian px-4 py-2 text-[13px] font-medium text-surface shadow-subtle transition-all hover:shadow-card md:inline-flex"
             >
-              Book a Demo
+              Login
               <ChevronRight
                 size={14}
                 strokeWidth={2}
                 className="transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
               />
-            </Link>
+            </a>
             <MobileMenu nav={HEADER_NAV} />
           </div>
         </div>

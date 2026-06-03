@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CTA } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 type MobileNavLink = { label: string; href: string };
@@ -192,18 +191,12 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
             </nav>
 
             <div className="border-t border-neutral-200/70 bg-surface/80 px-5 py-6">
-              <Link
-                href={CTA.book.href}
-                className="flex w-full items-center justify-center gap-1.5 rounded-full bg-obsidian px-4 py-3.5 text-[15px] font-medium text-surface shadow-subtle"
-              >
-                Book a Demo
-                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
-              </Link>
               <a
                 href="https://admin.engageoagency.com"
-                className="mt-3 flex w-full items-center justify-center rounded-full border border-neutral-200 px-4 py-3 text-[15px] font-medium text-obsidian/80 transition-colors hover:bg-sand"
+                className="flex w-full items-center justify-center gap-1.5 rounded-full bg-obsidian px-4 py-3.5 text-[15px] font-medium text-surface shadow-subtle"
               >
-                Clinic Login
+                Login
+                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
               </a>
             </div>
                 </motion.div>

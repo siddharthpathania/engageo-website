@@ -119,7 +119,7 @@ export function Header(): JSX.Element {
           {/* CTA + mobile trigger */}
           <div className="flex items-center gap-2">
             <a
-              href="https://admin.engageoagency.com"
+              href="/login"
               className="group hidden items-center gap-1.5 rounded-full bg-obsidian px-4 py-2 text-[13px] font-medium text-surface shadow-subtle transition-all hover:shadow-card md:inline-flex"
             >
               Login

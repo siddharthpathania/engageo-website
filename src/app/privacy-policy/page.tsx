@@ -226,7 +226,46 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="grievance-officer" heading="8. Grievance Officer">
+      <LegalSection id="data-deletion" heading="8. How to delete your data">
+        <p>
+          You can ask us to delete the personal data we hold about you. Because
+          most data is processed on a clinic&rsquo;s behalf, you can either ask the
+          clinic you contacted or make the request to us directly &mdash; we will act
+          on it and coordinate with the clinic as needed.
+        </p>
+        <p>To request deletion:</p>
+        <ul className="list-disc space-y-2 pl-5 marker:text-neutral-400">
+          <li>
+            Email our Grievance Officer at{' '}
+            <Field value={LEGAL.grievanceOfficer.email} fallback={CONTACT.email} />, or
+            use our{' '}
+            <a
+              className="font-medium text-primary-600 hover:text-primary-700"
+              href={LEGAL.company.contactUrl}
+            >
+              contact page
+            </a>
+            .
+          </li>
+          <li>
+            Include the phone number you called from or messaged with, so we can
+            locate your records, and state that you are requesting deletion.
+          </li>
+        </ul>
+        <p>
+          On a verified request we delete the personal data we hold about you
+          &mdash; including call audio, transcripts, WhatsApp message content, and your
+          contact details &mdash; except where we are required to retain certain
+          records by law. We aim to action deletion requests without undue delay.
+        </p>
+        <p>
+          Note: the WhatsApp messages themselves also sit within Meta&rsquo;s WhatsApp
+          platform, which you can manage using WhatsApp&rsquo;s own in-app controls.
+          Deleting data with us does not delete WhatsApp&rsquo;s own copy.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="grievance-officer" heading="9. Grievance Officer">
         <p>
           In accordance with the DPDP Act 2023, you may contact our Grievance
           Officer with any privacy concern or to exercise your rights:
@@ -251,7 +290,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="security" heading="9. Security and breach notification">
+      <LegalSection id="security" heading="10. Security and breach notification">
         <p>
           We apply technical and organisational safeguards &mdash; including
           encryption in transit and access controls &mdash; to protect personal data.
@@ -266,7 +305,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="children" heading="10. Children's data">
+      <LegalSection id="children" heading="11. Children's data">
         <p>
           Our service is intended for use by clinics and adult patients. Where a
           minor&rsquo;s data is processed in the course of a clinic booking, Engageo
@@ -283,7 +322,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="changes" heading="11. Changes to this policy">
+      <LegalSection id="changes" heading="12. Changes to this policy">
         <p>
           We may update this policy from time to time. Material changes will be
           reflected by updating the &ldquo;Last updated&rdquo; date above and, where
@@ -291,7 +330,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="contact" heading="12. Contact us">
+      <LegalSection id="contact" heading="13. Contact us">
         <p>
           For any question about this policy or our data practices, contact{' '}
           {COMPANY.legalName} via our{' '}

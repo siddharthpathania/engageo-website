@@ -74,9 +74,9 @@ export const MAIN_NAV: readonly NavLink[] = [
 
 export const CTA = {
   audit: {
-    label: 'See What You\u2019re Losing \u2014 Free Audit',
+    label: 'Book a Meeting',
     href: 'https://cal.com/engageo',
-    shortLabel: 'Free Audit',
+    shortLabel: 'Book a Meeting',
   },
   demo: {
     label: 'Hear a Recovery in Action',

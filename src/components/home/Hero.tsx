@@ -694,7 +694,7 @@ export function Hero(): JSX.Element {
             }}
           >
             <span className="whitespace-nowrap">
-              See What You&rsquo;re Losing — Free Audit
+              Book a Meeting
             </span>
             <ArrowRight
               size={16}

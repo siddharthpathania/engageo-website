@@ -2,6 +2,7 @@ import { ChevronRight, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
+import { ProviderWall } from '@/components/home/ProviderWall';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
@@ -78,26 +79,6 @@ const FLOW: readonly FlowStage[] = [
     latency: 'Live in ledger',
     side: 'right',
   },
-];
-
-type Provider = {
-  name: string;
-  type: string;
-};
-
-const PROVIDERS: readonly Provider[] = [
-  { name: 'Exotel', type: 'Cloud telephony' },
-  { name: 'Knowlarity', type: 'Cloud telephony' },
-  { name: 'Ozonetel', type: 'Cloud telephony' },
-  { name: 'MyOperator', type: 'IVR + telephony' },
-  { name: 'Airtel', type: 'Landline / mobile' },
-  { name: 'Jio', type: 'Mobile / VoIP' },
-  { name: 'Vi (Vodafone Idea)', type: 'Mobile' },
-  { name: 'BSNL / MTNL', type: 'Landline' },
-  { name: 'Tata Tele', type: 'Enterprise telephony' },
-  { name: 'Twilio India', type: 'Programmable voice' },
-  { name: 'Plivo', type: 'Programmable voice' },
-  { name: 'Your existing setup', type: 'Any forwarding-capable line' },
 ];
 
 type TimelineStep = {
@@ -259,21 +240,7 @@ export default function HowItWorksPage(): JSX.Element {
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-2 gap-3 md:mt-18 md:grid-cols-3 lg:grid-cols-4">
-          {PROVIDERS.map((provider) => (
-            <li
-              key={provider.name}
-              className="rounded-2xl border border-neutral-200 bg-surface p-5 transition-colors hover:border-primary-300 hover:bg-primary-50/40"
-            >
-              <p className="font-display text-[14px] font-semibold text-obsidian">
-                {provider.name}
-              </p>
-              <p className="mt-1 text-[11px] uppercase tracking-widest text-subtle">
-                {provider.type}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <ProviderWall />
       </SectionWrapper>
 
       {/* Setup timeline */}

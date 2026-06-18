@@ -71,7 +71,7 @@ const VALUES: readonly Value[] = [
   },
   {
     title: 'Built in India, for Indian clinics',
-    body: 'Hindi, Marathi, Tamil on day one. Indian telecom quirks understood. Indian price points respected. This is not a Bay Area SaaS tool with a localisation pass.',
+    body: 'Twelve Indian languages from day one. Indian telecom quirks understood. Indian price points respected. This is not a Bay Area SaaS tool with a localisation pass.',
     Icon: Globe,
   },
   {

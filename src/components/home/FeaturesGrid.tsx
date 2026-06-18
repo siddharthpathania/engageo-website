@@ -27,8 +27,8 @@ const FEATURES: readonly Feature[] = [
     Icon: PhoneCall,
   },
   {
-    title: 'Seven Indian Languages',
-    body: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system matches the patient\u2019s language automatically — because a dermatology patient in Chennai shouldn\u2019t have to navigate in English.',
+    title: 'Twelve Indian Languages',
+    body: 'Twelve languages spanning the major Indian languages and Indian English. The system matches the patient\u2019s language automatically — because a dermatology patient in Chennai shouldn\u2019t have to navigate in English.',
     Icon: Languages,
   },
   {

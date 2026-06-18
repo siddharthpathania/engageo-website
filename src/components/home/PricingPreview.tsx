@@ -43,7 +43,7 @@ const TIERS: readonly Tier[] = [
     cadence: '/ month',
     features: [
       'Unlimited recovered calls',
-      'All 7 Indian languages',
+      'All 12 Indian languages',
       'Multi-doctor calendar routing',
       'Post-visit follow-up sequences',
       'Full analytics dashboard',

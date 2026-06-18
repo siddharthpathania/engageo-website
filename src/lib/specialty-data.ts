@@ -5,7 +5,7 @@
  *
  * Content rules (so we don't invent stats or get Semrush-flagged):
  *   - Product claims mirror verified site-wide copy (47+ clinics,
- *     <15s pickup, 7 languages, 14-day trial, Meta-verified WhatsApp,
+ *     <15s pickup, 12 languages, 14-day trial, Meta-verified WhatsApp,
  *     AWS Mumbai hosting, DPDP-aligned).
  *   - Patient-behaviour copy stays qualitative — no invented
  *     percentages, industry averages, or specialty case-study numbers.
@@ -50,7 +50,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Dental Clinics in India | Engageo',
     metaDescription:
-      'AI receptionist + WhatsApp automation for dental clinics in India. Recover every missed call about implants, braces, root canal, and aligners in 15 seconds, 7 languages.',
+      'AI receptionist + WhatsApp automation for dental clinics in India. Recover every missed call about implants, braces, root canal, and aligners in 15 seconds, 12 languages.',
     heroTitle:
       'AI Missed Call Recovery for Dental Clinics in India',
     heroSubhead:
@@ -121,7 +121,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Dermatology Clinics in India | Engageo',
     metaDescription:
-      'AI receptionist for Indian dermatology clinics. Recover missed calls about laser hair removal, acne, PRP, and cosmetic consults in 15s. 7 languages + WhatsApp.',
+      'AI receptionist for Indian dermatology clinics. Recover missed calls about laser hair removal, acne, PRP, and cosmetic consults in 15s. 12 languages + WhatsApp.',
     heroTitle:
       'AI Missed Call Recovery for Dermatology Clinics in India',
     heroSubhead:
@@ -152,7 +152,7 @@ export const SPECIALTIES: readonly Specialty[] = [
       },
       {
         title: 'Answer repetitive questions at 2am',
-        body: 'Your FAQs — timings, fees, pre-procedure instructions, what to avoid before a session — are all available in 7 Indian languages, any hour of the day.',
+        body: 'Your FAQs — timings, fees, pre-procedure instructions, what to avoid before a session — are all available in 12 Indian languages, any hour of the day.',
       },
       {
         title: 'Cut no-shows with layered WhatsApp reminders',
@@ -192,7 +192,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for IVF & Fertility Clinics in India | Engageo',
     metaDescription:
-      'Private, respectful AI call handling for Indian IVF and fertility clinics. Every missed enquiry answered in 15s, 7 languages, with WhatsApp reminders that fit a treatment cycle.',
+      'Private, respectful AI call handling for Indian IVF and fertility clinics. Every missed enquiry answered in 15s, 12 languages, with WhatsApp reminders that fit a treatment cycle.',
     heroTitle:
       'AI Missed Call Recovery for IVF & Fertility Clinics in India',
     heroSubhead:
@@ -219,7 +219,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     useCases: [
       {
         title: 'Handle first-consultation enquiries with respect',
-        body: 'The AI receptionist answers in the patient\u2019s preferred language — Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, or English — explains your first-consultation process, and books a slot without pressure.',
+        body: 'The AI receptionist answers in the patient\u2019s preferred language — across all 12 of our supported languages — explains your first-consultation process, and books a slot without pressure.',
       },
       {
         title: 'Keep cycle reminders on track',
@@ -334,7 +334,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Orthopaedic Clinics in India | Engageo',
     metaDescription:
-      'AI receptionist for Indian orthopaedic clinics. Triage injury calls, book post-op follow-ups, and send physio reminders on WhatsApp — in 7 languages, 15-second pickup.',
+      'AI receptionist for Indian orthopaedic clinics. Triage injury calls, book post-op follow-ups, and send physio reminders on WhatsApp — in 12 languages, 15-second pickup.',
     heroTitle:
       'AI Missed Call Recovery for Orthopaedic Clinics in India',
     heroSubhead:
@@ -405,7 +405,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Ophthalmology Clinics in India | Engageo',
     metaDescription:
-      'AI receptionist for Indian eye clinics and LASIK / cataract centres. Handle enquiries in 15s, 7 languages, with automated post-surgery WhatsApp follow-ups.',
+      'AI receptionist for Indian eye clinics and LASIK / cataract centres. Handle enquiries in 15s, 12 languages, with automated post-surgery WhatsApp follow-ups.',
     heroTitle:
       'AI Missed Call Recovery for Ophthalmology Clinics in India',
     heroSubhead:
@@ -476,7 +476,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Gynaecology Clinics in India | Engageo',
     metaDescription:
-      'Private, warm AI call handling for Indian gynaecology and maternity clinics. Every missed call answered in 15s, 7 languages, with antenatal WhatsApp reminders built-in.',
+      'Private, warm AI call handling for Indian gynaecology and maternity clinics. Every missed call answered in 15s, 12 languages, with antenatal WhatsApp reminders built-in.',
     heroTitle:
       'AI Missed Call Recovery for Gynaecology & Maternity Clinics in India',
     heroSubhead:
@@ -485,7 +485,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     painPoints: [
       {
         title: 'Patients dial in their mother tongue',
-        body: 'Comfort with gynaecological topics is much higher in Hindi, Marathi, Tamil, Kannada, Telugu, or Bengali than in English. An English-only front desk leaves many patients hesitant.',
+        body: 'Comfort with gynaecological topics is much higher in patients’ own languages than in English. An English-only front desk leaves many patients hesitant.',
       },
       {
         title: 'Antenatal schedules are dense',
@@ -503,7 +503,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     useCases: [
       {
         title: 'Answer in the patient\u2019s language, privately',
-        body: 'Voice and WhatsApp conversations in 7 Indian languages — the patient asks in Marathi, gets answered in Marathi, and never has to put the call on speaker.',
+        body: 'Voice and WhatsApp conversations in 12 Indian languages — the patient asks in Marathi, gets answered in Marathi, and never has to put the call on speaker.',
       },
       {
         title: 'Automate antenatal milestones',
@@ -525,7 +525,7 @@ export const SPECIALTIES: readonly Specialty[] = [
       },
       {
         q: 'Does it support regional language pregnancy terms?',
-        a: 'Seven languages — Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. Patients ask in their own language and are answered in the same language. No awkward switching.',
+        a: 'Twelve languages spanning the major Indian languages and Indian English. Patients ask in their own language and are answered in the same language. No awkward switching.',
       },
       {
         q: 'Is it private and compliant with patient-data norms?',
@@ -547,7 +547,7 @@ export const SPECIALTIES: readonly Specialty[] = [
     metaTitle:
       'AI Missed Call Recovery for Hospitals in India | Engageo',
     metaDescription:
-      'AI switchboard + WhatsApp automation for Indian hospitals. Route calls to the right department, book OPD slots, and run discharge follow-ups in 7 languages, 15-second pickup.',
+      'AI switchboard + WhatsApp automation for Indian hospitals. Route calls to the right department, book OPD slots, and run discharge follow-ups in 12 languages, 15-second pickup.',
     heroTitle:
       'AI Missed Call Recovery for Hospitals in India',
     heroSubhead:

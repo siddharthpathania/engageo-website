@@ -15,7 +15,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'Which Indian languages does the AI receptionist support?',
-    a: 'Seven languages: Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system detects the patient\u2019s language from their first response and switches accordingly, so a Marathi-speaking patient in Pune and a Tamil-speaking patient in Chennai both feel taken care of.',
+    a: 'Twelve languages spanning the major Indian languages and Indian English. The system detects the patient\u2019s language from their first response and switches accordingly, so a Marathi-speaking patient in Pune and a Tamil-speaking patient in Chennai both feel taken care of.',
   },
   {
     q: 'How fast does the AI pick up compared to a human receptionist?',

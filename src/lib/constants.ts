@@ -13,7 +13,7 @@ export const SITE_CONFIG = {
   title: 'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals',
   titleTemplate: '%s · Engageo',
   description:
-    'AI-powered missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call is answered in 7 languages within 15 seconds, patient questions handled, and the booking lands in your calendar \u2014 without adding staff or changing your workflow.',
+    'AI-powered missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call is answered in 12 languages within 15 seconds, patient questions handled, and the booking lands in your calendar \u2014 without adding staff or changing your workflow.',
   tagline: 'Every missed call answered. Every patient booked.',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.engageoagency.com').replace(/\/$/, ''),
   ogImage: '/opengraph-image',

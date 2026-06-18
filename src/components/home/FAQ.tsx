@@ -22,7 +22,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'Which languages are supported?',
-    a: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. The system detects the patient\u2019s language from their first response and switches accordingly. You can also set a default language for each clinic number.',
+    a: 'Twelve languages spanning the major Indian languages and Indian English. The system detects the patient\u2019s language from their first response and switches accordingly. You can also set a default language for each clinic number.',
   },
   {
     q: 'Does the patient know they\u2019re not speaking to a person?',

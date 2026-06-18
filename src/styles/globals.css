@@ -551,3 +551,16 @@
   0%   { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
+
+/* ─── BuiltOnStrip: voice-AI equalizer (Sarvam = voice AI) ──────────
+   A calm, center-weighted "breathing" equalizer beneath the Sarvam
+   wordmark. `--amp` (0..1, written per-bar from a Math.sin envelope)
+   shapes the peak so middle bars swell more than the edges — reads as a
+   live voice signal, not a club VU meter. transform: scaleY only →
+   compositor-friendly. Pure CSS, so it is auto-frozen under
+   prefers-reduced-motion by the global kill-switch above. */
+@keyframes voicePulse {
+  0%,
+  100% { transform: scaleY(calc(0.34 + 0.18 * var(--amp, 1))); }
+  50%  { transform: scaleY(calc(0.50 + 0.50 * var(--amp, 1))); }
+}

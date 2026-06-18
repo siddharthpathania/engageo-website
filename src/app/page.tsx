@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { BuiltOnStrip } from '@/components/home/BuiltOnStrip';
 import { CTASection } from '@/components/home/CTASection';
 import { FAQ } from '@/components/home/FAQ';
 import { FeaturesGrid } from '@/components/home/FeaturesGrid';
@@ -39,6 +40,7 @@ export default function HomePage(): JSX.Element {
   return (
     <>
       <Hero />
+      <BuiltOnStrip />
       <SectionWrapper id="home-experience-form" className="bg-sand/40 pt-12 md:pt-16">
         <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
           <span className="section-label justify-center">Live demo</span>

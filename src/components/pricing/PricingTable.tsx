@@ -50,7 +50,7 @@ const TIERS: readonly Tier[] = [
       'WhatsApp + SMS fallback',
       '4-touchpoint follow-up journeys',
       'Analytics dashboard + A/B tests',
-      'All 7 Indian languages',
+      'All 12 Indian languages',
       'Multi-doctor routing',
       'Custom templates + tone tuning',
     ],

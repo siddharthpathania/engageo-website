@@ -16,7 +16,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 const HOME_TITLE =
   'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals';
 const HOME_DESCRIPTION =
-  'AI missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call answered in 7 languages within 15 seconds. Live in 47+ practices.';
+  'AI missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call answered in 12 languages within 15 seconds. Live in 47+ practices.';
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

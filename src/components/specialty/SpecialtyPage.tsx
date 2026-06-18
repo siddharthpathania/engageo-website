@@ -20,7 +20,7 @@ type Trust = { label: string; value: string; hint: string; Icon: typeof Clock };
 
 const TRUST: readonly Trust[] = [
   { label: 'Pickup time', value: '< 15s', hint: 'on every missed call', Icon: Clock },
-  { label: 'Languages', value: '7', hint: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, English', Icon: Globe2 },
+  { label: 'Languages', value: '12', hint: 'Indian languages, including Indian English', Icon: Globe2 },
   { label: 'Clinics live', value: '47+', hint: 'across India', Icon: CheckCircle2 },
   { label: 'Data residency', value: 'India', hint: 'AWS Mumbai · DPDP-aligned', Icon: Shield },
 ];

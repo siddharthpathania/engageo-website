@@ -794,7 +794,7 @@ export function Hero(): JSX.Element {
             ·
           </span>
           <span className="font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
-            7 Indian languages
+            12 Indian languages
           </span>
         </motion.div>
       </div>

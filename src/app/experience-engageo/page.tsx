@@ -50,8 +50,8 @@ const ASSURANCES: ReadonlyArray<{ label: string; body: string; Icon: typeof Phon
     Icon: Clock,
   },
   {
-    label: '7 languages',
-    body: 'Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, English. Speak the one you like.',
+    label: '12 languages',
+    body: 'Speak in whichever Indian language you’re most comfortable in. We cover 12, plus Indian English.',
     Icon: Globe2,
   },
   {

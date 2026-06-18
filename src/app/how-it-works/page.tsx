@@ -53,7 +53,7 @@ const FLOW: readonly FlowStage[] = [
   {
     stage: '00:08',
     title: 'AI classifies intent + picks language',
-    body: 'Was this a booking query, a follow-up, or a billing call? Language detection uses the caller\u2019s state code and prior history. Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, English.',
+    body: 'Was this a booking query, a follow-up, or a billing call? Language detection uses the caller\u2019s state code and prior history. Across all 12 of our supported languages.',
     latency: '+5 seconds',
     side: 'left',
   },

@@ -60,10 +60,10 @@ const SERVICES: readonly Service[] = [
   {
     title: 'WhatsApp Auto-Reply',
     tagline: 'Conversation that converts',
-    body: 'Meta-verified templates in Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. Messages match the patient — not the clinic owner. 94% open rate within 2 minutes.',
+    body: 'Meta-verified templates across 12 languages — the major Indian languages and Indian English. Messages match the patient — not the clinic owner. 94% open rate within 2 minutes.',
     benefits: [
       'Official Meta Business API — zero compliance risk',
-      '7 Indian languages out of the box',
+      '12 Indian languages out of the box',
       'Clinic-specific tone, doctor names, CTAs',
     ],
     Icon: MessageCircle,
@@ -134,7 +134,7 @@ const COMPARISON: readonly ComparisonRow[] = [
   {
     label: 'Language support',
     without: 'Whatever your receptionist speaks',
-    with: '7 Indian languages, patient-matched',
+    with: '12 Indian languages, patient-matched',
   },
   {
     label: 'Follow-up on no-reply',

@@ -162,35 +162,38 @@ function ScrollDrivenHeader(): JSX.Element {
 
   /* Each element gets its own [start, end] slice of progress.
      Sliding slices overlap slightly so the reveal feels continuous,
-     not stepped. */
-  const stripeOpacity = useTransform(scrollYProgress, [0.0, 0.15], [0, 1]);
-  const stripeScaleX = useTransform(scrollYProgress, [0.0, 0.15], [0, 1]);
+     not stepped. The whole composition is front-loaded to complete by
+     ~0.5 progress — i.e. the headline + subtitle are fully revealed by
+     the time the section reaches the middle of its scroll pass, instead
+     of lingering until you've scrolled almost past it. */
+  const stripeOpacity = useTransform(scrollYProgress, [0.0, 0.08], [0, 1]);
+  const stripeScaleX = useTransform(scrollYProgress, [0.0, 0.08], [0, 1]);
 
-  const dripLineOpacity = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
-  const dripLineScaleY = useTransform(scrollYProgress, [0.12, 0.22], [0, 1]);
+  const dripLineOpacity = useTransform(scrollYProgress, [0.06, 0.13], [0, 1]);
+  const dripLineScaleY = useTransform(scrollYProgress, [0.06, 0.13], [0, 1]);
 
-  const dripBlobOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
-  const dripBlobScale = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+  const dripBlobOpacity = useTransform(scrollYProgress, [0.11, 0.18], [0, 1]);
+  const dripBlobScale = useTransform(scrollYProgress, [0.11, 0.18], [0, 1]);
 
-  const pillOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
-  const pillY = useTransform(scrollYProgress, [0.28, 0.42], [-24, 0]);
-  const pillScale = useTransform(scrollYProgress, [0.28, 0.42], [0.7, 1]);
+  const pillOpacity = useTransform(scrollYProgress, [0.16, 0.25], [0, 1]);
+  const pillY = useTransform(scrollYProgress, [0.16, 0.25], [-24, 0]);
+  const pillScale = useTransform(scrollYProgress, [0.16, 0.25], [0.7, 1]);
 
-  const headlineOpacity = useTransform(scrollYProgress, [0.38, 0.6], [0, 1]);
-  const headlineY = useTransform(scrollYProgress, [0.38, 0.6], [40, 0]);
+  const headlineOpacity = useTransform(scrollYProgress, [0.22, 0.34], [0, 1]);
+  const headlineY = useTransform(scrollYProgress, [0.22, 0.34], [40, 0]);
 
-  const moneyOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const moneyScale = useTransform(scrollYProgress, [0.5, 0.7], [0.6, 1]);
+  const moneyOpacity = useTransform(scrollYProgress, [0.28, 0.4], [0, 1]);
+  const moneyScale = useTransform(scrollYProgress, [0.28, 0.4], [0.6, 1]);
 
   const moneyFlashOpacity = useTransform(
     scrollYProgress,
-    [0.5, 0.65, 0.8],
+    [0.28, 0.38, 0.5],
     [0, 0.9, 0.6],
   );
-  const moneyFlashScale = useTransform(scrollYProgress, [0.5, 0.8], [0.4, 2.6]);
+  const moneyFlashScale = useTransform(scrollYProgress, [0.28, 0.5], [0.4, 2.6]);
 
-  const subtitleOpacity = useTransform(scrollYProgress, [0.65, 0.85], [0, 1]);
-  const subtitleY = useTransform(scrollYProgress, [0.65, 0.85], [20, 0]);
+  const subtitleOpacity = useTransform(scrollYProgress, [0.36, 0.48], [0, 1]);
+  const subtitleY = useTransform(scrollYProgress, [0.36, 0.48], [20, 0]);
 
   return (
     <div

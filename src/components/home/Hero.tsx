@@ -748,23 +748,56 @@ export function Hero(): JSX.Element {
         </motion.div>
       </motion.div>
 
-      {/* Live Dashboard */}
-      <motion.div
-        className="relative w-full max-w-lg lg:max-w-xl lg:scale-[1.15] lg:origin-center"
-        initial={{ opacity: 0, scale: 0.94, y: 20, rotateY: -8, rotateX: 3 }}
-        animate={{ opacity: 1, scale: 1, y: 0, rotateY: -3, rotateX: 1 }}
-        whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
-        style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-tr from-primary-500/[0.06] via-transparent to-accent-400/[0.04] blur-3xl"
-        />
-        <div className="relative">
-          <LiveDashboard />
-        </div>
-      </motion.div>
+      {/* Right column: Live Dashboard + status strip */}
+      <div className="relative z-10 flex w-full max-w-lg flex-col lg:max-w-xl">
+        {/* Live Dashboard */}
+        <motion.div
+          className="relative lg:scale-[1.15] lg:origin-center"
+          initial={{ opacity: 0, scale: 0.94, y: 20, rotateY: -8, rotateX: 3 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateY: -3, rotateX: 1 }}
+          whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+          style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-tr from-primary-500/[0.06] via-transparent to-accent-400/[0.04] blur-3xl"
+          />
+          <div className="relative">
+            <LiveDashboard />
+          </div>
+        </motion.div>
+
+        {/* Status strip — verified facts, anchors the right column */}
+        <motion.div
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:mt-16"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="inline-flex items-center gap-2 font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            <span
+              aria-hidden="true"
+              className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success-500"
+            >
+              <span className="absolute inset-0 animate-ping rounded-full bg-success-500/70" />
+            </span>
+            Live · 47+ clinics
+          </span>
+          <span aria-hidden="true" className="text-neutral-300">
+            ·
+          </span>
+          <span className="font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            &lt; 15s pickup
+          </span>
+          <span aria-hidden="true" className="text-neutral-300">
+            ·
+          </span>
+          <span className="font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            7 Indian languages
+          </span>
+        </motion.div>
+      </div>
     </section>
   );
 }

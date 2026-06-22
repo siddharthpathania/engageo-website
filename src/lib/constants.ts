@@ -80,12 +80,12 @@ export const CTA = {
   },
   demo: {
     label: 'Hear a Recovery in Action',
-    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
+    href: 'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
     shortLabel: 'Hear Demo',
   },
   whatsapp: {
     label: 'Chat on WhatsApp',
-    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
+    href: 'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
     shortLabel: 'WhatsApp',
   },
   book: {
@@ -105,12 +105,12 @@ export const CTA = {
 export const CONTACT = {
   email: 'engageoagency@gmail.com',
   emailSupport: 'engageoagency@gmail.com',
-  phone: '+91 96996 70806',
-  phoneE164: '+919699670806',
-  whatsapp: '+91 96996 70806',
-  whatsappE164: '919699670806',
+  phone: '+91 96995 30806',
+  phoneE164: '+919699530806',
+  whatsapp: '+91 96995 30806',
+  whatsappE164: '919699530806',
   whatsappLink:
-    'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
+    'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
   // Street address and postal code are intentionally omitted from the site —
   // we publish only city/region/country. Keep it that way unless there's a
   // deliberate decision to expose the registered office publicly.

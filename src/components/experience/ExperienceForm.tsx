@@ -2,6 +2,7 @@
 
 import { ArrowRight, Check, Phone, RefreshCw, ShieldCheck } from 'lucide-react';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { OtpInput } from '@/components/shared/OtpInput';
 import { cn } from '@/lib/utils';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -10,8 +11,10 @@ const RESEND_COOLDOWN_S = 30;
 
 // Frontend-only mock for the OTP flow. When true, the form skips /api/otp/* and
 // runs entirely in browser state — useful for previewing the UX before the
-// Exotel SMS + call APIs are wired up. Flip to false once env vars are set.
-const FRONTEND_ONLY_MOCK = true;
+// WhatsApp Cloud API is wired up. Now false: the form calls the real OTP API,
+// which delivers the code over WhatsApp (and returns a dev code locally when
+// WhatsApp env vars aren't set).
+const FRONTEND_ONLY_MOCK = false;
 
 function generateMockOtp(): string {
   return String(Math.floor(100000 + Math.random() * 900000));
@@ -166,7 +169,7 @@ export function ExperienceForm(): JSX.Element {
   async function submitOtp(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
     if (!/^\d{6}$/.test(code)) {
-      setOtpError('Enter the 6-digit code from your SMS.');
+      setOtpError('Enter the 6-digit code from your WhatsApp.');
       return;
     }
     setOtpStatus('submitting');
@@ -299,7 +302,7 @@ export function ExperienceForm(): JSX.Element {
             </div>
           </div>
           <p className="mt-4 text-[13.5px] leading-relaxed text-subtle md:text-[14.5px]">
-            We sent a code to <strong className="text-obsidian">{normalisedPhone}</strong>.
+            We sent a WhatsApp code to <strong className="text-obsidian">{normalisedPhone}</strong>.
             It expires in 5 minutes.{' '}
             <button
               type="button"
@@ -312,7 +315,7 @@ export function ExperienceForm(): JSX.Element {
 
           {devOtp ? (
             <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-3 py-2.5 text-[12.5px] text-amber-900">
-              <strong>Preview mode:</strong> SMS isn&rsquo;t wired up yet, so we generated your code for you:{' '}
+              <strong>Preview mode:</strong> WhatsApp isn&rsquo;t wired up yet, so we generated your code for you:{' '}
               <span className="font-mono text-[14px] font-bold tracking-widest">{devOtp}</span>
             </div>
           ) : null}
@@ -325,10 +328,12 @@ export function ExperienceForm(): JSX.Element {
               >
                 Verification code
               </span>
-              <OtpBoxes
+              <OtpInput
                 firstBoxRef={firstOtpBoxRef}
                 value={code}
                 hasError={Boolean(otpError)}
+                labelledById="otp-label"
+                describedById="otp-error"
                 onChange={(next) => {
                   setOtpError(null);
                   setCode(next);
@@ -401,8 +406,8 @@ export function ExperienceForm(): JSX.Element {
           </div>
         </div>
         <p className="mt-4 text-[13.5px] leading-relaxed text-subtle md:text-[14.5px]">
-          We&rsquo;ll text a 6-digit code to verify your phone, then our AI calls you
-          back so you can experience the demo live.
+          We&rsquo;ll send a 6-digit code to your WhatsApp to verify your number, then our
+          AI calls you back so you can experience the demo live.
         </p>
 
         <form onSubmit={submitDetails} noValidate className="mt-6 space-y-4">
@@ -442,7 +447,7 @@ export function ExperienceForm(): JSX.Element {
               onChange={(v) => setDetailField('phone', v)}
               onBlur={() => handleDetailsBlur('phone')}
               placeholder="+91 98765 43210"
-              hint="We send a code here. Standard SMS rates."
+              hint="We send the code to this number on WhatsApp."
             />
             <DetailField
               label="Email"
@@ -503,8 +508,8 @@ export function ExperienceForm(): JSX.Element {
           </button>
 
           <p className="text-center text-[11px] text-subtle">
-            By continuing you agree to receive a verification SMS and a demo call from
-            Engageo. Your details never leave our system.
+            By continuing you agree to receive a verification message on WhatsApp and a
+            demo call from Engageo. Your details never leave our system.
           </p>
         </form>
       </div>
@@ -577,110 +582,6 @@ function DetailField({
           {hint}
         </p>
       ) : null}
-    </div>
-  );
-}
-
-type OtpBoxesProps = {
-  value: string;
-  hasError: boolean;
-  firstBoxRef: React.RefObject<HTMLInputElement>;
-  onChange: (value: string) => void;
-  onComplete: (value: string) => void;
-};
-
-function OtpBoxes({ value, hasError, firstBoxRef, onChange, onComplete }: OtpBoxesProps): JSX.Element {
-  const refs = useRef<Array<HTMLInputElement | null>>([]);
-  const length = 6;
-  const digits = Array.from({ length }, (_, i) => value[i] ?? '');
-
-  function focusBox(index: number): void {
-    const clamped = Math.max(0, Math.min(length - 1, index));
-    refs.current[clamped]?.focus();
-    refs.current[clamped]?.select();
-  }
-
-  function setDigit(index: number, raw: string): void {
-    const digit = raw.replace(/\D/g, '').slice(-1);
-    const next = digits.slice();
-    next[index] = digit;
-    const joined = next.join('').slice(0, length);
-    onChange(joined);
-    if (digit && index < length - 1) focusBox(index + 1);
-    if (joined.length === length && !joined.includes('')) onComplete(joined);
-  }
-
-  function handleKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>): void {
-    if (e.key === 'Backspace') {
-      if (digits[index]) {
-        const next = digits.slice();
-        next[index] = '';
-        onChange(next.join(''));
-      } else if (index > 0) {
-        const next = digits.slice();
-        next[index - 1] = '';
-        onChange(next.join(''));
-        focusBox(index - 1);
-      }
-      e.preventDefault();
-    } else if (e.key === 'ArrowLeft') {
-      focusBox(index - 1);
-      e.preventDefault();
-    } else if (e.key === 'ArrowRight') {
-      focusBox(index + 1);
-      e.preventDefault();
-    }
-  }
-
-  function handlePaste(e: React.ClipboardEvent<HTMLInputElement>): void {
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, length);
-    if (!pasted) return;
-    e.preventDefault();
-    onChange(pasted);
-    if (pasted.length === length) {
-      onComplete(pasted);
-      focusBox(length - 1);
-    } else {
-      focusBox(pasted.length);
-    }
-  }
-
-  return (
-    <div
-      role="group"
-      aria-labelledby="otp-label"
-      aria-describedby={hasError ? 'otp-error' : undefined}
-      className="mt-2 flex justify-between gap-1.5 sm:gap-2.5"
-    >
-      {digits.map((digit, index) => (
-        <input
-          key={index}
-          ref={(el) => {
-            refs.current[index] = el;
-            if (index === 0) {
-              (firstBoxRef as React.MutableRefObject<HTMLInputElement | null>).current = el;
-            }
-          }}
-          type="text"
-          inputMode="numeric"
-          autoComplete={index === 0 ? 'one-time-code' : 'off'}
-          maxLength={1}
-          aria-label={`Digit ${index + 1} of ${length}`}
-          value={digit}
-          onChange={(e) => setDigit(index, e.target.value)}
-          onKeyDown={(e) => handleKeyDown(index, e)}
-          onPaste={handlePaste}
-          onFocus={(e) => e.currentTarget.select()}
-          className={cn(
-            'h-12 w-full rounded-xl border bg-surface text-center font-mono text-[20px] font-semibold text-obsidian transition focus:outline-none focus:ring-2 focus:ring-primary-500/30 sm:h-14 sm:text-[24px]',
-            hasError
-              ? 'border-error-400 focus:border-error-500'
-              : digit
-                ? 'border-primary-400 focus:border-primary-500'
-                : 'border-neutral-300 focus:border-primary-500',
-          )}
-        />
-      ))}
     </div>
   );
 }

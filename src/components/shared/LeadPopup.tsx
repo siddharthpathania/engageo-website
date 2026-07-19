@@ -1,36 +1,52 @@
 'use client';
 
-import { Check, X } from 'lucide-react';
+import { Check, RefreshCw, ShieldCheck, X } from 'lucide-react';
 import { forwardRef, useEffect, useRef, useState, type FormEvent } from 'react';
+import { OtpInput } from '@/components/shared/OtpInput';
 import { cn } from '@/lib/utils';
 
 const SESSION_KEY = 'engageo:lead-popup-shown';
 const SHOW_DELAY_MS = 3000;
+const RESEND_COOLDOWN_S = 30;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_REGEX = /^[+]?[\d\s\-()]{8,16}$/;
 
 type FormState = {
   name: string;
   clinic: string;
+  phone: string;
   email: string;
   state: string;
   country: string;
 };
 type FormErrors = Partial<Record<keyof FormState, string>>;
-type Status = 'idle' | 'submitting' | 'success' | 'error';
+type Step = 'details' | 'otp' | 'success';
+type Status = 'idle' | 'submitting' | 'error';
 
 const INITIAL: FormState = {
   name: '',
   clinic: '',
+  phone: '',
   email: '',
   state: '',
-  country: '',
+  country: 'India',
 };
+
+function normalisePhoneClient(raw: string): string {
+  const digits = raw.replace(/[^\d+]/g, '');
+  if (digits.startsWith('+')) return digits;
+  if (digits.length === 10) return `+91${digits}`;
+  if (digits.startsWith('91') && digits.length === 12) return `+${digits}`;
+  return digits.startsWith('0') ? `+91${digits.slice(1)}` : `+${digits}`;
+}
 
 function validate(v: FormState): FormErrors {
   const errors: FormErrors = {};
   if (!v.name.trim() || v.name.trim().length < 2) errors.name = 'Please enter your name.';
   if (!v.clinic.trim() || v.clinic.trim().length < 2) errors.clinic = 'Please enter your clinic or hospital name.';
+  if (!v.phone.trim()) errors.phone = 'Phone is required.';
+  else if (!PHONE_REGEX.test(v.phone.trim())) errors.phone = 'Enter a valid phone number.';
   if (!v.email.trim()) errors.email = 'Email is required.';
   else if (!EMAIL_REGEX.test(v.email.trim())) errors.email = 'Enter a valid email.';
   if (!v.state.trim() || v.state.trim().length < 2) errors.state = 'Please enter your state.';
@@ -40,11 +56,24 @@ function validate(v: FormState): FormErrors {
 
 export function LeadPopup(): JSX.Element | null {
   const [open, setOpen] = useState(false);
+  const [step, setStep] = useState<Step>('details');
+
   const [values, setValues] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
-  const [status, setStatus] = useState<Status>('idle');
+  const [detailsStatus, setDetailsStatus] = useState<Status>('idle');
+  const [detailsError, setDetailsError] = useState<string | null>(null);
+
+  const [normalisedPhone, setNormalisedPhone] = useState('');
+  const [devOtp, setDevOtp] = useState<string | null>(null);
+
+  const [code, setCode] = useState('');
+  const [otpStatus, setOtpStatus] = useState<Status>('idle');
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [resendIn, setResendIn] = useState(RESEND_COOLDOWN_S);
+
   const firstFieldRef = useRef<HTMLInputElement>(null);
+  const firstOtpBoxRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -79,6 +108,15 @@ export function LeadPopup(): JSX.Element | null {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (step !== 'otp') return;
+    firstOtpBoxRef.current?.focus();
+    const id = window.setInterval(() => {
+      setResendIn((s) => (s > 0 ? s - 1 : 0));
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [step]);
+
   function setField<K extends keyof FormState>(key: K, value: FormState[K]): void {
     setValues((prev) => ({ ...prev, [key]: value }));
     if (touched[key]) setErrors(validate({ ...values, [key]: value }));
@@ -89,29 +127,95 @@ export function LeadPopup(): JSX.Element | null {
     setErrors(validate(values));
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+  async function submitDetails(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
-    setTouched({
-      name: true,
-      clinic: true,
-      email: true,
-      state: true,
-      country: true,
-    });
+    setTouched({ name: true, clinic: true, phone: true, email: true, state: true, country: true });
     if (Object.keys(nextErrors).length > 0) return;
-    setStatus('submitting');
+    setDetailsStatus('submitting');
+    setDetailsError(null);
     try {
-      const res = await fetch('/api/lead', {
+      const res = await fetch('/api/otp/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
-      if (!res.ok) throw new Error('Request failed');
-      setStatus('success');
+      const body = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        phone?: string;
+        devOtp?: string;
+        error?: string;
+      };
+      if (!res.ok || !body.ok) {
+        setDetailsStatus('error');
+        setDetailsError(body.error ?? 'Could not send the code. Try again.');
+        return;
+      }
+      setNormalisedPhone(body.phone ?? normalisePhoneClient(values.phone));
+      setDevOtp(body.devOtp ?? null);
+      setCode('');
+      setOtpStatus('idle');
+      setOtpError(null);
+      setResendIn(RESEND_COOLDOWN_S);
+      setDetailsStatus('idle');
+      setStep('otp');
     } catch {
-      setStatus('error');
+      setDetailsStatus('error');
+      setDetailsError('Network error. Check your connection and retry.');
+    }
+  }
+
+  async function submitOtp(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+    if (!/^\d{6}$/.test(code)) {
+      setOtpError('Enter the 6-digit code from your WhatsApp.');
+      return;
+    }
+    setOtpStatus('submitting');
+    setOtpError(null);
+    try {
+      const res = await fetch('/api/otp/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: normalisedPhone, code }),
+      });
+      const body = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (!res.ok || !body.ok) {
+        setOtpStatus('error');
+        setOtpError(body.error ?? 'Verification failed. Try again.');
+        return;
+      }
+      setStep('success');
+    } catch {
+      setOtpStatus('error');
+      setOtpError('Network error. Check your connection and retry.');
+    }
+  }
+
+  async function resendOtp(): Promise<void> {
+    if (resendIn > 0) return;
+    setOtpError(null);
+    setCode('');
+    try {
+      const res = await fetch('/api/otp/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      const body = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        devOtp?: string;
+        error?: string;
+      };
+      if (!res.ok || !body.ok) {
+        setOtpError(body.error ?? 'Could not resend. Try again in a minute.');
+        return;
+      }
+      setDevOtp(body.devOtp ?? null);
+      setResendIn(RESEND_COOLDOWN_S);
+    } catch {
+      setOtpError('Network error. Check your connection and retry.');
     }
   }
 
@@ -140,7 +244,7 @@ export function LeadPopup(): JSX.Element | null {
           <X size={18} strokeWidth={2} aria-hidden="true" />
         </button>
 
-        {status === 'success' ? (
+        {step === 'success' ? (
           <div className="px-6 py-10 text-center md:px-8">
             <span
               aria-hidden="true"
@@ -152,11 +256,12 @@ export function LeadPopup(): JSX.Element | null {
               id="lead-popup-title"
               className="mt-5 font-display text-xl font-semibold tracking-tight text-obsidian md:text-2xl"
             >
-              Thanks — we&rsquo;ll be in touch.
+              You&rsquo;re verified — we&rsquo;ll be in touch.
             </h3>
             <p className="mt-2 text-[14px] leading-relaxed text-subtle">
-              Our team will reach out within 4 working hours to walk you through
-              how Engageo recovers missed calls for clinics like yours.
+              Thanks for confirming your number. Our team will reach out within 4
+              working hours to walk you through how Engageo recovers missed calls
+              for clinics like yours.
             </p>
             <button
               type="button"
@@ -165,6 +270,102 @@ export function LeadPopup(): JSX.Element | null {
             >
               Close
             </button>
+          </div>
+        ) : step === 'otp' ? (
+          <div className="px-6 py-7 md:px-8 md:py-8">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600"
+              >
+                <ShieldCheck size={20} strokeWidth={1.75} aria-hidden="true" />
+              </span>
+              <h3
+                id="lead-popup-title"
+                className="font-display text-xl font-semibold tracking-tight text-obsidian md:text-2xl"
+              >
+                Enter the 6-digit code
+              </h3>
+            </div>
+            <p className="mt-3 text-[13px] leading-relaxed text-subtle md:text-[14px]">
+              We sent a WhatsApp code to{' '}
+              <strong className="text-obsidian">{normalisedPhone}</strong>. It
+              expires in 5 minutes.{' '}
+              <button
+                type="button"
+                onClick={() => setStep('details')}
+                className="font-semibold text-primary-700 underline-offset-2 hover:underline"
+              >
+                Change number
+              </button>
+            </p>
+
+            {devOtp ? (
+              <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-3 py-2.5 text-[12.5px] text-amber-900">
+                <strong>Preview mode:</strong> WhatsApp isn&rsquo;t wired up yet, so
+                here&rsquo;s your code:{' '}
+                <span className="font-mono text-[14px] font-bold tracking-widest">{devOtp}</span>
+              </div>
+            ) : null}
+
+            <form onSubmit={submitOtp} noValidate className="mt-5 space-y-4">
+              <div>
+                <span
+                  id="lead-otp-label"
+                  className="block text-[11px] font-semibold uppercase tracking-widest text-obsidian"
+                >
+                  Verification code
+                </span>
+                <OtpInput
+                  firstBoxRef={firstOtpBoxRef}
+                  value={code}
+                  hasError={Boolean(otpError)}
+                  labelledById="lead-otp-label"
+                  describedById="lead-otp-error"
+                  onChange={(next) => {
+                    setOtpError(null);
+                    setCode(next);
+                  }}
+                  onComplete={(filled) => {
+                    setOtpError(null);
+                    setCode(filled);
+                  }}
+                />
+                {otpError ? (
+                  <p id="lead-otp-error" className="mt-2 text-center text-[12px] font-medium text-error-600">
+                    {otpError}
+                  </p>
+                ) : null}
+              </div>
+
+              <button
+                type="submit"
+                disabled={otpStatus === 'submitting' || code.length !== 6}
+                className={cn(
+                  'inline-flex w-full items-center justify-center gap-2 rounded-full bg-obsidian px-6 py-3 text-[13px] font-semibold text-surface transition hover:bg-obsidian/90 disabled:cursor-not-allowed disabled:opacity-60',
+                  otpStatus === 'submitting' && 'animate-pulse',
+                )}
+              >
+                {otpStatus === 'submitting' ? 'Verifying…' : 'Verify my number'}
+              </button>
+
+              <div className="flex items-center justify-center gap-2 text-[12.5px] text-subtle">
+                <RefreshCw size={12} strokeWidth={2} aria-hidden="true" />
+                {resendIn > 0 ? (
+                  <span>
+                    Didn&rsquo;t receive it? Resend in <strong>{resendIn}s</strong>
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={resendOtp}
+                    className="font-semibold text-primary-700 underline-offset-2 hover:underline"
+                  >
+                    Resend code
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
         ) : (
           <div className="px-6 py-7 md:px-8 md:py-8">
@@ -175,11 +376,11 @@ export function LeadPopup(): JSX.Element | null {
               See how Engageo answers every missed call
             </h3>
             <p className="mt-2 text-[13px] leading-relaxed text-subtle md:text-[14px]">
-              Leave your details and we&rsquo;ll send a short demo plus pricing
-              for your clinic.
+              Leave your details and we&rsquo;ll verify your number on WhatsApp,
+              then send a short demo plus pricing for your clinic.
             </p>
 
-            <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
+            <form onSubmit={submitDetails} noValidate className="mt-5 space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field
                   ref={firstFieldRef}
@@ -206,17 +407,31 @@ export function LeadPopup(): JSX.Element | null {
                 />
               </div>
 
-              <Field
-                label="Email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                value={values.email}
-                error={touched.email ? errors.email : undefined}
-                onChange={(v) => setField('email', v)}
-                onBlur={() => handleBlur('email')}
-                placeholder="priya@clinic.com"
-              />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  label="Phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  value={values.phone}
+                  error={touched.phone ? errors.phone : undefined}
+                  onChange={(v) => setField('phone', v)}
+                  onBlur={() => handleBlur('phone')}
+                  placeholder="+91 98765 43210"
+                  hint="We send the code to this number on WhatsApp."
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  value={values.email}
+                  error={touched.email ? errors.email : undefined}
+                  onChange={(v) => setField('email', v)}
+                  onBlur={() => handleBlur('email')}
+                  placeholder="priya@clinic.com"
+                />
+              </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field
@@ -243,25 +458,26 @@ export function LeadPopup(): JSX.Element | null {
                 />
               </div>
 
-              {status === 'error' ? (
+              {detailsStatus === 'error' ? (
                 <div className="rounded-xl border border-error-200 bg-error-50 px-3 py-2 text-[12px] text-error-700">
-                  Something went wrong. Try again, or email us directly.
+                  {detailsError ?? 'Something went wrong. Try again, or email us directly.'}
                 </div>
               ) : null}
 
               <button
                 type="submit"
-                disabled={status === 'submitting'}
+                disabled={detailsStatus === 'submitting'}
                 className={cn(
                   'inline-flex w-full items-center justify-center gap-2 rounded-full bg-obsidian px-6 py-3 text-[13px] font-semibold text-surface transition hover:bg-obsidian/90 disabled:cursor-not-allowed disabled:opacity-60',
-                  status === 'submitting' && 'animate-pulse',
+                  detailsStatus === 'submitting' && 'animate-pulse',
                 )}
               >
-                {status === 'submitting' ? 'Sending…' : 'Get the demo'}
+                {detailsStatus === 'submitting' ? 'Sending code…' : 'Send me a WhatsApp code'}
               </button>
 
               <p className="text-center text-[11px] text-subtle">
-                We reply within 4 working hours. Your details never leave Engageo.
+                By continuing you agree to receive a verification message on
+                WhatsApp from Engageo. Your details never leave our system.
               </p>
             </form>
           </div>
@@ -279,16 +495,18 @@ type FieldProps = {
   error: string | undefined;
   autoComplete?: string;
   placeholder?: string;
+  hint?: string;
   onChange: (value: string) => void;
   onBlur: () => void;
 };
 
 const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
-  { label, name, type, value, error, autoComplete, placeholder, onChange, onBlur },
+  { label, name, type, value, error, autoComplete, placeholder, hint, onChange, onBlur },
   ref,
 ) {
   const id = `lead-${name}`;
   const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
   return (
     <div>
       <label
@@ -310,7 +528,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
         autoComplete={autoComplete}
         placeholder={placeholder}
         aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
+        aria-describedby={error ? errorId : hint ? hintId : undefined}
         className={cn(
           'mt-1.5 w-full rounded-xl border bg-surface px-3.5 py-2.5 text-[14px] text-obsidian placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary-500/30',
           error
@@ -321,6 +539,10 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
       {error ? (
         <p id={errorId} className="mt-1 text-[11px] font-medium text-error-600">
           {error}
+        </p>
+      ) : hint ? (
+        <p id={hintId} className="mt-1 text-[11px] text-subtle">
+          {hint}
         </p>
       ) : null}
     </div>

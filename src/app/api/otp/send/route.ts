@@ -49,45 +49,70 @@ function validateBody(
   return { ok: true, data: { name, clinic, email, phone, state, country } };
 }
 
-async function sendExotelSms(phone: string, code: string): Promise<{ ok: boolean; error?: string }> {
-  const sid = process.env.EXOTEL_SID;
-  const apiKey = process.env.EXOTEL_API_KEY;
-  const apiToken = process.env.EXOTEL_API_TOKEN;
-  const from = process.env.EXOTEL_SMS_FROM;
-  const region = (process.env.EXOTEL_REGION ?? 'mumbai').toLowerCase();
-  const host = region === 'singapore' ? 'api.exotel.com' : 'api.in.exotel.com';
+/**
+ * Deliver the OTP over WhatsApp via the Meta WhatsApp Cloud API using an
+ * approved Authentication template (the code is passed to both the body and the
+ * copy-code button, which is how authentication templates are sent).
+ *
+ * Requires (set in the environment / Vercel):
+ *   WHATSAPP_PHONE_NUMBER_ID   — sender phone number ID from WhatsApp Manager
+ *   WHATSAPP_ACCESS_TOKEN      — permanent System User token (whatsapp_business_messaging)
+ *   WHATSAPP_OTP_TEMPLATE_NAME — name of the approved Authentication template
+ *   WHATSAPP_OTP_TEMPLATE_LANG — template language code (default 'en')
+ *   WHATSAPP_API_VERSION       — Graph API version (default 'v21.0')
+ */
+async function sendWhatsAppOtp(phone: string, code: string): Promise<{ ok: boolean; error?: string }> {
+  const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
+  const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
+  const template = process.env.WHATSAPP_OTP_TEMPLATE_NAME;
+  const lang = process.env.WHATSAPP_OTP_TEMPLATE_LANG || 'en';
+  const version = process.env.WHATSAPP_API_VERSION || 'v21.0';
 
-  if (!sid || !apiKey || !apiToken || !from) {
-    return { ok: false, error: 'exotel-not-configured' };
+  if (!phoneNumberId || !accessToken || !template) {
+    return { ok: false, error: 'whatsapp-not-configured' };
   }
 
-  const auth = Buffer.from(`${apiKey}:${apiToken}`).toString('base64');
-  const body = new URLSearchParams({
-    From: from,
-    To: phone,
-    Body: `${code} is your Engageo verification code. Valid for 5 minutes. Do not share with anyone.`,
-  });
-  if (process.env.EXOTEL_DLT_ENTITY_ID) body.set('DltEntityId', process.env.EXOTEL_DLT_ENTITY_ID);
-  if (process.env.EXOTEL_DLT_TEMPLATE_ID) body.set('DltTemplateId', process.env.EXOTEL_DLT_TEMPLATE_ID);
+  // Graph API expects the recipient in E.164 without the leading '+'.
+  const to = phone.replace(/[^\d]/g, '');
+
+  const payload = {
+    messaging_product: 'whatsapp',
+    to,
+    type: 'template',
+    template: {
+      name: template,
+      language: { code: lang },
+      components: [
+        { type: 'body', parameters: [{ type: 'text', text: code }] },
+        {
+          // Copy-code / one-tap button on the authentication template.
+          type: 'button',
+          sub_type: 'url',
+          index: '0',
+          parameters: [{ type: 'text', text: code }],
+        },
+      ],
+    },
+  };
 
   try {
-    const res = await fetch(`https://${host}/v1/Accounts/${sid}/Sms/send`, {
+    const res = await fetch(`https://graph.facebook.com/${version}/${phoneNumberId}/messages`, {
       method: 'POST',
       headers: {
-        Authorization: `Basic ${auth}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
-      body: body.toString(),
+      body: JSON.stringify(payload),
     });
     if (!res.ok) {
       const text = await res.text();
-      console.error('[otp/send] Exotel SMS error:', res.status, text);
-      return { ok: false, error: 'sms-provider-failed' };
+      console.error('[otp/send] WhatsApp Cloud API error:', res.status, text);
+      return { ok: false, error: 'whatsapp-provider-failed' };
     }
     return { ok: true };
   } catch (err) {
-    console.error('[otp/send] Exotel SMS exception:', err);
-    return { ok: false, error: 'sms-provider-failed' };
+    console.error('[otp/send] WhatsApp Cloud API exception:', err);
+    return { ok: false, error: 'whatsapp-provider-failed' };
   }
 }
 
@@ -126,16 +151,16 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const code = generateOtp();
   setOtp(data.phone, code, data);
 
-  const sms = await sendExotelSms(data.phone, code);
+  const delivery = await sendWhatsAppOtp(data.phone, code);
 
-  if (!sms.ok && sms.error !== 'exotel-not-configured') {
+  if (!delivery.ok && delivery.error !== 'whatsapp-not-configured') {
     return NextResponse.json(
       { error: 'Could not send OTP right now. Try again in a minute.' },
       { status: 502 },
     );
   }
 
-  const devMock = sms.error === 'exotel-not-configured';
+  const devMock = delivery.error === 'whatsapp-not-configured';
   if (devMock) {
     console.log(`[otp/send] DEV MOCK — OTP for ${data.phone}: ${code}`);
   }

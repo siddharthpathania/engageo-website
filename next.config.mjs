@@ -6,20 +6,30 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 /**
  * Content Security Policy — production-grade, works with Next.js + Vercel
- * Analytics + Google Analytics + inline styles (Tailwind).
+ * Analytics + Google Analytics + Microsoft Clarity + inline styles (Tailwind).
+ *
+ * This is the ONLY place a CSP is defined (no middleware, no vercel.json
+ * headers) — edit here, not any generated output.
+ *
+ * Microsoft Clarity requires:
+ *   script-src  https://www.clarity.ms      — loads /tag/<project-id>
+ *   connect-src https://*.clarity.ms        — session upload to /collect
+ *                                             (regional subdomains, not just www)
+ *   connect-src https://c.bing.com          — Clarity's companion endpoint
+ * img-src already allows `https:` and `data:`, which covers Clarity's pixels.
  *
  * NOTE: `unsafe-inline` for style-src is required by Tailwind/Next.js.
- * `unsafe-eval` is NOT included — keep it that way.
+ * `unsafe-eval` is NOT included in production — keep it that way.
  */
 const isDev = process.env.NODE_ENV === 'development';
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com;
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com https://www.clarity.ms;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: blob: https:;
   font-src 'self' https://fonts.gstatic.com;
-  connect-src 'self'${isDev ? ' ws://localhost:* http://localhost:*' : ''} https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com;
+  connect-src 'self'${isDev ? ' ws://localhost:* http://localhost:*' : ''} https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.clarity.ms https://c.bing.com;
   frame-src 'none';
   object-src 'none';
   base-uri 'self';

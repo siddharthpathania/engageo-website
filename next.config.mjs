@@ -12,7 +12,10 @@ const withBundleAnalyzer = bundleAnalyzer({
  * headers) — edit here, not any generated output.
  *
  * Microsoft Clarity requires:
- *   script-src  https://www.clarity.ms      — loads /tag/<project-id>
+ *   script-src  https://*.clarity.ms        — www.clarity.ms serves /tag/<id>,
+ *                                             which then loads the actual engine
+ *                                             from scripts.clarity.ms. Both are
+ *                                             needed, hence the wildcard.
  *   connect-src https://*.clarity.ms        — session upload to /collect
  *                                             (regional subdomains, not just www)
  *   connect-src https://c.bing.com          — Clarity's companion endpoint
@@ -25,7 +28,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com https://www.clarity.ms;
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com https://*.clarity.ms;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: blob: https:;
   font-src 'self' https://fonts.gstatic.com;

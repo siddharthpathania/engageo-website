@@ -12,6 +12,7 @@ type Tier = {
   audience: string;
   price: string;
   cadence: string;
+  altNote: string;
   features: readonly string[];
   ctaLabel: string;
   ctaHref: string;
@@ -25,8 +26,9 @@ const TIERS: readonly Tier[] = [
     audience: 'Clinics & hospitals',
     price: '₹7,500',
     cadence: '/ month',
+    altNote: 'or ₹90,000 / year, billed annually',
     features: [
-      '150 calls included / month, then ₹7 / minute',
+      '150 calls / month (1,800 / year), then ₹7 / minute',
       'Up to 150 patient appointments booked / month',
       'Free CRM to track every patient',
       'WhatsApp recovery, confirmations + reminders',
@@ -47,9 +49,9 @@ export function PricingPreview(): JSX.Element {
           One simple plan.
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          ₹7,500 a month. 150 calls included, then ₹7 per minute. A free CRM
-          to track every patient. Same plan for the solo clinic and the
-          multi-doctor hospital.
+          ₹7,500 a month, or ₹90,000 a year. 150 calls a month (1,800 a year),
+          then ₹7 per minute. A free CRM to track every patient — same plan for
+          the solo clinic and the multi-doctor hospital.
         </p>
       </div>
 
@@ -163,6 +165,15 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
           {tier.cadence}
         </span>
       </div>
+      <p
+        className={cn(
+          'mt-1 text-[12px]',
+          featured ? 'text-surface/60' : 'text-subtle',
+        )}
+        style={{ transform: 'translateZ(30px)' }}
+      >
+        {tier.altNote}
+      </p>
 
       <div
         className={cn(

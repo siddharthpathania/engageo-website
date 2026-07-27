@@ -16,8 +16,12 @@ const FAQS: readonly QA[] = [
     a: 'No. You get 14 days without entering payment details. Add a card only when you decide to continue.',
   },
   {
-    q: 'What’s included in the ₹7,500/month?',
+    q: 'What’s included in the plan?',
     a: 'Everything in the Growth plan: 150 calls a month, up to 150 patient appointments booked, a free CRM, WhatsApp recovery and reminders, calendar sync, and all 12 Indian languages. No setup fees and no contracts.',
+  },
+  {
+    q: 'Can I pay annually?',
+    a: 'Yes. Pay ₹7,500/month, or ₹90,000/year billed once a year — same rate either way. On annual billing your call allowance pools to 1,800 calls for the year (150 × 12); after that it’s ₹7 per minute, same as monthly.',
   },
   {
     q: 'What counts toward my 150 included calls?',

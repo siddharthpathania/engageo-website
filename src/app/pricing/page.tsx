@@ -8,7 +8,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 const PRICING_TITLE = 'Pricing — Clinic Appointment Recovery Software';
 const PRICING_DESCRIPTION =
-  'Simple, transparent pricing for Indian clinics — ₹7,500/month with 150 calls included, then ₹7/minute. Up to 150 patient appointments booked and a free CRM. 14-day free trial, no setup fees, no contracts.';
+  'Simple, transparent pricing for Indian clinics — ₹7,500/month or ₹90,000/year, with 150 calls a month (1,800 a year), then ₹7/minute. Up to 150 patient appointments booked and a free CRM. 14-day free trial, no setup fees, no contracts.';
 
 export const metadata: Metadata = {
   title: { absolute: `${PRICING_TITLE} | Engageo` },
@@ -36,7 +36,7 @@ const INCLUDED: readonly IncludedSection[] = [
   {
     title: 'Call recovery',
     items: [
-      '150 calls included each month, then ₹7 / minute',
+      '150 calls a month (1,800 a year), then ₹7 / minute',
       'Up to 150 patient appointments booked / month',
       '< 30-second response to every missed call',
       'WhatsApp recovery (Meta-verified)',
@@ -87,9 +87,9 @@ export default function PricingPage(): JSX.Element {
             <span className="serif-hero">plan.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
-            ₹7,500 a month — 150 calls included, then ₹7 per minute. Up to 150
-            patient appointments booked, and a free CRM to track them. A 14-day
-            free trial, no credit card, no contracts.
+            ₹7,500 a month, or ₹90,000 a year. 150 calls a month (1,800 a year),
+            then ₹7 per minute. Up to 150 patient appointments booked, and a free
+            CRM to track them. A 14-day free trial, no credit card, no contracts.
           </p>
         </div>
       </SectionWrapper>

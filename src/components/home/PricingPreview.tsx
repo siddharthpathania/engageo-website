@@ -31,8 +31,8 @@ const TIERS: readonly Tier[] = [
     name: 'Solo',
     audience: '1 clinic',
     view: {
-      monthly: { price: '₹7,500', cadence: '/ month', altNote: 'or ₹90,000 / year' },
-      annual: { price: '₹90,000', cadence: '/ year', altNote: '₹7,500 / month, billed yearly' },
+      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'or ₹89,988 / year' },
+      annual: { price: '₹89,988', cadence: '/ year', altNote: '₹7,499 / month, billed yearly' },
     },
     features: [
       '1 clinic number',
@@ -50,8 +50,8 @@ const TIERS: readonly Tier[] = [
     name: 'Growth',
     audience: 'Up to 3 clinics',
     view: {
-      monthly: { price: '₹22,500', cadence: '/ month', altNote: 'or ₹2,70,000 / year' },
-      annual: { price: '₹2,70,000', cadence: '/ year', altNote: '₹22,500 / month, billed yearly' },
+      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'or ₹2,69,964 / year' },
+      annual: { price: '₹2,69,964', cadence: '/ year', altNote: '₹22,497 / month, billed yearly' },
     },
     features: [
       'Up to 3 clinic numbers / locations',
@@ -96,7 +96,7 @@ export function PricingPreview(): JSX.Element {
           Plans for every clinic size.
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          Start solo at ₹7,500/month, scale to three clinics, or go custom for a
+          Start solo at ₹7,499/month, scale to three clinics, or go custom for a
           hospital chain. A free CRM on every plan.
         </p>
 

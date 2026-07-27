@@ -61,7 +61,7 @@ export const MAIN_NAV: readonly NavLink[] = [
   {
     label: 'Pricing',
     href: '/#pricing',
-    description: 'Solo, Growth, and Enterprise — from ₹7,500/month.',
+    description: 'Solo, Growth, and Enterprise — from ₹7,499/month.',
   },
   {
     label: 'FAQ',
@@ -241,8 +241,8 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: 'solo',
     name: 'Solo',
     label: '1 clinic',
-    price: 7_500,
-    priceLabel: '\u20B97,500',
+    price: 7_499,
+    priceLabel: '\u20B97,499',
     cadence: '/ month',
     addOn: '150 calls included, then \u20B97/min',
     description:
@@ -252,8 +252,8 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: 'growth',
     name: 'Growth',
     label: 'Up to 3 clinics',
-    price: 22_500,
-    priceLabel: '\u20B922,500',
+    price: 22_497,
+    priceLabel: '\u20B922,497',
     cadence: '/ month',
     addOn: '450 calls included, then \u20B97/min',
     description:

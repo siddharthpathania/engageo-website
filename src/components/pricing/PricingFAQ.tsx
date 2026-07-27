@@ -17,11 +17,11 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'What’s the difference between the plans?',
-    a: 'Solo (₹7,500/month) covers one clinic with 150 included calls a month. Growth (₹22,500/month) covers up to three clinics with 450 included calls, a multi-clinic dashboard, and priority support. Enterprise is custom for hospital chains with 4+ locations. Every plan includes the free CRM, WhatsApp recovery, calendar sync, and all 12 Indian languages.',
+    a: 'Solo (₹7,499/month) covers one clinic with 150 included calls a month. Growth (₹22,497/month) covers up to three clinics with 450 included calls, a multi-clinic dashboard, and priority support. Enterprise is custom for hospital chains with 4+ locations. Every plan includes the free CRM, WhatsApp recovery, calendar sync, and all 12 Indian languages.',
   },
   {
     q: 'Can I pay annually?',
-    a: 'Yes. Every plan is billed monthly or annually at the same rate — Solo is ₹7,500/month or ₹90,000/year, Growth is ₹22,500/month or ₹2,70,000/year. On annual billing your call allowance pools for the year (Solo 1,800, Growth 5,400); after that it’s ₹7 per minute, same as monthly.',
+    a: 'Yes. Every plan is billed monthly or annually at the same rate — Solo is ₹7,499/month or ₹89,988/year, Growth is ₹22,497/month or ₹2,69,964/year. On annual billing your call allowance pools for the year (Solo 1,800, Growth 5,400); after that it’s ₹7 per minute, same as monthly.',
   },
   {
     q: 'What counts toward my included calls?',

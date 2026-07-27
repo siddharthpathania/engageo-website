@@ -36,15 +36,15 @@ const TIERS: readonly Tier[] = [
     tagline: 'One number, never a missed call.',
     price: {
       monthly: {
-        label: '₹7,500',
+        label: '₹7,499',
         cadence: '/ month',
-        alt: 'or ₹90,000 / year, billed annually',
+        alt: 'or ₹89,988 / year, billed annually',
         meter: '150 calls included each month, then ₹7 / minute.',
       },
       annual: {
-        label: '₹90,000',
+        label: '₹89,988',
         cadence: '/ year',
-        alt: '₹7,500 / month, billed once a year',
+        alt: '₹7,499 / month, billed once a year',
         meter: '1,800 calls included per year, then ₹7 / minute.',
       },
     },
@@ -66,15 +66,15 @@ const TIERS: readonly Tier[] = [
     tagline: 'Multi-doctor clinics and small chains.',
     price: {
       monthly: {
-        label: '₹22,500',
+        label: '₹22,497',
         cadence: '/ month',
-        alt: 'or ₹2,70,000 / year, billed annually',
+        alt: 'or ₹2,69,964 / year, billed annually',
         meter: '450 calls included each month, then ₹7 / minute.',
       },
       annual: {
-        label: '₹2,70,000',
+        label: '₹2,69,964',
         cadence: '/ year',
-        alt: '₹22,500 / month, billed once a year',
+        alt: '₹22,497 / month, billed once a year',
         meter: '5,400 calls included per year, then ₹7 / minute.',
       },
     },

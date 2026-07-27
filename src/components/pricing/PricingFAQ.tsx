@@ -16,24 +16,24 @@ const FAQS: readonly QA[] = [
     a: 'No. You get 14 days without entering payment details. Add a card only when you decide to continue.',
   },
   {
-    q: 'What’s included in the plan?',
-    a: 'Everything in the Growth plan: 150 calls a month, up to 150 patient appointments booked, a free CRM, WhatsApp recovery and reminders, calendar sync, and all 12 Indian languages. No setup fees and no contracts.',
+    q: 'What’s the difference between the plans?',
+    a: 'Solo (₹7,500/month) covers one clinic with 150 included calls a month. Growth (₹22,500/month) covers up to three clinics with 450 included calls, a multi-clinic dashboard, and priority support. Enterprise is custom for hospital chains with 4+ locations. Every plan includes the free CRM, WhatsApp recovery, calendar sync, and all 12 Indian languages.',
   },
   {
     q: 'Can I pay annually?',
-    a: 'Yes. Pay ₹7,500/month, or ₹90,000/year billed once a year — same rate either way. On annual billing your call allowance pools to 1,800 calls for the year (150 × 12); after that it’s ₹7 per minute, same as monthly.',
+    a: 'Yes. Every plan is billed monthly or annually at the same rate — Solo is ₹7,500/month or ₹90,000/year, Growth is ₹22,500/month or ₹2,70,000/year. On annual billing your call allowance pools for the year (Solo 1,800, Growth 5,400); after that it’s ₹7 per minute, same as monthly.',
   },
   {
-    q: 'What counts toward my 150 included calls?',
-    a: 'Any call our AI answers on your behalf counts toward the monthly 150. Calls that don’t connect (invalid number, no answer from the patient) don’t count.',
+    q: 'What counts toward my included calls?',
+    a: 'Any call our AI answers on your behalf counts toward your monthly included allowance (150 on Solo, 450 on Growth). Calls that don’t connect (invalid number, no answer from the patient) don’t count.',
   },
   {
-    q: 'What happens after I use my 150 calls?',
-    a: 'You’re billed ₹7 per minute for calls beyond the included 150 — only for what you actually use. Usage and the running total are visible in your dashboard, so there are no surprises.',
+    q: 'What happens after I use my included calls?',
+    a: 'You’re billed ₹7 per minute for calls beyond your included allowance — only for what you actually use. Usage and the running total are visible in your dashboard, so there are no surprises. Enterprise plans include unlimited calls.',
   },
   {
     q: 'Is the CRM really free?',
-    a: 'Yes. The CRM to capture and track every patient is included in the ₹7,500/month plan at no extra cost.',
+    a: 'Yes. The CRM to capture and track every patient is included in every plan at no extra cost.',
   },
   {
     q: 'Are WhatsApp conversation charges included in the price?',
@@ -45,7 +45,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'Is there a setup fee?',
-    a: 'No. Onboarding, template configuration, and go-live support are all included. You pay for the ₹7,500 monthly plan, any call minutes beyond the included 150, and WhatsApp conversation costs.',
+    a: 'No. Onboarding, template configuration, and go-live support are all included. You pay for your plan, any call minutes beyond your included allowance, and WhatsApp conversation costs.',
   },
 ];
 

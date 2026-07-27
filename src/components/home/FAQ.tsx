@@ -50,7 +50,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'What does pricing look like?',
-    a: 'One simple plan: \u20B97,500/month. That includes 150 calls a month; after that it\u2019s \u20B97 per minute. You get up to 150 patient appointments booked, a free CRM to track them, WhatsApp recovery and reminders, and calendar sync \u2014 same plan for a solo clinic or a multi-doctor hospital. No setup fees, no contracts, and a 14-day free trial.',
+    a: 'Three plans by clinic size. Solo (1 clinic) is ₹7,500/month with 150 included calls; Growth (up to 3 clinics) is ₹22,500/month with 450 included calls; Enterprise (4+ locations) is custom. After your included calls it’s ₹7 per minute. Every plan includes a free CRM, WhatsApp recovery and reminders, and calendar sync — with a 14-day free trial, no setup fees, and no contracts. Pay monthly or annually.',
   },
 ];
 

@@ -8,7 +8,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 const PRICING_TITLE = 'Pricing — Clinic Appointment Recovery Software';
 const PRICING_DESCRIPTION =
-  'Simple, transparent pricing for Indian clinics — ₹7,500/month or ₹90,000/year, with 150 calls a month (1,800 a year), then ₹7/minute. Up to 150 patient appointments booked and a free CRM. 14-day free trial, no setup fees, no contracts.';
+  'Transparent INR pricing for Indian clinics. Solo (1 clinic) ₹7,500/mo · ₹90,000/yr, Growth (up to 3 clinics) ₹22,500/mo · ₹2,70,000/yr, Enterprise custom. Free CRM, ₹7/minute after your included calls, 14-day free trial, no setup fees.';
 
 export const metadata: Metadata = {
   title: { absolute: `${PRICING_TITLE} | Engageo` },
@@ -36,8 +36,8 @@ const INCLUDED: readonly IncludedSection[] = [
   {
     title: 'Call recovery',
     items: [
-      '150 calls a month (1,800 a year), then ₹7 / minute',
-      'Up to 150 patient appointments booked / month',
+      'Monthly included call allowance, then ₹7 / minute',
+      'Patient appointments booked automatically',
       '< 30-second response to every missed call',
       'WhatsApp recovery (Meta-verified)',
     ],
@@ -83,13 +83,13 @@ export default function PricingPage(): JSX.Element {
         <div className="mx-auto max-w-3xl text-center">
           <span className="section-label justify-center">Pricing</span>
           <h1 className="mt-6 font-display text-[44px] font-semibold leading-[1.05] tracking-tighter text-obsidian md:text-6xl lg:text-[72px]">
-            One simple{' '}
-            <span className="serif-hero">plan.</span>
+            Priced for{' '}
+            <span className="serif-hero">every clinic.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
-            ₹7,500 a month, or ₹90,000 a year. 150 calls a month (1,800 a year),
-            then ₹7 per minute. Up to 150 patient appointments booked, and a free
-            CRM to track them. A 14-day free trial, no credit card, no contracts.
+            Start solo at ₹7,500/month, scale to three clinics, or go custom for
+            a hospital chain. Pay monthly or annually — a free CRM and a 14-day
+            free trial on every plan, no credit card, no contracts.
           </p>
         </div>
       </SectionWrapper>
@@ -104,10 +104,11 @@ export default function PricingPage(): JSX.Element {
         <div className="mx-auto max-w-3xl text-center">
           <span className="section-label justify-center">Everything included</span>
           <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-            Everything in Growth.
+            Every plan includes.
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            One price, every feature. No gates, no add-on tiers.
+            The essentials come standard on Solo, Growth, and Enterprise — the
+            plans differ on clinics, call volume, and support.
           </p>
         </div>
 

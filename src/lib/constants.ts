@@ -61,7 +61,7 @@ export const MAIN_NAV: readonly NavLink[] = [
   {
     label: 'Pricing',
     href: '/#pricing',
-    description: 'One simple plan — ₹7,500/month.',
+    description: 'Solo, Growth, and Enterprise — from ₹7,500/month.',
   },
   {
     label: 'FAQ',
@@ -225,10 +225,10 @@ export const KEY_METRICS = [
 // ─── Pricing tiers ───────────────────────────────────────────────
 
 export type PricingTier = {
-  id: 'growth';
+  id: 'solo' | 'growth' | 'enterprise';
   name: string;
   label: string;
-  price: number;
+  price: number | null;
   priceLabel: string;
   cadence: string;
   addOn?: string;
@@ -238,15 +238,38 @@ export type PricingTier = {
 
 export const PRICING_TIERS: readonly PricingTier[] = [
   {
-    id: 'growth',
-    name: 'Growth',
-    label: 'Missed Call Recovery + Booking',
+    id: 'solo',
+    name: 'Solo',
+    label: '1 clinic',
     price: 7_500,
     priceLabel: '\u20B97,500',
     cadence: '/ month',
     addOn: '150 calls included, then \u20B97/min',
     description:
-      'One simple plan. Every missed call your team can\u2019t pick up gets answered, the patient\u2019s questions get handled, and the appointment lands in your calendar \u2014 with a free CRM to track it all.',
+      'For a single clinic. Every missed call gets answered, the appointment lands in your calendar, and a free CRM tracks every patient.',
+  },
+  {
+    id: 'growth',
+    name: 'Growth',
+    label: 'Up to 3 clinics',
+    price: 22_500,
+    priceLabel: '\u20B922,500',
+    cadence: '/ month',
+    addOn: '450 calls included, then \u20B97/min',
+    description:
+      'For multi-doctor clinics and small chains. Up to three clinic numbers, a shared multi-clinic dashboard, and priority support.',
+    featured: true,
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    label: 'Hospital chains \u00B7 4+ locations',
+    price: null,
+    priceLabel: 'Custom',
+    cadence: '',
+    addOn: 'Unlimited calls & locations',
+    description:
+      'For chains expanding across cities: unlimited locations and calls, HMS/PMS integration, a dedicated success manager, and an SLA.',
   },
 ] as const;
 

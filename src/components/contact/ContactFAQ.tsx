@@ -39,7 +39,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'Is there a free trial, and what does pricing look like?',
-    a: 'Every plan includes a 14-day free trial — no setup fees, no contracts. Recovery plans start at \u20B925,000/month for solo clinics (up to 400 recovered calls). Growth plans for multi-doctor clinics and mid-sized hospitals are \u20B955,000/month with unlimited calls plus post-visit follow-ups. Enterprise pricing is custom.',
+    a: 'One simple plan: \u20B97,500/month, with a 14-day free trial \u2014 no setup fees, no contracts. It includes 150 calls a month (then \u20B97 per minute), up to 150 patient appointments booked, a free CRM, WhatsApp recovery and reminders, and calendar sync. The same plan works for a solo clinic or a multi-doctor hospital.',
   },
   {
     q: 'How do I book a demo or get a free missed-call audit?',

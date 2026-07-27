@@ -50,7 +50,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'What does pricing look like?',
-    a: 'Recovery plans start at \u20B925,000/month for solo clinics (up to 400 recovered calls). Growth plans for multi-doctor clinics are \u20B955,000/month with unlimited calls and post-visit follow-ups. Enterprise pricing is custom. No setup fees, no contracts. Every plan includes a 14-day free trial.',
+    a: 'One simple plan: \u20B97,500/month. That includes 150 calls a month; after that it\u2019s \u20B97 per minute. You get up to 150 patient appointments booked, a free CRM to track them, WhatsApp recovery and reminders, and calendar sync \u2014 same plan for a solo clinic or a multi-doctor hospital. No setup fees, no contracts, and a 14-day free trial.',
   },
 ];
 

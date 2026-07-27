@@ -7,7 +7,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
 
 type Tier = {
-  id: 'starter' | 'growth' | 'enterprise';
+  id: 'growth';
   name: string;
   audience: string;
   price: string;
@@ -20,55 +20,21 @@ type Tier = {
 
 const TIERS: readonly Tier[] = [
   {
-    id: 'starter',
-    name: 'Starter',
-    audience: 'Solo practitioners',
-    price: '₹25,000',
-    cadence: '/ month',
-    features: [
-      'Up to 400 recovered calls / mo',
-      'Hindi + English call handling',
-      'Google Calendar sync',
-      'WhatsApp confirmations + reminders',
-      'Weekly recovery report',
-    ],
-    ctaLabel: 'Start Free Trial',
-    ctaHref: '/contact?plan=starter',
-  },
-  {
     id: 'growth',
     name: 'Growth',
-    audience: 'Multi-doctor clinics',
-    price: '₹55,000',
+    audience: 'Clinics & hospitals',
+    price: '₹7,500',
     cadence: '/ month',
     features: [
-      'Unlimited recovered calls',
+      '150 calls included / month, then ₹7 / minute',
+      'Up to 150 patient appointments booked / month',
+      'Free CRM to track every patient',
+      'WhatsApp recovery, confirmations + reminders',
+      'Google Calendar sync',
       'All 12 Indian languages',
-      'Multi-doctor calendar routing',
-      'Post-visit follow-up sequences',
-      'Full analytics dashboard',
-      'Custom clinic knowledge training',
     ],
-    ctaLabel: 'Book a Strategy Call',
-    ctaHref: 'https://cal.com/engageo',
-    featured: true,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    audience: 'Hospital chains',
-    price: 'Custom',
-    cadence: 'annual',
-    features: [
-      'Multi-location deployment',
-      'HMS / PMS integration',
-      'Custom follow-up workflows',
-      'Human escalation routing',
-      'Dedicated success manager',
-      'SLA + priority support',
-    ],
-    ctaLabel: 'Talk to Sales',
-    ctaHref: '/contact?plan=enterprise',
+    ctaLabel: 'Start Free Trial',
+    ctaHref: '/contact?plan=growth',
   },
 ];
 
@@ -78,15 +44,16 @@ export function PricingPreview(): JSX.Element {
       <div className="mx-auto max-w-3xl text-center">
         <span className="section-label justify-center">Investment</span>
         <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-          Priced for your growth stage.
+          One simple plan.
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          One plan for the solo dermatologist. One for the 12-chair dental
-          group. One for the chain expanding across five cities.
+          ₹7,500 a month. 150 calls included, then ₹7 per minute. A free CRM
+          to track every patient. Same plan for the solo clinic and the
+          multi-doctor hospital.
         </p>
       </div>
 
-      <div className="mt-14 grid gap-5 md:mt-18 lg:grid-cols-3">
+      <div className="mx-auto mt-14 max-w-md md:mt-18">
         {TIERS.map((tier) => (
           <PricingCard key={tier.id} tier={tier} />
         ))}
@@ -106,8 +73,7 @@ export function PricingPreview(): JSX.Element {
           />
         </Link>
         <p className="text-[11px] text-subtle">
-          All plans include the 15-booking guarantee. No setup fees. No
-          contracts.
+          14-day free trial. No setup fees. No contracts.
         </p>
       </div>
     </SectionWrapper>

@@ -1,6 +1,5 @@
 import { Check } from 'lucide-react';
 import type { Metadata } from 'next';
-import { Fragment } from 'react';
 import { CTASection } from '@/components/home/CTASection';
 import { PricingFAQ } from '@/components/pricing/PricingFAQ';
 import { PricingTable } from '@/components/pricing/PricingTable';
@@ -9,7 +8,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 const PRICING_TITLE = 'Pricing — Clinic Appointment Recovery Software';
 const PRICING_DESCRIPTION =
-  'Transparent INR pricing for Indian clinics. Starter ₹25,000/mo, Growth ₹55,000/mo, Enterprise custom. 14-day free trial. No setup fees. Save 20% annual.';
+  'Simple, transparent pricing for Indian clinics — ₹7,500/month with 150 calls included, then ₹7/minute. Up to 150 patient appointments booked and a free CRM. 14-day free trial, no setup fees, no contracts.';
 
 export const metadata: Metadata = {
   title: { absolute: `${PRICING_TITLE} | Engageo` },
@@ -28,98 +27,46 @@ export const metadata: Metadata = {
   },
 };
 
-type MatrixRow = {
-  feature: string;
-  starter: string | boolean;
-  growth: string | boolean;
-  enterprise: string | boolean;
-};
-
-type MatrixSection = {
+type IncludedSection = {
   title: string;
-  rows: readonly MatrixRow[];
+  items: readonly string[];
 };
 
-const MATRIX: readonly MatrixSection[] = [
+const INCLUDED: readonly IncludedSection[] = [
   {
-    title: 'Core recovery',
-    rows: [
-      { feature: 'Clinic numbers', starter: '1', growth: '3', enterprise: 'Unlimited' },
-      { feature: 'Missed-call recoveries / month', starter: '200', growth: 'Unlimited', enterprise: 'Unlimited' },
-      { feature: 'Response time', starter: '< 30 seconds', growth: '< 30 seconds', enterprise: '< 15 seconds (SLA)' },
-      { feature: 'WhatsApp recovery', starter: true, growth: true, enterprise: true },
-      { feature: 'SMS fallback', starter: false, growth: true, enterprise: true },
+    title: 'Call recovery',
+    items: [
+      '150 calls included each month, then ₹7 / minute',
+      'Up to 150 patient appointments booked / month',
+      '< 30-second response to every missed call',
+      'WhatsApp recovery (Meta-verified)',
     ],
   },
   {
-    title: 'Language + templates',
-    rows: [
-      { feature: 'Indian languages', starter: 'English + Hindi', growth: 'All 7', enterprise: 'All 7 + custom' },
-      { feature: 'Custom templates', starter: '2 variants', growth: 'Unlimited', enterprise: 'Unlimited + A/B' },
-      { feature: 'A/B testing', starter: false, growth: true, enterprise: true },
-      { feature: 'Doctor-specific tone', starter: false, growth: true, enterprise: true },
+    title: 'Booking & CRM',
+    items: [
+      'Free CRM to track every patient',
+      'Google Calendar / iCal sync',
+      'WhatsApp confirmations + reminders',
     ],
   },
   {
-    title: 'Follow-up & journeys',
-    rows: [
-      { feature: 'Initial recovery message', starter: true, growth: true, enterprise: true },
-      { feature: '4-touchpoint journey', starter: false, growth: true, enterprise: true },
-      { feature: 'Custom sequences', starter: false, growth: '3 sequences', enterprise: 'Unlimited' },
+    title: 'Language & templates',
+    items: [
+      'All 12 Indian languages',
+      'Custom message templates',
+      'Doctor-specific tone',
     ],
   },
   {
-    title: 'Analytics & reporting',
-    rows: [
-      { feature: 'Weekly summary email', starter: true, growth: true, enterprise: true },
-      { feature: 'Live dashboard', starter: true, growth: true, enterprise: true },
-      { feature: 'Per-doctor breakdown', starter: false, growth: true, enterprise: true },
-      { feature: 'Hour-of-day heatmap', starter: false, growth: true, enterprise: true },
-      { feature: 'CSV + API export', starter: false, growth: 'CSV', enterprise: 'CSV + API' },
-    ],
-  },
-  {
-    title: 'Integrations',
-    rows: [
-      { feature: 'Google Calendar / iCal', starter: true, growth: true, enterprise: true },
-      { feature: 'Practo', starter: false, growth: true, enterprise: true },
-      { feature: 'HMS / PMS (DocPulse, Halemind, etc.)', starter: false, growth: '1 system', enterprise: 'Unlimited + custom' },
-      { feature: 'Webhook events', starter: false, growth: false, enterprise: true },
-      { feature: 'Full REST API', starter: false, growth: false, enterprise: true },
-    ],
-  },
-  {
-    title: 'Support',
-    rows: [
-      { feature: 'Email support', starter: '48h', growth: '24h', enterprise: '4h SLA' },
-      { feature: 'WhatsApp support', starter: false, growth: true, enterprise: true },
-      { feature: 'Dedicated success manager', starter: false, growth: false, enterprise: true },
-      { feature: 'Quarterly business review', starter: false, growth: false, enterprise: true },
-      { feature: 'Priority incident response', starter: false, growth: false, enterprise: true },
+    title: 'Analytics & support',
+    items: [
+      'Weekly recovery report + live dashboard',
+      'Email + WhatsApp support',
+      'No setup fees, no contracts',
     ],
   },
 ];
-
-function MatrixCell({ value }: { value: string | boolean }): JSX.Element {
-  if (value === true) {
-    return (
-      <Check
-        size={18}
-        strokeWidth={2}
-        aria-label="Included"
-        className="mx-auto text-primary-500"
-      />
-    );
-  }
-  if (value === false) {
-    return (
-      <span aria-label="Not included" className="mx-auto block h-px w-3 bg-neutral-300" />
-    );
-  }
-  return (
-    <span className="text-[13px] font-medium text-obsidian/85">{value}</span>
-  );
-}
 
 export default function PricingPage(): JSX.Element {
   return (
@@ -136,122 +83,56 @@ export default function PricingPage(): JSX.Element {
         <div className="mx-auto max-w-3xl text-center">
           <span className="section-label justify-center">Pricing</span>
           <h1 className="mt-6 font-display text-[44px] font-semibold leading-[1.05] tracking-tighter text-obsidian md:text-6xl lg:text-[72px]">
-            Priced for{' '}
-            <span className="serif-hero">every clinic.</span>
+            One simple{' '}
+            <span className="serif-hero">plan.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
-            Three plans. No setup fees. No contracts. Pay monthly or save
-            20% annual. A 14-day free trial on every tier — no credit
-            card required.
+            ₹7,500 a month — 150 calls included, then ₹7 per minute. Up to 150
+            patient appointments booked, and a free CRM to track them. A 14-day
+            free trial, no credit card, no contracts.
           </p>
         </div>
       </SectionWrapper>
 
-      {/* Tier cards + toggle */}
-      <SectionWrapper id="pricing-tiers" className="pt-0 md:pt-0">
+      {/* Plan card */}
+      <SectionWrapper id="pricing-plan" className="pt-0 md:pt-0">
         <PricingTable />
       </SectionWrapper>
 
-      {/* Feature comparison matrix */}
-      <SectionWrapper id="comparison" className="bg-sand/40">
+      {/* Everything included */}
+      <SectionWrapper id="whats-included" className="bg-sand/40">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="section-label justify-center">Everything compared</span>
+          <span className="section-label justify-center">Everything included</span>
           <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-            Full feature matrix.
+            Everything in Growth.
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            Every feature, every tier. No hidden gates.
+            One price, every feature. No gates, no add-on tiers.
           </p>
         </div>
 
-        {/* Desktop matrix */}
-        <div className="mt-14 hidden overflow-hidden rounded-2xl border border-neutral-200 bg-surface shadow-subtle md:block">
-          <table className="w-full text-left">
-            <thead className="sticky top-0 bg-surface">
-              <tr className="border-b border-neutral-200 bg-neutral-50/60">
-                <th className="w-[40%] px-6 py-4 font-display text-[13px] font-semibold uppercase tracking-widest text-subtle">
-                  Feature
-                </th>
-                <th className="w-[20%] px-6 py-4 text-center font-display text-[13px] font-semibold uppercase tracking-widest text-obsidian">
-                  Starter
-                </th>
-                <th className="w-[20%] px-6 py-4 text-center font-display text-[13px] font-semibold uppercase tracking-widest text-primary-600">
-                  Growth
-                </th>
-                <th className="w-[20%] px-6 py-4 text-center font-display text-[13px] font-semibold uppercase tracking-widest text-obsidian">
-                  Enterprise
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {MATRIX.map((section) => (
-                <Fragment key={section.title}>
-                  <tr className="border-t border-neutral-200 bg-neutral-50/30">
-                    <th
-                      colSpan={4}
-                      className="px-6 py-3 text-left font-display text-[11px] font-semibold uppercase tracking-widest text-primary-600"
-                    >
-                      {section.title}
-                    </th>
-                  </tr>
-                  {section.rows.map((row) => (
-                    <tr
-                      key={`${section.title}-${row.feature}`}
-                      className="border-t border-neutral-200"
-                    >
-                      <td className="px-6 py-3.5 text-sm font-medium text-obsidian">
-                        {row.feature}
-                      </td>
-                      <td className="px-6 py-3.5 text-center">
-                        <MatrixCell value={row.starter} />
-                      </td>
-                      <td className="px-6 py-3.5 text-center">
-                        <MatrixCell value={row.growth} />
-                      </td>
-                      <td className="px-6 py-3.5 text-center">
-                        <MatrixCell value={row.enterprise} />
-                      </td>
-                    </tr>
-                  ))}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile stacked matrix */}
-        <div className="mt-14 space-y-8 md:hidden">
-          {MATRIX.map((section) => (
-            <div key={section.title}>
+        <div className="mx-auto mt-14 grid max-w-4xl gap-5 md:mt-18 md:grid-cols-2">
+          {INCLUDED.map((section) => (
+            <div
+              key={section.title}
+              className="rounded-2xl border border-neutral-200 bg-surface p-6 md:p-7"
+            >
               <h3 className="font-display text-[11px] font-semibold uppercase tracking-widest text-primary-600">
                 {section.title}
               </h3>
-              <ul className="mt-3 divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-surface">
-                {section.rows.map((row) => (
-                  <li key={row.feature} className="p-4">
-                    <p className="font-display text-sm font-semibold text-obsidian">
-                      {row.feature}
-                    </p>
-                    <dl className="mt-2 grid grid-cols-3 gap-2 text-[12px]">
-                      <div>
-                        <dt className="text-[10px] uppercase tracking-widest text-subtle">Starter</dt>
-                        <dd className="mt-1">
-                          <MatrixCell value={row.starter} />
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-[10px] uppercase tracking-widest text-primary-600">Growth</dt>
-                        <dd className="mt-1">
-                          <MatrixCell value={row.growth} />
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-[10px] uppercase tracking-widest text-subtle">Enterprise</dt>
-                        <dd className="mt-1">
-                          <MatrixCell value={row.enterprise} />
-                        </dd>
-                      </div>
-                    </dl>
+              <ul className="mt-4 space-y-3">
+                {section.items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-sm leading-snug"
+                  >
+                    <Check
+                      size={16}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0 text-primary-500"
+                    />
+                    <span className="text-obsidian/85">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -268,8 +149,8 @@ export default function PricingPage(): JSX.Element {
             Before you sign up.
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            Trial, billing, switching plans, WhatsApp fees — here is how
-            it all works.
+            Trial, billing, call minutes, WhatsApp fees — here is how it all
+            works.
           </p>
         </div>
 

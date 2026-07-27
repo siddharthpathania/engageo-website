@@ -13,35 +13,35 @@ type QA = {
 const FAQS: readonly QA[] = [
   {
     q: 'Do I need a credit card for the free trial?',
-    a: 'No. You get 14 days on any plan without entering payment details. Add a card only when you decide to continue.',
+    a: 'No. You get 14 days without entering payment details. Add a card only when you decide to continue.',
   },
   {
-    q: 'What counts as a recovery on the Starter plan?',
-    a: 'Any missed call where we successfully deliver a WhatsApp recovery message. If the message fails to deliver (blocked WhatsApp, invalid number), it does not count against your 200/month cap.',
+    q: 'What’s included in the ₹7,500/month?',
+    a: 'Everything in the Growth plan: 150 calls a month, up to 150 patient appointments booked, a free CRM, WhatsApp recovery and reminders, calendar sync, and all 12 Indian languages. No setup fees and no contracts.',
+  },
+  {
+    q: 'What counts toward my 150 included calls?',
+    a: 'Any call our AI answers on your behalf counts toward the monthly 150. Calls that don’t connect (invalid number, no answer from the patient) don’t count.',
+  },
+  {
+    q: 'What happens after I use my 150 calls?',
+    a: 'You’re billed ₹7 per minute for calls beyond the included 150 — only for what you actually use. Usage and the running total are visible in your dashboard, so there are no surprises.',
+  },
+  {
+    q: 'Is the CRM really free?',
+    a: 'Yes. The CRM to capture and track every patient is included in the ₹7,500/month plan at no extra cost.',
   },
   {
     q: 'Are WhatsApp conversation charges included in the price?',
     a: 'No — Meta charges a per-conversation fee (typically ₹0.35–₹0.85 per conversation, depending on category). We pass this through at cost with full transparency in your dashboard. Typical clinics spend ₹300–₹900/month on conversation fees.',
   },
   {
-    q: 'Can I switch plans mid-cycle?',
-    a: 'Yes. Upgrades are prorated immediately. Downgrades take effect on your next billing date. No cancellation fees, ever.',
-  },
-  {
     q: 'What happens after the 14-day trial?',
-    a: 'You pick a plan and enter payment details to keep the recoveries flowing. If you do not subscribe, the service pauses automatically — no auto-billing, no surprise charges.',
-  },
-  {
-    q: 'How does annual billing work?',
-    a: 'You pay 12 months upfront at a 20% discount. If you cancel mid-contract, we refund unused months on a pro-rata basis minus a 10% administrative fee.',
+    a: 'You enter payment details to keep the recoveries flowing. If you do not subscribe, the service pauses automatically — no auto-billing, no surprise charges.',
   },
   {
     q: 'Is there a setup fee?',
-    a: 'No. Onboarding, template configuration, and go-live support are all included. The only thing you pay for is the monthly plan + WhatsApp conversation costs.',
-  },
-  {
-    q: 'What does Enterprise pricing look like?',
-    a: 'Enterprise pricing is based on number of locations, expected recovery volume, and integration complexity. Most multi-location chains land between ₹25,000 and ₹1,20,000/month. Book a call for a custom quote.',
+    a: 'No. Onboarding, template configuration, and go-live support are all included. You pay for the ₹7,500 monthly plan, any call minutes beyond the included 150, and WhatsApp conversation costs.',
   },
 ];
 

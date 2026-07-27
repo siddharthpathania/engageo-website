@@ -61,7 +61,7 @@ export const MAIN_NAV: readonly NavLink[] = [
   {
     label: 'Pricing',
     href: '/#pricing',
-    description: 'Three tiers from Recover to Dominate.',
+    description: 'One simple plan — ₹7,500/month.',
   },
   {
     label: 'FAQ',
@@ -225,7 +225,7 @@ export const KEY_METRICS = [
 // ─── Pricing tiers ───────────────────────────────────────────────
 
 export type PricingTier = {
-  id: 'recover' | 'grow' | 'dominate';
+  id: 'growth';
   name: string;
   label: string;
   price: number;
@@ -238,37 +238,15 @@ export type PricingTier = {
 
 export const PRICING_TIERS: readonly PricingTier[] = [
   {
-    id: 'recover',
-    name: 'Recover',
-    label: 'Missed Call Recovery',
-    price: 25_000,
-    priceLabel: '\u20B925,000',
+    id: 'growth',
+    name: 'Growth',
+    label: 'Missed Call Recovery + Booking',
+    price: 7_500,
+    priceLabel: '\u20B97,500',
     cadence: '/ month',
+    addOn: '150 calls included, then \u20B97/min',
     description:
-      'Your clinic already gets inbound calls. We make sure the ones your team can\u2019t pick up still get answered, the patient\u2019s questions still get handled, and the appointment still lands in your calendar.',
-  },
-  {
-    id: 'grow',
-    name: 'Grow',
-    label: 'Lead Gen + Recovery',
-    price: 55_000,
-    priceLabel: '\u20B955,000',
-    cadence: '/ month',
-    addOn: '+ your ad spend',
-    description:
-      'We drive more inbound calls through ads and SEO \u2014 then make sure every single one gets answered, booked, confirmed, and followed up. You stay in the consultation room. We keep it full.',
-    featured: true,
-  },
-  {
-    id: 'dominate',
-    name: 'Dominate',
-    label: 'Full Clinic Growth System',
-    price: 120_000,
-    priceLabel: '\u20B91,20,000',
-    cadence: '/ month',
-    addOn: '+ ad spend',
-    description:
-      'Full-stack clinic growth: patient acquisition, call recovery, booking automation, WhatsApp follow-ups, and a dedicated growth strategist. Every patient touchpoint \u2014 from first search to post-treatment review \u2014 handled.',
+      'One simple plan. Every missed call your team can\u2019t pick up gets answered, the patient\u2019s questions get handled, and the appointment lands in your calendar \u2014 with a free CRM to track it all.',
   },
 ] as const;
 

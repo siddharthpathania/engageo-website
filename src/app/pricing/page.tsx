@@ -8,7 +8,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 const PRICING_TITLE = 'Pricing — Clinic Appointment Recovery Software';
 const PRICING_DESCRIPTION =
-  'Transparent INR pricing for Indian clinics. Solo (1 clinic) ₹7,499/mo · ₹89,988/yr, Growth (up to 3 clinics) ₹22,497/mo · ₹2,69,964/yr, Enterprise custom. Free CRM, ₹7/minute after your included calls, 14-day free trial, no setup fees.';
+  'Transparent INR pricing for Indian clinics. Solo (1 clinic) from ₹7,499/month or ₹81,999/year, Growth (up to 3 clinics) from ₹22,497/month or ₹2,45,997/year, Enterprise custom. Pay monthly, quarterly, or yearly — free CRM, ₹7/minute after your included calls, 14-day free trial.';
 
 export const metadata: Metadata = {
   title: { absolute: `${PRICING_TITLE} | Engageo` },
@@ -88,8 +88,9 @@ export default function PricingPage(): JSX.Element {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
             Start solo at ₹7,499/month, scale to three clinics, or go custom for
-            a hospital chain. Pay monthly or annually — a free CRM and a 14-day
-            free trial on every plan, no credit card, no contracts.
+            a hospital chain. Pay monthly, quarterly, or yearly — longer terms
+            cost less per month. A free CRM and a 14-day free trial on every
+            plan, no credit card, no contracts.
           </p>
         </div>
       </SectionWrapper>

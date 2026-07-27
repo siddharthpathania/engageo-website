@@ -5,12 +5,18 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
-type Billing = 'monthly' | 'annual';
+type Billing = 'monthly' | 'quarterly' | 'annual';
+
+const BILLING_OPTIONS: readonly { value: Billing; label: string }[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'quarterly', label: '3 Months' },
+  { value: 'annual', label: '12 Months' },
+];
 
 type PriceView = {
   label: string;
   cadence: string;
-  /** Alternative-cadence note under the price. */
+  /** Effective / alternative-cadence note under the price. */
   alt: string;
   /** Call-allowance line under the price. */
   meter: string;
@@ -38,14 +44,20 @@ const TIERS: readonly Tier[] = [
       monthly: {
         label: '₹7,499',
         cadence: '/ month',
-        alt: 'or ₹89,988 / year, billed annually',
+        alt: 'or ₹81,999 for 12 months',
         meter: '150 calls included each month, then ₹7 / minute.',
       },
+      quarterly: {
+        label: '₹20,999',
+        cadence: '/ 3 months',
+        alt: '≈ ₹7,000 / month, billed quarterly',
+        meter: '150 calls each month (450 over 3 months), then ₹7 / minute.',
+      },
       annual: {
-        label: '₹89,988',
-        cadence: '/ year',
-        alt: '₹7,499 / month, billed once a year',
-        meter: '1,800 calls included per year, then ₹7 / minute.',
+        label: '₹81,999',
+        cadence: '/ 12 months',
+        alt: '≈ ₹6,833 / month, billed yearly',
+        meter: '150 calls each month (1,800 / year), then ₹7 / minute.',
       },
     },
     features: [
@@ -68,14 +80,20 @@ const TIERS: readonly Tier[] = [
       monthly: {
         label: '₹22,497',
         cadence: '/ month',
-        alt: 'or ₹2,69,964 / year, billed annually',
+        alt: 'or ₹2,45,997 for 12 months',
         meter: '450 calls included each month, then ₹7 / minute.',
       },
+      quarterly: {
+        label: '₹62,997',
+        cadence: '/ 3 months',
+        alt: '≈ ₹21,000 / month, billed quarterly',
+        meter: '450 calls each month (1,350 over 3 months), then ₹7 / minute.',
+      },
       annual: {
-        label: '₹2,69,964',
-        cadence: '/ year',
-        alt: '₹22,497 / month, billed once a year',
-        meter: '5,400 calls included per year, then ₹7 / minute.',
+        label: '₹2,45,997',
+        cadence: '/ 12 months',
+        alt: '≈ ₹20,500 / month, billed yearly',
+        meter: '450 calls each month (5,400 / year), then ₹7 / minute.',
       },
     },
     features: [
@@ -98,6 +116,12 @@ const TIERS: readonly Tier[] = [
     tagline: 'For chains expanding across cities.',
     price: {
       monthly: {
+        label: 'Custom',
+        cadence: '',
+        alt: 'Annual contract · volume pricing',
+        meter: 'Unlimited calls and locations — custom quote.',
+      },
+      quarterly: {
         label: 'Custom',
         cadence: '',
         alt: 'Annual contract · volume pricing',
@@ -135,21 +159,21 @@ export function PricingTable(): JSX.Element {
           aria-label="Billing period"
           className="inline-flex items-center rounded-full border border-neutral-200 bg-surface p-1 shadow-subtle"
         >
-          {(['monthly', 'annual'] as const).map((option) => (
+          {BILLING_OPTIONS.map((option) => (
             <button
-              key={option}
+              key={option.value}
               type="button"
               role="tab"
-              aria-selected={billing === option}
-              onClick={() => setBilling(option)}
+              aria-selected={billing === option.value}
+              onClick={() => setBilling(option.value)}
               className={cn(
-                'rounded-full px-5 py-2 text-[13px] font-semibold capitalize transition-all',
-                billing === option
+                'rounded-full px-4 py-2 text-[13px] font-semibold transition-all sm:px-5',
+                billing === option.value
                   ? 'bg-obsidian text-surface shadow-subtle'
                   : 'text-subtle hover:text-obsidian',
               )}
             >
-              {option}
+              {option.label}
             </button>
           ))}
         </div>

@@ -6,7 +6,13 @@ import { useRef, useState, type MouseEvent } from 'react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
 
-type Billing = 'monthly' | 'annual';
+type Billing = 'monthly' | 'quarterly' | 'annual';
+
+const BILLING_OPTIONS: readonly { value: Billing; label: string }[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'quarterly', label: '3 Months' },
+  { value: 'annual', label: '12 Months' },
+];
 
 type PriceView = {
   price: string;
@@ -31,12 +37,13 @@ const TIERS: readonly Tier[] = [
     name: 'Solo',
     audience: '1 clinic',
     view: {
-      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'or ₹89,988 / year' },
-      annual: { price: '₹89,988', cadence: '/ year', altNote: '₹7,499 / month, billed yearly' },
+      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'or ₹81,999 for 12 months' },
+      quarterly: { price: '₹20,999', cadence: '/ 3 months', altNote: '≈ ₹7,000 / month' },
+      annual: { price: '₹81,999', cadence: '/ 12 months', altNote: '≈ ₹6,833 / month' },
     },
     features: [
       '1 clinic number',
-      '150 calls / month (1,800 / year), then ₹7 / minute',
+      '150 calls / month, then ₹7 / minute',
       'Up to 150 patient appointments / month',
       'Free CRM to track every patient',
       'WhatsApp recovery + reminders',
@@ -50,12 +57,13 @@ const TIERS: readonly Tier[] = [
     name: 'Growth',
     audience: 'Up to 3 clinics',
     view: {
-      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'or ₹2,69,964 / year' },
-      annual: { price: '₹2,69,964', cadence: '/ year', altNote: '₹22,497 / month, billed yearly' },
+      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'or ₹2,45,997 for 12 months' },
+      quarterly: { price: '₹62,997', cadence: '/ 3 months', altNote: '≈ ₹21,000 / month' },
+      annual: { price: '₹2,45,997', cadence: '/ 12 months', altNote: '≈ ₹20,500 / month' },
     },
     features: [
       'Up to 3 clinic numbers / locations',
-      '450 calls / month (5,400 / year), then ₹7 / minute',
+      '450 calls / month, then ₹7 / minute',
       'Up to 450 patient appointments / month',
       'Multi-clinic dashboard + routing',
       'Free CRM + priority support',
@@ -71,6 +79,7 @@ const TIERS: readonly Tier[] = [
     audience: 'Hospital chains',
     view: {
       monthly: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
+      quarterly: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
       annual: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
     },
     features: [
@@ -97,7 +106,8 @@ export function PricingPreview(): JSX.Element {
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
           Start solo at ₹7,499/month, scale to three clinics, or go custom for a
-          hospital chain. A free CRM on every plan.
+          hospital chain. Pay monthly, quarterly, or yearly — a free CRM on every
+          plan.
         </p>
 
         {/* Billing toggle */}
@@ -107,21 +117,21 @@ export function PricingPreview(): JSX.Element {
             aria-label="Billing period"
             className="inline-flex items-center rounded-full border border-neutral-200 bg-surface p-1 shadow-subtle"
           >
-            {(['monthly', 'annual'] as const).map((option) => (
+            {BILLING_OPTIONS.map((option) => (
               <button
-                key={option}
+                key={option.value}
                 type="button"
                 role="tab"
-                aria-selected={billing === option}
-                onClick={() => setBilling(option)}
+                aria-selected={billing === option.value}
+                onClick={() => setBilling(option.value)}
                 className={cn(
-                  'rounded-full px-5 py-2 text-[13px] font-semibold capitalize transition-all',
-                  billing === option
+                  'rounded-full px-4 py-2 text-[13px] font-semibold transition-all sm:px-5',
+                  billing === option.value
                     ? 'bg-obsidian text-surface shadow-subtle'
                     : 'text-subtle hover:text-obsidian',
                 )}
               >
-                {option}
+                {option.label}
               </button>
             ))}
           </div>

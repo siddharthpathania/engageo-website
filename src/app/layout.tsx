@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { PageTransition } from '@/components/layout/PageTransition';
-import { GoogleAnalytics, MicrosoftClarity } from '@/components/shared/Analytics';
+import { FunnelAgent, GoogleAnalytics, MicrosoftClarity } from '@/components/shared/Analytics';
 import { LeadPopup } from '@/components/shared/LeadPopup';
 import { ReducedMotionProvider } from '@/components/shared/ReducedMotionProvider';
 import { ScrollProgress } from '@/components/shared/ScrollProgress';
@@ -138,6 +138,7 @@ export default function RootLayout({
         <SpeedInsights />
         <GoogleAnalytics />
         <MicrosoftClarity />
+        <FunnelAgent />
       </body>
     </html>
   );

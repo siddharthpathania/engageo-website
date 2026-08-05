@@ -1,9 +1,11 @@
-import { Globe, type LucideIcon, PhoneCall, Receipt, Star } from 'lucide-react';
+import { ArrowUpRight, Globe, type LucideIcon, PhoneCall, Receipt, Star } from 'lucide-react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { COMPANY } from '@/lib/constants';
+import { FOUNDERS } from '@/lib/founders';
 
 const ABOUT_TITLE = 'About Engageo — Built for Indian Clinics';
 const ABOUT_DESCRIPTION =
@@ -25,37 +27,6 @@ export const metadata: Metadata = {
     description: ABOUT_DESCRIPTION,
   },
 };
-
-type TeamMember = {
-  name: string;
-  role: string;
-  bio: string;
-  initials: string;
-  accent: string;
-  linkedin: string;
-  photo?: string;
-};
-
-const TEAM: readonly TeamMember[] = [
-  {
-    name: 'Siddharth Pathania',
-    role: 'Co-founder & CEO',
-    bio: 'Agentic developer, UI/UX engineer, and strategy lead. Saw firsthand how Indian clinics haemorrhage revenue through missed calls — and designed the system that stops it.',
-    initials: 'SP',
-    accent: 'from-primary-400 to-primary-600',
-    linkedin: 'https://www.linkedin.com/in/its-siddharth/',
-    photo: '/team/siddharth.jpg',
-  },
-  {
-    name: 'Atul Hooda',
-    role: 'Co-founder & CTO',
-    bio: 'ML engineer leading the core AI operations — voice recognition, patient intent classification, and real-time call routing. Built the engine that intercepts in under 8 seconds.',
-    initials: 'AH',
-    accent: 'from-accent-400 to-accent-600',
-    linkedin: 'https://www.linkedin.com/in/atulhooda/',
-    photo: '/team/atul.jpg',
-  },
-];
 
 type Value = {
   title: string;
@@ -213,37 +184,32 @@ export default function AboutPage(): JSX.Element {
         </div>
 
         <ul className="mx-auto mt-14 grid max-w-2xl gap-5 md:mt-18 md:grid-cols-2 lg:gap-6">
-          {TEAM.map((member) => (
+          {FOUNDERS.map((member) => (
             <li
-              key={member.name}
+              key={member.slug}
               className="group rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover md:p-7"
             >
-              {/* Avatar — gradient initials fallback, ready for real photos */}
               <div className="relative">
-                {member.photo ? (
-                  <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-neutral-100 shadow-subtle">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      width={80}
-                      height={80}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className={`flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${member.accent} font-display text-2xl font-semibold text-surface shadow-subtle`}
-                  >
-                    {member.initials}
-                  </span>
-                )}
+                <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-neutral-100 shadow-subtle">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={member.photo}
+                    alt={member.photoAlt}
+                    width={80}
+                    height={80}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
               <h3 className="mt-5 font-display text-lg font-semibold leading-tight tracking-tight text-obsidian">
-                {member.name}
+                <Link
+                  href={`/about/${member.slug}`}
+                  className="transition-colors hover:text-primary-600"
+                >
+                  {member.name}
+                </Link>
               </h3>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-primary-600">
                 {member.role}
@@ -252,25 +218,34 @@ export default function AboutPage(): JSX.Element {
                 {member.bio}
               </p>
 
-              {/* LinkedIn link */}
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${member.name} on LinkedIn (opens in new tab)`}
-                className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-medium text-obsidian/60 transition-colors hover:text-primary-600"
-              >
-                <svg
-                  width={14}
-                  height={14}
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <Link
+                  href={`/about/${member.slug}`}
+                  className="inline-flex items-center gap-1 text-[12px] font-medium text-primary-600 transition-colors hover:text-primary-700"
                 >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                LinkedIn
-              </a>
+                  Full profile
+                  <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
+                </Link>
+
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${member.name} on LinkedIn (opens in new tab)`}
+                  className="inline-flex items-center gap-1.5 text-[12px] font-medium text-obsidian/60 transition-colors hover:text-primary-600"
+                >
+                  <svg
+                    width={14}
+                    height={14}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+              </div>
             </li>
           ))}
         </ul>

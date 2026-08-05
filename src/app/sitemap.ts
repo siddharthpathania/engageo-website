@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostsMeta } from '@/lib/blog';
 import { SITE_CONFIG } from '@/lib/constants';
+import { FOUNDERS } from '@/lib/founders';
 import { getClinicSpecialties } from '@/lib/specialty-data';
 
 type ChangeFreq = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
@@ -13,7 +14,9 @@ const STATIC_ROUTES: Array<{ path: string; priority: number; changeFrequency: Ch
   { path: '/clinics', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/experience-engageo', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
-  { path: '/about', priority: 0.4, changeFrequency: 'yearly' },
+  // /about carries founder identity — it is the parent of the founder
+  // profile pages, so it is no longer treated as a low-value legal-tier page.
+  { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.4, changeFrequency: 'yearly' },
   { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/terms-of-service', priority: 0.3, changeFrequency: 'yearly' },
@@ -28,6 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
+  }));
+
+  const founderEntries: MetadataRoute.Sitemap = FOUNDERS.map((founder) => ({
+    url: `${SITE_CONFIG.url}/about/${founder.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.6,
   }));
 
   const specialtyEntries: MetadataRoute.Sitemap = getClinicSpecialties().map(
@@ -46,5 +56,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...specialtyEntries, ...blogEntries];
+  return [
+    ...staticEntries,
+    ...founderEntries,
+    ...specialtyEntries,
+    ...blogEntries,
+  ];
 }

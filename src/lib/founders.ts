@@ -82,7 +82,7 @@ export const FOUNDERS: readonly Founder[] = [
     longBio: [
       'Siddharth Pathania is the Co-founder and CEO of Engageo, an AI missed-call recovery platform built in Pune for Indian specialty clinics and hospitals.',
       'In 2023 he spent two weeks shadowing the front desks of 14 Indian clinics — dental, dermatology, IVF, physiotherapy — counting missed calls by hand. The average clinic was losing between ₹2 lakh and ₹4 lakh a month to calls that simply rang out, while the owner was convinced the problem was marketing spend. That fieldwork became the product thesis behind Engageo.',
-      'He leads product architecture and go-to-market at Engageo, and designed the recovery flow that intercepts a missed call and returns a WhatsApp message before the patient dials the next clinic on the search results page. He co-authored the peer-reviewed JETIR paper documenting the system’s multilingual conversation design and production architecture.',
+      'He leads product architecture and go-to-market at Engageo, and designed the recovery flow the platform runs on: when a clinic’s line goes unanswered, the call forwards to Engageo’s voice agent, which picks up live in the patient’s language, answers their questions, and confirms the appointment on the call itself — with the WhatsApp confirmation following immediately after. The same agent handles patients who start on WhatsApp instead, opening with nothing more than a “hi”. He co-authored the peer-reviewed JETIR paper documenting the system’s multilingual conversation design and production architecture.',
     ],
     expertise: [
       'Product architecture',
@@ -108,7 +108,7 @@ export const FOUNDERS: readonly Founder[] = [
     bio: 'ML engineer leading the core AI operations — voice recognition, patient intent classification, and real-time call routing. Built the engine that intercepts in under 8 seconds.',
     longBio: [
       'Atul Hooda is the Co-founder and CTO of Engageo, where he leads the machine learning systems behind the platform’s multilingual voice agent.',
-      'His work covers speech recognition across 12 Indian languages, patient intent classification, and the real-time call routing that lets Engageo intercept a missed call and respond in under 15 seconds. Much of that engineering is about the unglamorous failure modes — code-mixed Hindi-English utterances, Devanagari numerals mid-sentence, and script collisions that silently produce garbled audio.',
+      'His work covers speech recognition across 12 Indian languages, patient intent classification, and the real-time call routing that hands an unanswered clinic call to the voice agent and gets it answered live rather than sent to voicemail. The same agent runs on WhatsApp, taking a patient who opens with a simple “hi” through to a confirmed booking. Much of that engineering is about the unglamorous failure modes — code-mixed Hindi-English utterances, Devanagari numerals mid-sentence, and script collisions that silently produce garbled audio.',
       'He is the lead author of the peer-reviewed JETIR paper on Engageo’s architecture, which documents five contributions from the platform’s first five pilot clinics, including the prompt-level script-consistency rule that fixed a class of silent text-to-speech failures.',
     ],
     expertise: [

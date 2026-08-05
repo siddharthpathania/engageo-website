@@ -1,34 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-
-type Founder = {
-  name: string;
-  role: string;
-  oneLiner: string;
-  initials: string;
-  accent: string;
-  photo?: string;
-};
-
-const FOUNDERS: readonly Founder[] = [
-  {
-    name: 'Siddharth Pathania',
-    role: 'CEO',
-    oneLiner: 'Product architect. Designed the recovery system from first principles.',
-    initials: 'SP',
-    accent: 'from-primary-400 to-primary-600',
-    photo: '/team/siddharth.jpg',
-  },
-  {
-    name: 'Atul Hooda',
-    role: 'CTO',
-    oneLiner: 'ML engineer. Built the intelligence behind every recovered call.',
-    initials: 'AH',
-    accent: 'from-accent-400 to-accent-600',
-    photo: '/team/atul.jpg',
-  },
-];
+import { FOUNDERS } from '@/lib/founders';
 
 export function FounderStrip(): JSX.Element {
   return (
@@ -48,34 +21,30 @@ export function FounderStrip(): JSX.Element {
       <ul className="mx-auto mt-14 grid max-w-2xl gap-5 md:mt-18 md:grid-cols-2 lg:gap-6">
         {FOUNDERS.map((founder) => (
           <li
-            key={founder.name}
+            key={founder.slug}
             className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
           >
             {/* Avatar */}
-            {founder.photo ? (
-              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 border-neutral-100 shadow-subtle">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={founder.photo}
-                  alt={founder.name}
-                  width={56}
-                  height={56}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ) : (
-              <span
-                aria-hidden="true"
-                className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${founder.accent} font-display text-lg font-semibold text-surface shadow-subtle`}
-              >
-                {founder.initials}
-              </span>
-            )}
+            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 border-neutral-100 shadow-subtle">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={founder.photo}
+                alt={founder.photoAlt}
+                width={56}
+                height={56}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
 
             <div className="min-w-0">
               <h3 className="font-display text-base font-semibold leading-tight tracking-tight text-obsidian">
-                {founder.name}
+                <Link
+                  href={`/about/${founder.slug}`}
+                  className="transition-colors hover:text-primary-600"
+                >
+                  {founder.name}
+                </Link>
               </h3>
               <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-primary-600">
                 {founder.role}

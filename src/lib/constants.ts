@@ -61,7 +61,7 @@ export const MAIN_NAV: readonly NavLink[] = [
   {
     label: 'Pricing',
     href: '/#pricing',
-    description: 'Three tiers from Recover to Dominate.',
+    description: 'Solo, Growth, and Enterprise — from ₹7,499/month.',
   },
   {
     label: 'FAQ',
@@ -225,10 +225,10 @@ export const KEY_METRICS = [
 // ─── Pricing tiers ───────────────────────────────────────────────
 
 export type PricingTier = {
-  id: 'recover' | 'grow' | 'dominate';
+  id: 'solo' | 'growth' | 'enterprise';
   name: string;
   label: string;
-  price: number;
+  price: number | null;
   priceLabel: string;
   cadence: string;
   addOn?: string;
@@ -238,37 +238,38 @@ export type PricingTier = {
 
 export const PRICING_TIERS: readonly PricingTier[] = [
   {
-    id: 'recover',
-    name: 'Recover',
-    label: 'Missed Call Recovery',
-    price: 25_000,
-    priceLabel: '\u20B925,000',
+    id: 'solo',
+    name: 'Solo',
+    label: '1 clinic',
+    price: 7_499,
+    priceLabel: '\u20B97,499',
     cadence: '/ month',
+    addOn: '150 calls included, then \u20B97/min',
     description:
-      'Your clinic already gets inbound calls. We make sure the ones your team can\u2019t pick up still get answered, the patient\u2019s questions still get handled, and the appointment still lands in your calendar.',
+      'For a single clinic. Every missed call gets answered, the appointment lands in your calendar, and a free CRM tracks every patient.',
   },
   {
-    id: 'grow',
-    name: 'Grow',
-    label: 'Lead Gen + Recovery',
-    price: 55_000,
-    priceLabel: '\u20B955,000',
+    id: 'growth',
+    name: 'Growth',
+    label: 'Up to 3 clinics',
+    price: 22_497,
+    priceLabel: '\u20B922,497',
     cadence: '/ month',
-    addOn: '+ your ad spend',
+    addOn: '450 calls included, then \u20B97/min',
     description:
-      'We drive more inbound calls through ads and SEO \u2014 then make sure every single one gets answered, booked, confirmed, and followed up. You stay in the consultation room. We keep it full.',
+      'For multi-doctor clinics and small chains. Up to three clinic numbers, a shared multi-clinic dashboard, and priority support.',
     featured: true,
   },
   {
-    id: 'dominate',
-    name: 'Dominate',
-    label: 'Full Clinic Growth System',
-    price: 120_000,
-    priceLabel: '\u20B91,20,000',
-    cadence: '/ month',
-    addOn: '+ ad spend',
+    id: 'enterprise',
+    name: 'Enterprise',
+    label: 'Hospital chains \u00B7 4+ locations',
+    price: null,
+    priceLabel: 'Custom',
+    cadence: '',
+    addOn: 'Unlimited calls & locations',
     description:
-      'Full-stack clinic growth: patient acquisition, call recovery, booking automation, WhatsApp follow-ups, and a dedicated growth strategist. Every patient touchpoint \u2014 from first search to post-treatment review \u2014 handled.',
+      'For chains expanding across cities: unlimited locations and calls, HMS/PMS integration, a dedicated success manager, and an SLA.',
   },
 ] as const;
 

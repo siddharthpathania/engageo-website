@@ -121,7 +121,7 @@ export function ROICalculator(): JSX.Element {
 
   // Math
   const RECOVERY_RATE = 0.68; // 68% recovery rate (pilot data)
-  const ENGAGEO_COST = 27_500; // mid-point of Recover tier
+  const ENGAGEO_COST = 7_499; // Solo plan — entry price, ₹7,499/month
 
   const monthlyMissed = Math.round(missedPerWeek * 4.33);
   const monthlyLoss = monthlyMissed * avgCaseValue;

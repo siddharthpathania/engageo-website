@@ -2,16 +2,29 @@
 
 import { ChevronRight, Check } from 'lucide-react';
 import Link from 'next/link';
-import { useRef, type MouseEvent } from 'react';
+import { useRef, useState, type MouseEvent } from 'react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
 
-type Tier = {
-  id: 'starter' | 'growth' | 'enterprise';
-  name: string;
-  audience: string;
+type Billing = 'monthly' | 'quarterly' | 'annual';
+
+const BILLING_OPTIONS: readonly { value: Billing; label: string }[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'quarterly', label: '3 Months' },
+  { value: 'annual', label: '12 Months' },
+];
+
+type PriceView = {
   price: string;
   cadence: string;
+  altNote: string;
+};
+
+type Tier = {
+  id: 'solo' | 'growth' | 'enterprise';
+  name: string;
+  audience: string;
+  view: Record<Billing, PriceView>;
   features: readonly string[];
   ctaLabel: string;
   ctaHref: string;
@@ -20,52 +33,61 @@ type Tier = {
 
 const TIERS: readonly Tier[] = [
   {
-    id: 'starter',
-    name: 'Starter',
-    audience: 'Solo practitioners',
-    price: '₹25,000',
-    cadence: '/ month',
+    id: 'solo',
+    name: 'Solo',
+    audience: '1 clinic',
+    view: {
+      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'or ₹81,999 for 12 months' },
+      quarterly: { price: '₹20,999', cadence: '/ 3 months', altNote: '≈ ₹7,000 / month' },
+      annual: { price: '₹81,999', cadence: '/ 12 months', altNote: '≈ ₹6,833 / month' },
+    },
     features: [
-      'Up to 400 recovered calls / mo',
-      'Hindi + English call handling',
+      '1 clinic number',
+      '150 calls / month, then ₹7 / minute',
+      'Up to 150 patient appointments / month',
+      'Free CRM to track every patient',
+      'WhatsApp recovery + reminders',
       'Google Calendar sync',
-      'WhatsApp confirmations + reminders',
-      'Weekly recovery report',
     ],
     ctaLabel: 'Start Free Trial',
-    ctaHref: '/contact?plan=starter',
+    ctaHref: '/contact?plan=solo',
   },
   {
     id: 'growth',
     name: 'Growth',
-    audience: 'Multi-doctor clinics',
-    price: '₹55,000',
-    cadence: '/ month',
+    audience: 'Up to 3 clinics',
+    view: {
+      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'or ₹2,45,997 for 12 months' },
+      quarterly: { price: '₹62,997', cadence: '/ 3 months', altNote: '≈ ₹21,000 / month' },
+      annual: { price: '₹2,45,997', cadence: '/ 12 months', altNote: '≈ ₹20,500 / month' },
+    },
     features: [
-      'Unlimited recovered calls',
+      'Up to 3 clinic numbers / locations',
+      '450 calls / month, then ₹7 / minute',
+      'Up to 450 patient appointments / month',
+      'Multi-clinic dashboard + routing',
+      'Free CRM + priority support',
       'All 12 Indian languages',
-      'Multi-doctor calendar routing',
-      'Post-visit follow-up sequences',
-      'Full analytics dashboard',
-      'Custom clinic knowledge training',
     ],
-    ctaLabel: 'Book a Strategy Call',
-    ctaHref: 'https://cal.com/engageo',
+    ctaLabel: 'Start Free Trial',
+    ctaHref: '/contact?plan=growth',
     featured: true,
   },
   {
     id: 'enterprise',
     name: 'Enterprise',
     audience: 'Hospital chains',
-    price: 'Custom',
-    cadence: 'annual',
+    view: {
+      monthly: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
+      quarterly: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
+      annual: { price: 'Custom', cadence: '', altNote: 'Annual contract · volume pricing' },
+    },
     features: [
-      'Multi-location deployment',
+      'Unlimited locations & calls',
       'HMS / PMS integration',
-      'Custom follow-up workflows',
-      'Human escalation routing',
       'Dedicated success manager',
       'SLA + priority support',
+      'Custom onboarding',
     ],
     ctaLabel: 'Talk to Sales',
     ctaHref: '/contact?plan=enterprise',
@@ -73,22 +95,52 @@ const TIERS: readonly Tier[] = [
 ];
 
 export function PricingPreview(): JSX.Element {
+  const [billing, setBilling] = useState<Billing>('annual');
+
   return (
     <SectionWrapper id="pricing" ariaLabel="Pricing plans">
       <div className="mx-auto max-w-3xl text-center">
         <span className="section-label justify-center">Investment</span>
         <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tighter text-obsidian md:text-5xl lg:text-[56px]">
-          Priced for your growth stage.
+          Plans for every clinic size.
         </h2>
         <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-          One plan for the solo dermatologist. One for the 12-chair dental
-          group. One for the chain expanding across five cities.
+          Start solo at ₹7,499/month, scale to three clinics, or go custom for a
+          hospital chain. Pay monthly, quarterly, or yearly — a free CRM on every
+          plan.
         </p>
+
+        {/* Billing toggle */}
+        <div className="mt-8 flex justify-center">
+          <div
+            role="tablist"
+            aria-label="Billing period"
+            className="inline-flex items-center rounded-full border border-neutral-200 bg-surface p-1 shadow-subtle"
+          >
+            {BILLING_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                role="tab"
+                aria-selected={billing === option.value}
+                onClick={() => setBilling(option.value)}
+                className={cn(
+                  'rounded-full px-4 py-2 text-[13px] font-semibold transition-all sm:px-5',
+                  billing === option.value
+                    ? 'bg-obsidian text-surface shadow-subtle'
+                    : 'text-subtle hover:text-obsidian',
+                )}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="mt-14 grid gap-5 md:mt-18 lg:grid-cols-3">
+      <div className="mt-12 grid gap-5 md:mt-14 lg:grid-cols-3">
         {TIERS.map((tier) => (
-          <PricingCard key={tier.id} tier={tier} />
+          <PricingCard key={tier.id} tier={tier} billing={billing} />
         ))}
       </div>
 
@@ -97,7 +149,7 @@ export function PricingPreview(): JSX.Element {
           href="/pricing"
           className="group inline-flex items-center gap-2 text-[13px] font-medium text-obsidian transition-colors hover:text-primary-600"
         >
-          View full pricing + feature comparison
+          View full pricing + what’s included
           <ChevronRight
             size={14}
             strokeWidth={2}
@@ -106,16 +158,16 @@ export function PricingPreview(): JSX.Element {
           />
         </Link>
         <p className="text-[11px] text-subtle">
-          All plans include the 15-booking guarantee. No setup fees. No
-          contracts.
+          14-day free trial. No setup fees. No contracts.
         </p>
       </div>
     </SectionWrapper>
   );
 }
 
-function PricingCard({ tier }: { tier: Tier }): JSX.Element {
+function PricingCard({ tier, billing }: { tier: Tier; billing: Billing }): JSX.Element {
   const featured = Boolean(tier.featured);
+  const view = tier.view[billing];
   const cardRef = useRef<HTMLElement>(null);
 
   function handleMouseMove(e: MouseEvent<HTMLElement>): void {
@@ -176,34 +228,29 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
         </p>
       </div>
 
-      <div
-        className="mt-7 flex items-baseline gap-2"
-        style={{ transform: 'translateZ(30px)' }}
-      >
+      <div className="mt-7 flex items-baseline gap-2" style={{ transform: 'translateZ(30px)' }}>
         <span
           className={cn(
             'font-display text-4xl font-semibold tracking-tight',
             featured ? 'text-surface' : 'text-obsidian',
           )}
         >
-          {tier.price}
+          {view.price}
         </span>
-        <span
-          className={cn(
-            'text-sm font-medium',
-            featured ? 'text-surface/70' : 'text-subtle',
-          )}
-        >
-          {tier.cadence}
-        </span>
+        {view.cadence ? (
+          <span className={cn('text-sm font-medium', featured ? 'text-surface/70' : 'text-subtle')}>
+            {view.cadence}
+          </span>
+        ) : null}
       </div>
+      <p
+        className={cn('mt-1 text-[12px]', featured ? 'text-surface/60' : 'text-subtle')}
+        style={{ transform: 'translateZ(30px)' }}
+      >
+        {view.altNote}
+      </p>
 
-      <div
-        className={cn(
-          'my-7 h-px w-full',
-          featured ? 'bg-surface/20' : 'bg-neutral-200',
-        )}
-      />
+      <div className={cn('my-7 h-px w-full', featured ? 'bg-surface/20' : 'bg-neutral-200')} />
 
       <ul className="flex-1 space-y-3" style={{ transform: 'translateZ(15px)' }}>
         {tier.features.map((feature) => (
@@ -211,15 +258,10 @@ function PricingCard({ tier }: { tier: Tier }): JSX.Element {
             <Check
               size={16}
               strokeWidth={2.25}
-              className={cn(
-                'mt-0.5 shrink-0',
-                featured ? 'text-surface' : 'text-primary-500',
-              )}
+              className={cn('mt-0.5 shrink-0', featured ? 'text-surface' : 'text-primary-500')}
               aria-hidden="true"
             />
-            <span className={featured ? 'text-surface/95' : 'text-obsidian/85'}>
-              {feature}
-            </span>
+            <span className={featured ? 'text-surface/95' : 'text-obsidian/85'}>{feature}</span>
           </li>
         ))}
       </ul>

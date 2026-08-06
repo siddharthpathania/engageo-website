@@ -50,7 +50,7 @@ const FAQS: readonly QA[] = [
   },
   {
     q: 'What does pricing look like?',
-    a: 'Recovery plans start at \u20B925,000/month for solo clinics (up to 400 recovered calls). Growth plans for multi-doctor clinics are \u20B955,000/month with unlimited calls and post-visit follow-ups. Enterprise pricing is custom. No setup fees, no contracts. Every plan includes a 14-day free trial.',
+    a: 'Three plans by clinic size. Solo (1 clinic) is ₹7,499/month with 150 included calls; Growth (up to 3 clinics) is ₹22,497/month with 450 included calls; Enterprise (4+ locations) is custom. After your included calls it’s ₹7 per minute. Every plan includes a free CRM, WhatsApp recovery and reminders, and calendar sync — with a 14-day free trial, no setup fees, and no contracts. Pay monthly, quarterly (3 months), or yearly (12 months) — longer terms cost less per month.',
   },
 ];
 

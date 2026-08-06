@@ -59,6 +59,35 @@ export function MicrosoftClarity(): JSX.Element | null {
   );
 }
 
+// Funnel Agent — funnel / journey tracking. Overridable via env; defaults to
+// the live project so it works without extra deploy config. The publishable
+// key (pk_live_…) is client-side by design and visible in page source.
+// NOTE: the Funnel host must be allowed in `script-src` + `connect-src` in the
+// CSP (next.config.mjs) or track.js and its event uploads will be blocked.
+const FUNNEL_API =
+  process.env.NEXT_PUBLIC_FUNNEL_API || 'https://funnel-agent-production-669a.up.railway.app';
+const FUNNEL_KEY =
+  process.env.NEXT_PUBLIC_FUNNEL_KEY || 'pk_live_e3xCWaiCb_WBkLK8MusyRSCz0zinCRGx';
+
+/**
+ * Funnel Agent tracking — loads site-wide via next/script (afterInteractive).
+ * Sets the API + key globals, then loads track.js from the Funnel Agent host.
+ * Loads whenever the key is set (including local dev) so the connection can be
+ * verified before deploy.
+ */
+export function FunnelAgent(): JSX.Element | null {
+  if (!FUNNEL_KEY) return null;
+
+  return (
+    <>
+      <Script id="funnel-agent-config" strategy="afterInteractive">
+        {`window.FUNNEL_API=${JSON.stringify(FUNNEL_API)};window.FUNNEL_KEY=${JSON.stringify(FUNNEL_KEY)};`}
+      </Script>
+      <Script src={`${FUNNEL_API}/track.js`} strategy="afterInteractive" />
+    </>
+  );
+}
+
 const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 
 /**

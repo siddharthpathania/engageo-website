@@ -23,13 +23,18 @@ const withBundleAnalyzer = bundleAnalyzer({
  */
 const isDev = process.env.NODE_ENV === 'development';
 
+// Funnel Agent tracking host — must be allowed for both loading track.js
+// (script-src) and its event uploads (connect-src). Keep in sync with
+// NEXT_PUBLIC_FUNNEL_API in src/components/shared/Analytics.tsx.
+const FUNNEL_ORIGIN = 'https://funnel-agent-production-669a.up.railway.app';
+
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com https://www.clarity.ms;
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://va.vercel-scripts.com https://www.clarity.ms ${FUNNEL_ORIGIN};
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: blob: https:;
   font-src 'self' https://fonts.gstatic.com;
-  connect-src 'self'${isDev ? ' ws://localhost:* http://localhost:*' : ''} https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.clarity.ms https://c.bing.com;
+  connect-src 'self'${isDev ? ' ws://localhost:* http://localhost:*' : ''} https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.clarity.ms https://c.bing.com ${FUNNEL_ORIGIN};
   frame-src 'none';
   object-src 'none';
   base-uri 'self';

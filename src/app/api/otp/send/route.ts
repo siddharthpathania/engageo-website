@@ -149,7 +149,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const code = generateOtp();
-  setOtp(data.phone, code, data);
+  await setOtp(data.phone, code, data);
 
   const delivery = await sendWhatsAppOtp(data.phone, code);
 

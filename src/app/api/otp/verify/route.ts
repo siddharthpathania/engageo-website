@@ -113,7 +113,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Phone and 6-digit code required.' }, { status: 422 });
   }
 
-  const result = verifyOtp(phone, code);
+  const result = await verifyOtp(phone, code);
   if (!result.ok) {
     const status = result.reason === 'wrong-code' ? 401 : 410;
     const message =

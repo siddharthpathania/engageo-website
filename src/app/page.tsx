@@ -1,32 +1,23 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
+import { BuiltOnStrip } from '@/components/home/BuiltOnStrip';
 import { CTASection } from '@/components/home/CTASection';
 import { FAQ } from '@/components/home/FAQ';
 import { FeaturesGrid } from '@/components/home/FeaturesGrid';
+import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { PricingPreview } from '@/components/home/PricingPreview';
 import { ProblemSection } from '@/components/home/ProblemSection';
+import { ROICalculator } from '@/components/home/ROICalculator';
 import { SolutionSection } from '@/components/home/SolutionSection';
 import { Testimonials } from '@/components/home/Testimonials';
+import { FounderStrip } from '@/components/home/FounderStrip';
+import { ExperienceForm } from '@/components/experience/ExperienceForm';
+import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
-/* Dynamic import for the heaviest client component — Hero contains
-   framer-motion AnimatePresence, typewriter, live dashboard phases,
-   and AnimatedCounter. This keeps it out of the main bundle. */
-const Hero = dynamic(
-  () => import('@/components/home/Hero').then((mod) => ({ default: mod.Hero })),
-  {
-    ssr: false,
-    loading: () => (
-      <section className="flex min-h-[85vh] items-center justify-center">
-        <p className="text-subtle">Loading Hero…</p>
-      </section>
-    ),
-  },
-);
-
-const HOME_TITLE = 'Engageo — Missed Call Recovery for Clinics India';
+const HOME_TITLE =
+  'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals';
 const HOME_DESCRIPTION =
-  'AI missed-call recovery for Indian clinics. Every unanswered call is auto-qualified, booked, and WhatsApped back in 8 seconds. Live in 47+ clinics.';
+  'AI missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call answered in 12 languages within 15 seconds. Live in 47+ practices.';
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },
@@ -49,11 +40,27 @@ export default function HomePage(): JSX.Element {
   return (
     <>
       <Hero />
+      <BuiltOnStrip />
+      <SectionWrapper id="home-experience-form" className="bg-sand/40 pt-12 md:pt-16">
+        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+          <span className="section-label justify-center">Live demo</span>
+          <h2 className="mt-5 font-display text-[28px] font-semibold leading-tight tracking-tight text-obsidian md:text-[36px] lg:text-[40px]">
+            Talk to our AI <span className="serif-hero">like a patient would.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[14.5px] leading-relaxed text-subtle md:text-[16px]">
+            Enter your details, verify your phone with a one-time code, and Engageo&rsquo;s
+            AI receptionist calls you back in under 30 seconds.
+          </p>
+        </div>
+        <ExperienceForm />
+      </SectionWrapper>
       <ProblemSection />
       <SolutionSection />
       <HowItWorks />
       <FeaturesGrid />
       <Testimonials />
+      <ROICalculator />
+      <FounderStrip />
       <PricingPreview />
       <FAQ />
       <CTASection />

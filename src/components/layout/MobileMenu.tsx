@@ -1,19 +1,26 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { CTA } from '@/lib/constants';
+import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 
 type MobileNavLink = { label: string; href: string };
 
 export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Element {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  // Mark mounted so the portal only renders client-side (avoids SSR mismatch)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on route change
   useEffect(() => {
@@ -110,21 +117,23 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
         </div>
       </button>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            key="mobile-menu"
-            ref={panelRef}
-            id="mobile-menu-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile navigation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-canvas/95 backdrop-blur-xl md:hidden"
-          >
+      {mounted
+        ? createPortal(
+            <AnimatePresence>
+              {open ? (
+                <motion.div
+                  key="mobile-menu"
+                  ref={panelRef}
+                  id="mobile-menu-panel"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Mobile navigation"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
+                  className="fixed inset-0 z-[60] flex flex-col bg-canvas/[0.98] backdrop-blur-2xl md:hidden"
+                >
             <div className="flex h-16 items-center justify-between border-b border-neutral-200/70 px-5">
               <span className="font-display text-[17px] font-semibold tracking-tight text-obsidian">
                 Menu
@@ -135,20 +144,7 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                 onClick={() => setOpen(false)}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-obsidian transition-colors hover:bg-sand"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M4 4l10 10M14 4L4 14"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <X size={18} strokeWidth={1.75} aria-hidden="true" />
               </button>
             </div>
 
@@ -165,8 +161,8 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                       initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
-                        delay: 0.05 + index * 0.05,
-                        duration: 0.3,
+                        delay: 0.08 + index * 0.06,
+                        duration: 0.35,
                         ease: [0.16, 1, 0.3, 1],
                       }}
                     >
@@ -174,29 +170,19 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
                         href={item.href}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          'flex items-center justify-between rounded-2xl px-4 py-3.5 text-[18px] font-medium transition-colors',
+                          'flex items-center justify-between rounded-2xl px-4 py-3.5 text-[17px] font-medium transition-all active:scale-[0.98]',
                           active
                             ? 'bg-sand text-obsidian'
                             : 'text-obsidian/85 hover:bg-sand hover:text-obsidian',
                         )}
                       >
                         <span>{item.label}</span>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden="true"
+                        <ChevronRight
+                          size={16}
+                          strokeWidth={1.75}
                           className="text-subtle"
-                        >
-                          <path
-                            d="M6 4l4 4-4 4"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                          aria-hidden="true"
+                        />
                       </Link>
                     </motion.li>
                   );
@@ -204,32 +190,21 @@ export function MobileMenu({ nav }: { nav: readonly MobileNavLink[] }): JSX.Elem
               </ul>
             </nav>
 
-            <div className="border-t border-neutral-200/70 bg-surface/60 p-5">
-              <Link
-                href={CTA.book.href}
+            <div className="border-t border-neutral-200/70 bg-surface/80 px-5 py-6">
+              <a
+                href="/login"
                 className="flex w-full items-center justify-center gap-1.5 rounded-full bg-obsidian px-4 py-3.5 text-[15px] font-medium text-surface shadow-subtle"
               >
-                Book a Demo
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M5 3l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+                Login
+                <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
+              </a>
             </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

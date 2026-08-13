@@ -1,6 +1,7 @@
+import { Quote } from 'lucide-react';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-import { StaggerContainer } from '@/components/shared/StaggerContainer';
+import { cn } from '@/lib/utils';
 
 type Testimonial = {
   quote: string;
@@ -15,7 +16,7 @@ type Testimonial = {
 const TESTIMONIALS: readonly Testimonial[] = [
   {
     quote:
-      'We were losing ₹2.8 lakhs a month to missed calls. Engageo recovered 23 patients in the first 30 days. I didn&rsquo;t change a thing about my practice.',
+      'I had no idea how many calls we were missing during consultations. Engageo recovered 23 patients in the first month — patients who would have called the next dermatologist on Google. I didn&rsquo;t change a single thing about how I run my practice.',
     doctor: 'Dr. Priya Krishnan',
     specialty: 'Dermatologist',
     city: 'Bengaluru',
@@ -25,7 +26,7 @@ const TESTIMONIALS: readonly Testimonial[] = [
   },
   {
     quote:
-      'Patients called me after-hours all the time. Now they get a WhatsApp in 30 seconds with a booking link. Last month we booked 41 appointments that would have gone to Apollo Clinic down the road.',
+      'Our biggest leak was after 7 PM — patients calling about implant consultations when nobody was at the front desk. Now those calls get answered in Marathi, their questions get handled, and they book for the next morning. 41 appointments last month that would have walked to Apollo down the road.',
     doctor: 'Dr. Rajesh Malhotra',
     specialty: 'Dental & Oral Surgery',
     city: 'Mumbai',
@@ -35,7 +36,7 @@ const TESTIMONIALS: readonly Testimonial[] = [
   },
   {
     quote:
-      'I was skeptical about AI for patient calls. But the messages go out in my clinic&rsquo;s voice, in Hindi and English. My receptionist now focuses on in-clinic patients instead of chasing voicemails.',
+      'I was skeptical at first — would patients actually book through this? But callers get their questions about our IVF packages answered properly, in Hindi or English, and the booking shows up in our calendar before I even finish my current consultation. My receptionist finally has time for the patients sitting in front of her.',
     doctor: 'Dr. Ananya Reddy',
     specialty: 'IVF & Fertility',
     city: 'Hyderabad',
@@ -59,56 +60,78 @@ export function Testimonials(): JSX.Element {
         </p>
       </div>
 
-      <StaggerContainer as="ul" staggerDelay={0.1} amount={0.15} className="mt-14 grid gap-5 md:mt-18 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        {TESTIMONIALS.map((item) => (
-          <ScrollReveal as="li" key={item.doctor} direction="up" distance={20}>
-            <figure className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-surface p-6 shadow-subtle md:p-7">
-              {/* Quote mark */}
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 28 28"
-                fill="none"
-                aria-hidden="true"
-                className="text-primary-500/30"
+      <div className="relative mt-14 md:mt-18">
+        {/* Cards container */}
+        <ul className="relative mx-auto grid max-w-5xl gap-5 md:grid-cols-3 lg:gap-6">
+          {TESTIMONIALS.map((item, index) => {
+            /* Center card (index 1) is featured — larger, no rotation */
+            const isCenter = index === 1;
+            const rotation =
+              index === 0 ? 'md:-rotate-1' : index === 2 ? 'md:rotate-1' : '';
+            const elevation = isCenter ? 'md:-translate-y-4 md:scale-[1.03]' : '';
+
+            return (
+              <ScrollReveal
+                as="li"
+                key={item.doctor}
+                direction="up"
+                distance={24}
+                delay={index * 0.12}
+                className={cn(
+                  'transition-all duration-500 ease-out hover:!rotate-0 hover:!scale-[1.02] hover:-translate-y-2',
+                  rotation,
+                  elevation,
+                )}
               >
-                <path
-                  d="M9 6C5.5 8 3 11 3 15.5V22h7v-7H6c0-3 2-5.5 5-6.5L9 6zm13 0c-3.5 2-6 5-6 9.5V22h7v-7h-4c0-3 2-5.5 5-6.5L22 6z"
-                  fill="currentColor"
-                />
-              </svg>
-
-              <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-obsidian/90 md:text-base">
-                &ldquo;{item.quote}&rdquo;
-              </blockquote>
-
-              {/* Recovery pill */}
-              <div className="mt-6 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
-                {item.recovered}
-              </div>
-
-              {/* Attribution */}
-              <figcaption className="mt-5 flex items-center gap-3 border-t border-neutral-200 pt-5">
-                <span
-                  aria-hidden="true"
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${item.accent} font-display text-sm font-semibold text-surface shadow-subtle`}
+                <figure
+                  className={cn(
+                    'relative flex h-full flex-col overflow-hidden rounded-2xl p-6 shadow-subtle transition-shadow duration-350 hover:shadow-card-hover md:p-7',
+                    isCenter
+                      ? 'border-2 border-primary-200 bg-gradient-to-b from-primary-50/50 to-surface'
+                      : 'border border-neutral-200 bg-surface',
+                  )}
                 >
-                  {item.initials}
-                </span>
-                <div className="min-w-0">
-                  <p className="font-display text-[13.5px] font-semibold text-obsidian">
-                    {item.doctor}
-                  </p>
-                  <p className="mt-0.5 text-[11px] text-subtle">
-                    {item.specialty} · {item.city}
-                  </p>
-                </div>
-              </figcaption>
-            </figure>
-          </ScrollReveal>
-        ))}
-      </StaggerContainer>
+                  {/* Oversized quote mark */}
+                  <Quote
+                    size={80}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-2 -top-2 select-none text-primary-500/[0.06]"
+                  />
+
+                  <blockquote className="relative z-10 flex-1 text-[15px] leading-relaxed text-obsidian/90 md:text-base">
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+
+                  {/* Recovery pill */}
+                  <div className="relative z-10 mt-6 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary-700">
+                    <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-primary-500" />
+                    {item.recovered}
+                  </div>
+
+                  {/* Attribution */}
+                  <figcaption className="relative z-10 mt-5 flex items-center gap-3 border-t border-neutral-200 pt-5">
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${item.accent} font-display text-sm font-semibold text-surface shadow-subtle`}
+                    >
+                      {item.initials}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-display text-sm font-semibold text-obsidian">
+                        {item.doctor}
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-subtle">
+                        {item.specialty} · {item.city}
+                      </p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </ScrollReveal>
+            );
+          })}
+        </ul>
+      </div>
     </SectionWrapper>
   );
 }

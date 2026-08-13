@@ -1,23 +1,41 @@
 import { COMPANY, CONTACT, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+import { type Founder, FOUNDERS } from '@/lib/founders';
 import { absoluteUrl } from '@/lib/utils';
 
+/**
+ * Stable node identifiers.
+ *
+ * Every schema block that talks about the company or a founder must point
+ * at these exact strings. Search engines merge JSON-LD nodes that share an
+ * `@id` into one entity and treat differing nodes as separate things — so
+ * an Organization emitted on the layout, a Person on /about/<slug>, and an
+ * Article author on a blog post only describe *one* company and *one*
+ * person if they agree on the @id. Do not inline these URLs elsewhere.
+ */
+export const ORG_ID = `${SITE_CONFIG.url}/#organization`;
+
+export function founderPersonId(slug: string): string {
+  return `${SITE_CONFIG.url}/about/${slug}#person`;
+}
+
+/** Reference to the Organization node, for use inside other schemas. */
+const orgRef = { '@id': ORG_ID } as const;
+
 // Shared sub-types used by multiple schemas below.
+// Street address and postal code are intentionally omitted — we publish only
+// city / region / country in structured data.
 type PostalAddressLD = {
   '@type': 'PostalAddress';
-  streetAddress: string;
   addressLocality: string;
   addressRegion: string;
-  postalCode: string;
   addressCountry: string;
 };
 
 function buildPostalAddress(): PostalAddressLD {
   return {
     '@type': 'PostalAddress',
-    streetAddress: `${CONTACT.address.line1}, ${CONTACT.address.line2}`,
     addressLocality: CONTACT.address.city,
     addressRegion: CONTACT.address.state,
-    postalCode: CONTACT.address.postalCode,
     addressCountry: CONTACT.address.countryCode,
   };
 }
@@ -45,11 +63,16 @@ export function OrganizationSchema(): JSX.Element {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': ORG_ID,
     name: SITE_CONFIG.name,
     legalName: COMPANY.legalName,
     url: SITE_CONFIG.url,
     logo: absoluteUrl('/logo.png'),
     foundingDate: String(COMPANY.foundingYear),
+    foundingLocation: {
+      '@type': 'Place',
+      address: buildPostalAddress(),
+    },
     description: SITE_CONFIG.description,
     address: buildPostalAddress(),
     contactPoint: {
@@ -58,7 +81,97 @@ export function OrganizationSchema(): JSX.Element {
       telephone: CONTACT.phoneE164,
       contactType: 'customer support',
     },
+    // The founder edge is what links the company entity to the person
+    // entities in the Knowledge Graph. Each founder is a full node here
+    // (not a bare @id reference) so this block stands on its own for any
+    // crawler that only fetches the home page, while the matching @id
+    // merges it with the richer node on /about/<slug>.
+    founder: FOUNDERS.map((founder) => ({
+      '@type': 'Person',
+      '@id': founderPersonId(founder.slug),
+      name: founder.name,
+      jobTitle: founder.role,
+      url: absoluteUrl(`/about/${founder.slug}`),
+      image: absoluteUrl(founder.photo),
+      sameAs: [...founder.sameAs],
+    })),
     sameAs: SOCIAL_LINKS.map((link) => link.href),
+  };
+  return <JsonLd data={data} />;
+}
+
+/**
+ * Person schema for a founder. Emitted on that founder's profile page,
+ * where it carries the full detail; the Organization block emits a
+ * lighter node under the same @id.
+ *
+ * `worksFor` closes the loop back to the Organization — the reciprocal
+ * of Organization.founder. One-directional linking is markedly weaker:
+ * it asserts the company has a founder without asserting the person is
+ * affiliated with the company.
+ */
+export function FounderPersonSchema({
+  founder,
+}: {
+  founder: Founder;
+}): JSX.Element {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': founderPersonId(founder.slug),
+    name: founder.name,
+    jobTitle: founder.role,
+    description: founder.bio,
+    url: absoluteUrl(`/about/${founder.slug}`),
+    image: {
+      '@type': 'ImageObject',
+      url: absoluteUrl(founder.photo),
+      caption: founder.photoAlt,
+    },
+    worksFor: {
+      '@type': 'Organization',
+      ...orgRef,
+      name: SITE_CONFIG.name,
+      legalName: COMPANY.legalName,
+      url: SITE_CONFIG.url,
+    },
+    knowsAbout: [...founder.expertise],
+    homeLocation: {
+      '@type': 'Place',
+      address: buildPostalAddress(),
+    },
+    nationality: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    sameAs: [...founder.sameAs],
+  };
+  return <JsonLd data={data} />;
+}
+
+/**
+ * ProfilePage schema — Google's documented type for a page whose primary
+ * subject is a single person. Signals "this URL *is* Atul Hooda" rather
+ * than "this page mentions him", which a generic WebPage cannot express.
+ */
+export function ProfilePageSchema({
+  founder,
+}: {
+  founder: Founder;
+}): JSX.Element {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': `${SITE_CONFIG.url}/about/${founder.slug}#profilepage`,
+    url: absoluteUrl(`/about/${founder.slug}`),
+    name: `${founder.name} — ${founder.role}, ${SITE_CONFIG.name}`,
+    inLanguage: SITE_CONFIG.language,
+    mainEntity: { '@id': founderPersonId(founder.slug) },
+    isPartOf: {
+      '@type': 'WebSite',
+      url: SITE_CONFIG.url,
+      name: SITE_CONFIG.name,
+    },
   };
   return <JsonLd data={data} />;
 }
@@ -101,8 +214,36 @@ export type ArticleSchemaProps = {
   publishedAt: string;
   updatedAt?: string;
   author: string;
+  authorUrl?: string;
   cover?: string;
 };
+
+/**
+ * Build the Article author node. When the byline matches a founder, reuse
+ * that founder's Person @id and canonical role so all authored posts fold
+ * into the same entity instead of creating one anonymous Person per post.
+ */
+function buildArticleAuthor(
+  author: string,
+  authorUrl?: string,
+): Record<string, unknown> {
+  const founder = FOUNDERS.find((f) => f.name === author);
+  if (founder) {
+    return {
+      '@type': 'Person',
+      '@id': founderPersonId(founder.slug),
+      name: founder.name,
+      jobTitle: founder.role,
+      url: absoluteUrl(`/about/${founder.slug}`),
+      sameAs: [...founder.sameAs],
+    };
+  }
+  return {
+    '@type': 'Person',
+    name: author,
+    ...(authorUrl ? { url: authorUrl, sameAs: [authorUrl] } : {}),
+  };
+}
 
 export function ArticleSchema({
   title,
@@ -111,6 +252,7 @@ export function ArticleSchema({
   publishedAt,
   updatedAt,
   author,
+  authorUrl,
   cover,
 }: ArticleSchemaProps): JSX.Element {
   const data = {
@@ -122,12 +264,10 @@ export function ArticleSchema({
     datePublished: publishedAt,
     dateModified: updatedAt ?? publishedAt,
     image: cover ? absoluteUrl(cover) : absoluteUrl(SITE_CONFIG.ogImage),
-    author: {
-      '@type': 'Person',
-      name: author,
-    },
+    author: buildArticleAuthor(author, authorUrl),
     publisher: {
       '@type': 'Organization',
+      ...orgRef,
       name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
@@ -244,7 +384,7 @@ export function FAQPageSchema({ items }: FAQPageSchemaProps): JSX.Element {
  * geo (if provided), and contact channels.
  */
 export type LocalBusinessSchemaProps = {
-  /** Optional geo coordinates (Bengaluru used as default). */
+  /** Optional geo coordinates. Omitted from the schema when not provided. */
   geo?: { latitude: number; longitude: number };
   /** Override business type (defaults to "LocalBusiness"). */
   businessType?: string;
@@ -281,7 +421,7 @@ function parseOpeningHours(): Array<Record<string, unknown>> {
 }
 
 export function LocalBusinessSchema({
-  geo = { latitude: 12.9352, longitude: 77.6245 }, // Koramangala, Bengaluru
+  geo,
   businessType = 'LocalBusiness',
 }: LocalBusinessSchemaProps = {}): JSX.Element {
   const data = {
@@ -297,11 +437,15 @@ export function LocalBusinessSchema({
     telephone: CONTACT.phoneE164,
     email: CONTACT.email,
     address: buildPostalAddress(),
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    },
+    ...(geo
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+          },
+        }
+      : {}),
     openingHoursSpecification: parseOpeningHours(),
     areaServed: {
       '@type': 'Country',

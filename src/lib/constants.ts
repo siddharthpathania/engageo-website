@@ -10,31 +10,31 @@
 export const SITE_CONFIG = {
   name: 'Engageo',
   shortName: 'Engageo',
-  title: 'Engageo — Missed Call Recovery for Indian Clinics',
+  title: 'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals',
   titleTemplate: '%s · Engageo',
   description:
-    'Every missed call at your clinic is a patient your competitor books. Engageo intercepts that call in 8 seconds — qualifies the patient, books the slot, sends the WhatsApp confirmation. Live in 47+ Indian clinics.',
-  tagline: 'Your clinic is losing ₹3L every month. We recover it.',
-  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://engageoagency.com').replace(/\/$/, ''),
+    'AI-powered missed call recovery, WhatsApp automation, and appointment booking for Indian clinics and hospitals. Every missed call is answered in 12 languages within 15 seconds, patient questions handled, and the booking lands in your calendar \u2014 without adding staff or changing your workflow.',
+  tagline: 'Every missed call answered. Every patient booked.',
+  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.engageoagency.com').replace(/\/$/, ''),
   ogImage: '/opengraph-image',
-  ogImageAlt: 'Engageo — AI voice + WhatsApp recovery for Indian clinics',
+  ogImageAlt: 'Engageo — AI voice + WhatsApp recovery for Indian clinics and hospitals',
   locale: 'en_IN',
   language: 'en',
   region: 'IN',
   currency: 'INR',
   keywords: [
-    'missed call recovery',
-    'ai receptionist india',
-    'clinic automation',
-    'whatsapp automation clinic',
-    'dental clinic booking',
-    'ivf clinic crm',
-    'hair transplant clinic software',
-    'ai voice agent india',
-    'patient booking automation',
-    'clinic lead recovery',
+    'missed call recovery for clinics india',
+    'missed call recovery for hospitals india',
+    'ai receptionist for clinics india',
+    'ai receptionist for hospitals india',
+    'whatsapp automation for clinics india',
+    'automated appointment booking india',
+    'dental clinic missed calls',
+    'ivf clinic patient recovery',
+    'hospital call answering service india',
+    'patient booking automation india',
   ],
-  twitterHandle: '@engageo',
+  twitterHandle: '@EngageoAgency',
   creator: 'Engageo',
 } as const;
 
@@ -61,12 +61,7 @@ export const MAIN_NAV: readonly NavLink[] = [
   {
     label: 'Pricing',
     href: '/#pricing',
-    description: 'Three tiers from Recover to Dominate.',
-  },
-  {
-    label: 'Case Studies',
-    href: '/case-studies',
-    description: 'Real recovery numbers from 47+ clinics.',
+    description: 'Solo, Growth, and Enterprise — from ₹7,499/month.',
   },
   {
     label: 'FAQ',
@@ -79,28 +74,28 @@ export const MAIN_NAV: readonly NavLink[] = [
 
 export const CTA = {
   audit: {
-    label: 'Free Audit — See What You\u2019re Losing',
-    href: 'https://calendly.com/engageoagency',
-    shortLabel: 'Free Audit',
+    label: 'Book a Meeting',
+    href: 'https://cal.com/engageo',
+    shortLabel: 'Book a Meeting',
   },
   demo: {
-    label: 'Watch a Real Recovery Call',
-    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
-    shortLabel: 'Watch Demo',
+    label: 'Hear a Recovery in Action',
+    href: 'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo.',
+    shortLabel: 'Hear Demo',
   },
   whatsapp: {
     label: 'Chat on WhatsApp',
-    href: 'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
+    href: 'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20clinic.',
     shortLabel: 'WhatsApp',
   },
   book: {
     label: 'Book a 20-min Call',
-    href: 'https://calendly.com/engageoagency',
+    href: 'https://cal.com/engageo',
     shortLabel: 'Book Call',
   },
-  calendly: {
+  cal: {
     label: 'Book a Strategy Call',
-    href: 'https://calendly.com/engageoagency',
+    href: 'https://cal.com/engageo',
     shortLabel: 'Book Call',
   },
 } as const;
@@ -110,18 +105,18 @@ export const CTA = {
 export const CONTACT = {
   email: 'engageoagency@gmail.com',
   emailSupport: 'engageoagency@gmail.com',
-  phone: '+91 96996 70806',
-  phoneE164: '+919699670806',
-  whatsapp: '+91 96996 70806',
-  whatsappE164: '919699670806',
+  phone: '+91 96995 30806',
+  phoneE164: '+919699530806',
+  whatsapp: '+91 96995 30806',
+  whatsappE164: '919699530806',
   whatsappLink:
-    'https://wa.me/919699670806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
+    'https://wa.me/919699530806?text=Hi%20Engageo%2C%20I%27d%20like%20to%20learn%20more.',
+  // Street address and postal code are intentionally omitted from the site —
+  // we publish only city/region/country. Keep it that way unless there's a
+  // deliberate decision to expose the registered office publicly.
   address: {
-    line1: 'Engageo HQ',
-    line2: 'Koramangala',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    postalCode: '560034',
+    city: 'Pune',
+    state: 'Maharashtra',
     country: 'India',
     countryCode: 'IN',
   },
@@ -137,12 +132,12 @@ export const CONTACT = {
 // ─── Company info ────────────────────────────────────────────────
 
 export const COMPANY = {
-  legalName: 'Engageo Technologies Pvt. Ltd.',
+  legalName: 'Engageo Agency LLP',
   foundingYear: 2024,
-  foundingLocation: 'Bengaluru, India',
+  foundingLocation: 'Pune, India',
   liveClinics: 47,
   avgRecoveryINR: 24_000,
-  responseSeconds: 8,
+  responseSeconds: 15,
 } as const;
 
 // ─── Footer navigation ───────────────────────────────────────────
@@ -151,6 +146,17 @@ export type FooterSection = {
   title: string;
   links: readonly NavLink[];
 };
+
+/**
+ * Legal pages that exist as real, server-reachable routes (each returns 200).
+ * Rendered in the footer bottom bar and reused in FOOTER_NAV. Order matches
+ * the footer's "Terms of Service | Security | Privacy Policy" display.
+ */
+export const LEGAL_LINKS: readonly NavLink[] = [
+  { label: 'Terms of Service', href: '/terms-of-service' },
+  { label: 'Security', href: '/security' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+] as const;
 
 export const FOOTER_NAV: readonly FooterSection[] = [
   {
@@ -164,32 +170,29 @@ export const FOOTER_NAV: readonly FooterSection[] = [
     ],
   },
   {
-    title: 'Clinics',
+    title: 'By specialty',
     links: [
       { label: 'Dental', href: '/clinics/dental' },
       { label: 'Dermatology', href: '/clinics/dermatology' },
       { label: 'IVF & Fertility', href: '/clinics/ivf' },
       { label: 'Hair Transplant', href: '/clinics/hair-transplant' },
       { label: 'Orthopaedics', href: '/clinics/orthopaedics' },
+      { label: 'Ophthalmology', href: '/clinics/ophthalmology' },
+      { label: 'Gynaecology', href: '/clinics/gynaecology' },
+      { label: 'Hospitals', href: '/clinics#hospitals-intro' },
     ],
   },
   {
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Case Studies', href: '/case-studies' },
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],
   },
   {
     title: 'Legal',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Refund Policy', href: '/refund' },
-      { label: 'Data Processing', href: '/dpa' },
-    ],
+    links: [...LEGAL_LINKS],
   },
 ] as const;
 
@@ -203,8 +206,9 @@ export type SocialLink = {
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/company/engageo-agency/',  handle: 'engageo-agency' },
-  { label: 'Twitter',   href: 'https://twitter.com/engageo',                     handle: '@engageo' },
+  { label: 'Twitter',   href: 'https://x.com/EngageoAgency',                      handle: '@EngageoAgency' },
   { label: 'Instagram', href: 'https://www.instagram.com/engageo.agency/',        handle: '@engageo.agency' },
+  { label: 'Pinterest', href: 'https://in.pinterest.com/engageoagency/',          handle: 'engageoagency' },
   { label: 'YouTube',   href: 'https://youtube.com/@engageo',                     handle: '@engageo' },
   { label: 'WhatsApp',  href: CONTACT.whatsappLink,                    handle: CONTACT.whatsapp },
 ] as const;
@@ -212,19 +216,19 @@ export const SOCIAL_LINKS: readonly SocialLink[] = [
 // ─── Key metrics (for hero / trust bar) ──────────────────────────
 
 export const KEY_METRICS = [
-  { label: 'Avg Recovery', value: '\u20B924K',   hint: 'per clinic / month' },
-  { label: 'Response Time', value: '< 8s',        hint: 'voice callback' },
-  { label: 'Clinics Live',  value: '47+',         hint: 'across India' },
-  { label: 'Guarantee',     value: '15 bookings', hint: 'first 30 days' },
+  { label: 'Revenue Recovered', value: '\u20B924K',   hint: 'per clinic / month' },
+  { label: 'Response Time',     value: '< 15s',       hint: 'call answered' },
+  { label: 'Clinics Live',      value: '47+',         hint: 'across India' },
+  { label: 'Guarantee',         value: '15 bookings', hint: 'first 30 days' },
 ] as const;
 
 // ─── Pricing tiers ───────────────────────────────────────────────
 
 export type PricingTier = {
-  id: 'recover' | 'grow' | 'dominate';
+  id: 'solo' | 'growth' | 'enterprise';
   name: string;
   label: string;
-  price: number;
+  price: number | null;
   priceLabel: string;
   cadence: string;
   addOn?: string;
@@ -234,37 +238,38 @@ export type PricingTier = {
 
 export const PRICING_TIERS: readonly PricingTier[] = [
   {
-    id: 'recover',
-    name: 'Recover',
-    label: 'Missed Call Recovery',
-    price: 25_000,
-    priceLabel: '\u20B925,000',
+    id: 'solo',
+    name: 'Solo',
+    label: '1 clinic',
+    price: 7_499,
+    priceLabel: '\u20B97,499',
     cadence: '/ month',
+    addOn: '150 calls included, then \u20B97/min',
     description:
-      'Your clinic already gets inbound calls. We make sure not one of them goes to voicemail. Answered, qualified, and booked \u2014 in under 8 seconds.',
+      'For a single clinic. Every missed call gets answered, the appointment lands in your calendar, and a free CRM tracks every patient.',
   },
   {
-    id: 'grow',
-    name: 'Grow',
-    label: 'Lead Gen + Recovery',
-    price: 55_000,
-    priceLabel: '\u20B955,000',
+    id: 'growth',
+    name: 'Growth',
+    label: 'Up to 3 clinics',
+    price: 22_497,
+    priceLabel: '\u20B922,497',
     cadence: '/ month',
-    addOn: '+ your ad spend',
+    addOn: '450 calls included, then \u20B97/min',
     description:
-      'We run your ads, drive inbound calls, and convert every single one into a confirmed booking. You stay in the consultation room. We make sure it stays full.',
+      'For multi-doctor clinics and small chains. Up to three clinic numbers, a shared multi-clinic dashboard, and priority support.',
     featured: true,
   },
   {
-    id: 'dominate',
-    name: 'Dominate',
-    label: 'Full Clinic Growth System',
-    price: 120_000,
-    priceLabel: '\u20B91,20,000',
-    cadence: '/ month',
-    addOn: '+ ad spend',
+    id: 'enterprise',
+    name: 'Enterprise',
+    label: 'Hospital chains \u00B7 4+ locations',
+    price: null,
+    priceLabel: 'Custom',
+    cadence: '',
+    addOn: 'Unlimited calls & locations',
     description:
-      'Every patient in your city who searches your specialty should find you first, trust you immediately, and call you directly. We build that system.',
+      'For chains expanding across cities: unlimited locations and calls, HMS/PMS integration, a dedicated success manager, and an SLA.',
   },
 ] as const;
 

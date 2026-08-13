@@ -1,3 +1,4 @@
+import { AlertCircle, AlertTriangle, CheckCircle2, Info, type LucideIcon } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -11,63 +12,31 @@ export type CalloutProps = {
 
 const TONE_STYLES: Record<
   CalloutTone,
-  { container: string; iconBg: string; iconFg: string; icon: ReactNode }
+  { container: string; iconBg: string; iconFg: string; Icon: LucideIcon }
 > = {
   info: {
     container: 'border-primary-200 bg-primary-50/60',
     iconBg: 'bg-primary-100',
     iconFg: 'text-primary-700',
-    icon: (
-      <path
-        d="M10 6.5v4M10 13.5h.01M17.5 10a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Info,
   },
   success: {
     container: 'border-success-100 bg-success-50/60',
     iconBg: 'bg-success-100',
     iconFg: 'text-success-700',
-    icon: (
-      <path
-        d="M6 10l3 3 5-6M17.5 10a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: CheckCircle2,
   },
   warning: {
     container: 'border-warning-100 bg-warning-50/60',
     iconBg: 'bg-warning-100',
     iconFg: 'text-warning-700',
-    icon: (
-      <path
-        d="M10 7v4M10 13.5h.01M10 2.5l8 14H2l8-14z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: AlertTriangle,
   },
   error: {
     container: 'border-error-100 bg-error-50/60',
     iconBg: 'bg-error-100',
     iconFg: 'text-error-700',
-    icon: (
-      <path
-        d="M7 7l6 6M13 7l-6 6M17.5 10a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: AlertCircle,
   },
 };
 
@@ -81,6 +50,7 @@ export function Callout({
   children,
 }: CalloutProps): JSX.Element {
   const tone = TONE_STYLES[type];
+  const Icon = tone.Icon;
 
   return (
     <aside
@@ -97,9 +67,7 @@ export function Callout({
           tone.iconFg,
         )}
       >
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-          {tone.icon}
-        </svg>
+        <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
       </span>
       <div className="min-w-0 flex-1">
         {title ? (

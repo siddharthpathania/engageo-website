@@ -1,19 +1,22 @@
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { PageTransition } from '@/components/layout/PageTransition';
-import { GoogleAnalytics } from '@/components/shared/Analytics';
+import { FunnelAgent, GoogleAnalytics, MicrosoftClarity } from '@/components/shared/Analytics';
+import { LeadPopup } from '@/components/shared/LeadPopup';
 import { ReducedMotionProvider } from '@/components/shared/ReducedMotionProvider';
+import { ScrollProgress } from '@/components/shared/ScrollProgress';
 import { SkipLink } from '@/components/shared/SkipLink';
 import { OrganizationSchema, WebSiteSchema } from '@/components/seo/StructuredData';
 import { COMPANY, SITE_CONFIG } from '@/lib/constants';
 import { fontVariables } from '@/lib/fonts';
 import '@/styles/globals.css';
 
-const DEFAULT_TITLE = 'Engageo — Missed Call Recovery for Clinics India';
+const DEFAULT_TITLE = 'Engageo — Missed Call Recovery for Indian Clinics';
 const DEFAULT_DESCRIPTION =
-  'AI missed-call recovery for Indian clinics. Every unanswered call is qualified, booked, and WhatsApped back in 8 seconds. Live in 47+ clinics today.';
+  'Indian clinics lose \u20B92\u20134 lakhs monthly to unanswered calls. Engageo answers every missed call, handles patient questions in their language, and books appointments into your calendar. Live in 47+ clinics.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
@@ -69,11 +72,34 @@ export const metadata: Metadata = {
     },
   },
   category: 'technology',
-  // icons auto-injected from src/app/icon.tsx, icon1.tsx, icon2.tsx, apple-icon.tsx
+  // Static favicons — stable URLs that Google's favicon crawler can cache.
+  // We previously generated these dynamically via src/app/icon*.tsx but the
+  // hashed URLs and ImageResponse runtime caused both indexing and Vercel
+  // build issues. All sizes below come from public/ and are pre-generated
+  // from the source logo.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+  },
   // manifest auto-injected from src/app/manifest.ts
-  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
-    verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION },
-  }),
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
+      google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    }),
+    // Pinterest domain verification ("Add HTML tag" method).
+    other: {
+      'p:domain_verify': '29e30c5fcee4735fed84d7da4c77e72e',
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -98,6 +124,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-canvas text-obsidian">
         <OrganizationSchema />
         <WebSiteSchema />
+        <ScrollProgress />
         <SkipLink />
         <ReducedMotionProvider>
           <Header />
@@ -106,8 +133,12 @@ export default function RootLayout({
           </main>
           <Footer />
         </ReducedMotionProvider>
+        <LeadPopup />
         <Analytics />
+        <SpeedInsights />
         <GoogleAnalytics />
+        <MicrosoftClarity />
+        <FunnelAgent />
       </body>
     </html>
   );

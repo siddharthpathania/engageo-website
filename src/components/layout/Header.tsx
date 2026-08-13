@@ -1,11 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CTA, SITE_CONFIG } from '@/lib/constants';
+import { SITE_CONFIG } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
@@ -13,12 +14,14 @@ type HeaderLink = { label: string; href: string };
 
 const HEADER_NAV: readonly HeaderLink[] = [
   { label: 'Home', href: '/' },
+  { label: 'Try Live Demo', href: '/experience-engageo' },
   { label: 'Services', href: '/services' },
+  { label: 'Clinics & Hospitals', href: '/clinics' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Case Studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 export function Header(): JSX.Element {
@@ -56,14 +59,20 @@ export function Header(): JSX.Element {
             aria-label={`${SITE_CONFIG.name} — home`}
             className="group flex items-center gap-2"
           >
-            <Image
-              src="/logo.png"
-              alt=""
-              width={32}
-              height={32}
-              className="rounded-lg transition-transform group-hover:scale-105"
-              priority
-            />
+            <motion.span
+              className="inline-flex"
+              whileHover={{ rotate: [0, -8, 6, -4, 0], scale: 1.08 }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+            >
+              <Image
+                src="/logo.png"
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-lg"
+                priority
+              />
+            </motion.span>
             <span className="font-display text-[17px] font-semibold tracking-tight text-obsidian">
               {SITE_CONFIG.name}
             </span>
@@ -109,28 +118,18 @@ export function Header(): JSX.Element {
 
           {/* CTA + mobile trigger */}
           <div className="flex items-center gap-2">
-            <Link
-              href={CTA.book.href}
+            <a
+              href="/login"
               className="group hidden items-center gap-1.5 rounded-full bg-obsidian px-4 py-2 text-[13px] font-medium text-surface shadow-subtle transition-all hover:shadow-card md:inline-flex"
             >
-              Book a Demo
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
+              Login
+              <ChevronRight
+                size={14}
+                strokeWidth={2}
                 className="transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
-              >
-                <path
-                  d="M5 3l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
+              />
+            </a>
             <MobileMenu nav={HEADER_NAV} />
           </div>
         </div>

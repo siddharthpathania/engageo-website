@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 
 type CTASectionProps = {
@@ -13,19 +17,42 @@ export function CTASection({
   label = 'Your move',
   headline = 'Stop losing patients',
   headlineAccent = 'today.',
-  body = 'Every missed call you read past right now is ₹6,000–₹12,000 in patient LTV walking to the clinic down the road. Plug Engageo in this week. See your first recovery by Friday.',
-  primaryCta = { label: 'Book Your Strategy Call', href: 'https://calendly.com/engageoagency' },
-  secondaryCta = { label: 'WhatsApp Us Instead', href: 'https://wa.me/919699670806' },
+  body = 'Somewhere right now, a patient is calling your clinic and nobody\u2019s picking up. That patient is worth \u20B96,000\u2013\u20B912,000 over their lifetime. With Engageo, that call still gets answered, that patient still gets booked. Set it up this week \u2014 see your first recovery by Friday.',
+  primaryCta = { label: 'Book Your Strategy Call', href: 'https://cal.com/engageo' },
+  secondaryCta = { label: 'WhatsApp Us Instead', href: 'https://wa.me/919699530806' },
 }: CTASectionProps): JSX.Element {
   return (
     <SectionWrapper id="cta" ariaLabel="Call to action" dark bleed className="py-24 md:py-32">
-      {/* Ambient gradient glow */}
+      {/* Ambient gradient glow — slow drifting motion */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-500/25 blur-3xl" />
-        <div className="absolute right-[-15%] bottom-[-20%] h-[500px] w-[500px] rounded-full bg-accent-500/15 blur-3xl" />
+        <motion.div
+          className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-500/25 blur-3xl"
+          animate={{
+            scale: [1, 1.06, 1],
+            opacity: [0.85, 1, 0.85],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-[-20%] right-[-15%] h-[500px] w-[500px] rounded-full bg-accent-500/15 blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.9, 1, 0.9],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 1.5,
+          }}
+        />
       </div>
 
       {/* Subtle grid overlay */}
@@ -59,25 +86,20 @@ export function CTASection({
               href={primaryCta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-surface px-7 py-4 text-[14px] font-semibold text-obsidian shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-card-hover motion-reduce:transform-none"
             >
-              {primaryCta.label}
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
+              {/* Shimmer sweep — runs on hover */}
+              <span
                 aria-hidden="true"
-                className="transition-transform group-hover:translate-x-1"
-              >
-                <path
-                  d="M6 3l5 5-5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-primary-200/60 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
+              />
+              <span className="relative">{primaryCta.label}</span>
+              <ArrowRight
+                size={16}
+                strokeWidth={2}
+                aria-hidden="true"
+                className="relative transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+              />
             </a>
 
             <a
@@ -86,21 +108,7 @@ export function CTASection({
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full border border-surface/30 bg-transparent px-7 py-4 text-[14px] font-semibold text-surface transition-all duration-300 hover:border-surface/60 hover:bg-surface/5"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M3 13l1-3a5 5 0 117 2 5 5 0 01-8 1zm3-5h4m-4 2h3"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
               {secondaryCta.label}
             </a>
           </div>
@@ -113,22 +121,12 @@ export function CTASection({
               'Live in 48 hours',
             ].map((item) => (
               <li key={item} className="flex items-center gap-2">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
+                <Check
+                  size={14}
+                  strokeWidth={2.25}
                   aria-hidden="true"
                   className="text-primary-400"
-                >
-                  <path
-                    d="M2.5 7l3 3 6-6"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                />
                 {item}
               </li>
             ))}

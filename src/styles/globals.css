@@ -10,7 +10,7 @@
 
 @layer base {
   :root {
-    /* Brand palette — electric blue (matches engageoagency.digital) */
+    /* Brand palette — electric blue (matches engageoagency.com) */
     --color-primary-50:  238 241 255;
     --color-primary-100: 221 227 255;
     --color-primary-200: 188 200 255;
@@ -485,6 +485,62 @@
   .glow-brand-sm { box-shadow: 0 4px 20px rgba(61,90,254,0.25); }
 
   .animate-marquee { animation: marquee 24s linear infinite; }
+
+  /* ─── Smooth section transitions ─────────────────────────────── */
+  .section-fade-in {
+    animation: sectionReveal 0.8s var(--ease-out-expo) both;
+  }
+
+  /* ─── Animated gradient border ──────────────────────────────── */
+  .gradient-border-spin {
+    position: relative;
+  }
+  .gradient-border-spin::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--gradient-angle, 0deg),
+      #3D5AFE 0%,
+      #6B80FF 25%,
+      #E8552A 50%,
+      #6B80FF 75%,
+      #3D5AFE 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: gradient-spin 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .gradient-border-spin:hover::before {
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-spin {
+  to { --gradient-angle: 360deg; }
+}
+
+@keyframes sectionReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-fade-in {
+    animation: none;
+  }
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -494,4 +550,17 @@
 @keyframes marquee {
   0%   { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
+}
+
+/* ─── BuiltOnStrip: voice-AI equalizer (Sarvam = voice AI) ──────────
+   A calm, center-weighted "breathing" equalizer beneath the Sarvam
+   wordmark. `--amp` (0..1, written per-bar from a Math.sin envelope)
+   shapes the peak so middle bars swell more than the edges — reads as a
+   live voice signal, not a club VU meter. transform: scaleY only →
+   compositor-friendly. Pure CSS, so it is auto-frozen under
+   prefers-reduced-motion by the global kill-switch above. */
+@keyframes voicePulse {
+  0%,
+  100% { transform: scaleY(calc(0.34 + 0.18 * var(--amp, 1))); }
+  50%  { transform: scaleY(calc(0.50 + 0.50 * var(--amp, 1))); }
 }

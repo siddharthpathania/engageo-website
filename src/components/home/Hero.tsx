@@ -1,6 +1,14 @@
 'use client';
 
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from 'framer-motion';
+import { ArrowRight, Zap } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { CTA } from '@/lib/constants';
@@ -262,20 +270,12 @@ function LiveDashboard(): JSX.Element {
               className="flex h-14 w-14 items-center justify-center rounded-full"
               style={{ background: 'rgba(61,90,254,0.07)' }}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="#3D5AFE"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
+              <Zap
+                size={24}
+                strokeWidth={1.75}
+                color="#3D5AFE"
                 aria-hidden="true"
-              >
-                <path
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </div>
             <div
               className="absolute inset-0 animate-ping rounded-full opacity-20"
@@ -371,7 +371,7 @@ function LiveDashboard(): JSX.Element {
               style={{ color: accentColor }}
             >
               {isWhatsapp
-                ? 'WhatsApp Engine'
+                ? 'Booking Confirmed'
                 : isRecovery
                   ? 'Engageo Active'
                   : 'Without Engageo'}
@@ -424,7 +424,7 @@ function LiveDashboard(): JSX.Element {
             </span>
             <span className="flex-1 truncate font-sans text-[11px] font-medium text-obsidian">
               {isWhatsapp
-                ? 'Dispatching'
+                ? 'Confirming'
                 : isRecovery
                   ? 'Intercepting'
                   : 'Incoming'}
@@ -462,7 +462,7 @@ function LiveDashboard(): JSX.Element {
             <div className="flex h-28 items-center justify-center">
               <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                 {isWhatsapp
-                  ? 'Awaiting slot confirms\u2026'
+                  ? 'Sending confirmations\u2026'
                   : isRecovery
                     ? 'Ready to intercept\u2026'
                     : 'Monitoring calls\u2026'}
@@ -493,7 +493,7 @@ function LiveDashboard(): JSX.Element {
               }}
             >
               {isRecovery || isWhatsapp
-                ? "Calls that would've been missed."
+                ? 'Recovered by Engageo.'
                 : "And it's not even noon yet."}
             </p>
           </div>
@@ -531,8 +531,8 @@ type Metric = {
 
 const METRICS: readonly Metric[] = [
   { label: 'AVG RECOVERY',       prefix: '\u20B9', value: 24, suffix: 'K' },
-  { label: 'CALL RECOVERY',      prefix: '<',      value: 8,  suffix: 's' },
-  { label: 'WHATSAPP OPEN RATE',                    value: 94, suffix: '%' },
+  { label: 'RESPONSE TIME',      prefix: '<',      value: 15, suffix: 's' },
+  { label: 'BOOKING RATE',                          value: 34, suffix: '%' },
   { label: 'CLINICS LIVE',                          value: 47, suffix: '+' },
 ] as const;
 
@@ -563,24 +563,51 @@ const headlineWordVariants: Variants = {
    ────────────────────────────────────────────────────────────── */
 
 export function Hero(): JSX.Element {
+  const heroRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  /* Scroll-linked parallax — background drifts slower than scroll;
+     copy fades + lifts on the way out for a cinematic exit. */
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const bgShape1Y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const bgShape2Y = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.4, 0]);
+
   return (
-    <section className="relative flex min-h-[85vh] flex-col items-center justify-between gap-12 overflow-hidden px-5 pb-16 pt-24 md:gap-16 md:px-12 md:pb-20 md:pt-32 lg:flex-row lg:px-20 lg:min-h-[92vh]">
-      {/* Floating background shapes — subtle, GPU-only transforms */}
+    <section
+      ref={heroRef}
+      className="relative flex min-h-[85vh] flex-col items-center justify-between gap-12 overflow-hidden px-5 pb-16 pt-24 md:gap-16 md:px-12 md:pb-20 md:pt-32 lg:flex-row lg:px-20 lg:min-h-[92vh]"
+    >
+      {/* Floating background shapes — scroll-linked parallax + idle drift */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute left-[-6rem] top-24 h-64 w-64 rounded-full bg-primary-500/[0.06] blur-3xl"
-        animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
+        style={shouldReduceMotion ? undefined : { y: bgShape1Y }}
+        animate={
+          shouldReduceMotion ? undefined : { x: [0, 12, 0] }
+        }
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute right-[-4rem] top-[60%] h-72 w-72 rounded-full bg-accent-400/[0.05] blur-3xl"
-        animate={{ y: [0, 20, 0], x: [0, -14, 0] }}
+        style={shouldReduceMotion ? undefined : { y: bgShape2Y }}
+        animate={
+          shouldReduceMotion ? undefined : { x: [0, -14, 0] }
+        }
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
 
-      {/* Copy */}
-      <div className="relative z-10 mx-auto w-full max-w-2xl space-y-8 md:space-y-10 lg:mx-0">
+      {/* Copy — fades + lifts as you scroll past hero */}
+      <motion.div
+        className="relative z-10 mx-auto w-full max-w-2xl space-y-8 md:space-y-10 lg:mx-0"
+        style={shouldReduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+      >
         <div className="space-y-8">
           <motion.div
             className="section-label mb-6 text-xs md:text-sm"
@@ -588,7 +615,7 @@ export function Hero(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           >
-            ● Voice + WhatsApp Recovery — Live in 47 Clinics
+            ● Missed Call Recovery — Live in 47 Indian Clinics
           </motion.div>
 
           <h1 className="text-left tracking-tighter">
@@ -637,10 +664,12 @@ export function Hero(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            Every missed call triggers a full recovery sequence — AI voice
-            callback in 8 seconds, patient qualified, slot booked to your
-            calendar, WhatsApp confirmation sent, 24-hour reminder fired.
-            While you&rsquo;re with your next patient.
+            Built for Indian clinics and hospitals. When your front desk
+            can&rsquo;t pick up, the call forwards automatically — our AI
+            voice + WhatsApp recovery system greets the patient in their
+            own language, answers their questions, and books the
+            appointment before they think to call a rival. You don&rsquo;t
+            even know a call was missed.
           </motion.p>
         </div>
 
@@ -665,29 +694,17 @@ export function Hero(): JSX.Element {
             }}
           >
             <span className="whitespace-nowrap">
-              See What You&rsquo;re Losing — Free Audit
+              Book a Meeting
             </span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
+            <ArrowRight
+              size={16}
+              strokeWidth={2}
               className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
               aria-hidden="true"
-            >
-              <path
-                d="M6 4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            />
           </a>
           <a
-            href={CTA.demo.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#roi-calculator"
             className="flex flex-1 items-center justify-center whitespace-nowrap border-2 border-obsidian bg-surface px-5 py-3.5 text-[13px] font-bold tracking-wide text-obsidian transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] md:px-7 md:py-4 md:text-[13px]"
             style={{ boxShadow: '4px 4px 0px 0px #0F0D0B' }}
             onMouseEnter={(e) => {
@@ -697,7 +714,7 @@ export function Hero(): JSX.Element {
               e.currentTarget.style.boxShadow = '4px 4px 0px 0px #0F0D0B';
             }}
           >
-            Watch a Real Recovery Call
+            Calculate Your Loss →
           </a>
         </motion.div>
 
@@ -729,23 +746,58 @@ export function Hero(): JSX.Element {
             </div>
           ))}
         </motion.div>
-      </div>
-
-      {/* Live Dashboard */}
-      <motion.div
-        className="relative w-full max-w-md lg:max-w-xl lg:scale-[1.15] lg:origin-center"
-        initial={{ opacity: 0, scale: 0.94, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-tr from-primary-500/[0.06] via-transparent to-accent-400/[0.04] blur-3xl"
-        />
-        <div className="relative">
-          <LiveDashboard />
-        </div>
       </motion.div>
+
+      {/* Right column: Live Dashboard + status strip */}
+      <div className="relative z-10 flex w-full max-w-lg flex-col lg:max-w-xl">
+        {/* Live Dashboard */}
+        <motion.div
+          className="relative lg:scale-[1.15] lg:origin-center"
+          initial={{ opacity: 0, scale: 0.94, y: 20, rotateY: -8, rotateX: 3 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateY: -3, rotateX: 1 }}
+          whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+          style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-tr from-primary-500/[0.06] via-transparent to-accent-400/[0.04] blur-3xl"
+          />
+          <div className="relative">
+            <LiveDashboard />
+          </div>
+        </motion.div>
+
+        {/* Status strip — verified facts, anchors the right column */}
+        <motion.div
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:mt-16"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="inline-flex items-center gap-2 font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            <span
+              aria-hidden="true"
+              className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success-500"
+            >
+              <span className="absolute inset-0 animate-ping rounded-full bg-success-500/70" />
+            </span>
+            Live · 47+ clinics
+          </span>
+          <span aria-hidden="true" className="text-neutral-300">
+            ·
+          </span>
+          <span className="font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            &lt; 15s pickup
+          </span>
+          <span aria-hidden="true" className="text-neutral-300">
+            ·
+          </span>
+          <span className="font-mono text-[10.5px] font-semibold uppercase tracking-widest text-subtle">
+            12 Indian languages
+          </span>
+        </motion.div>
+      </div>
     </section>
   );
 }

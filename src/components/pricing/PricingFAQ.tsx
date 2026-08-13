@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -12,35 +13,39 @@ type QA = {
 const FAQS: readonly QA[] = [
   {
     q: 'Do I need a credit card for the free trial?',
-    a: 'No. You get 14 days on any plan without entering payment details. Add a card only when you decide to continue.',
+    a: 'No. You get 14 days without entering payment details. Add a card only when you decide to continue.',
   },
   {
-    q: 'What counts as a recovery on the Starter plan?',
-    a: 'Any missed call where we successfully deliver a WhatsApp recovery message. If the message fails to deliver (blocked WhatsApp, invalid number), it does not count against your 200/month cap.',
+    q: 'What’s the difference between the plans?',
+    a: 'Solo (₹7,499/month) covers one clinic with 150 included calls a month. Growth (₹22,497/month) covers up to three clinics with 450 included calls, a multi-clinic dashboard, and priority support. Enterprise is custom for hospital chains with 4+ locations. Every plan includes the free CRM, WhatsApp recovery, calendar sync, and all 12 Indian languages.',
+  },
+  {
+    q: 'Can I pay quarterly or yearly?',
+    a: 'Yes. Pick monthly, 3-month, or 12-month billing — longer terms cost less per month. Solo is ₹7,499/month, ₹20,999 for 3 months, or ₹81,999 for 12 months. Growth is ₹22,497/month, ₹62,997 for 3 months, or ₹2,45,997 for 12 months. Your included call allowance is unchanged (150/month on Solo, 450 on Growth); after that it’s ₹7 per minute.',
+  },
+  {
+    q: 'What counts toward my included calls?',
+    a: 'Any call our AI answers on your behalf counts toward your monthly included allowance (150 on Solo, 450 on Growth). Calls that don’t connect (invalid number, no answer from the patient) don’t count.',
+  },
+  {
+    q: 'What happens after I use my included calls?',
+    a: 'You’re billed ₹7 per minute for calls beyond your included allowance — only for what you actually use. Usage and the running total are visible in your dashboard, so there are no surprises. Enterprise plans include unlimited calls.',
+  },
+  {
+    q: 'Is the CRM really free?',
+    a: 'Yes. The CRM to capture and track every patient is included in every plan at no extra cost.',
   },
   {
     q: 'Are WhatsApp conversation charges included in the price?',
     a: 'No — Meta charges a per-conversation fee (typically ₹0.35–₹0.85 per conversation, depending on category). We pass this through at cost with full transparency in your dashboard. Typical clinics spend ₹300–₹900/month on conversation fees.',
   },
   {
-    q: 'Can I switch plans mid-cycle?',
-    a: 'Yes. Upgrades are prorated immediately. Downgrades take effect on your next billing date. No cancellation fees, ever.',
-  },
-  {
     q: 'What happens after the 14-day trial?',
-    a: 'You pick a plan and enter payment details to keep the recoveries flowing. If you do not subscribe, the service pauses automatically — no auto-billing, no surprise charges.',
-  },
-  {
-    q: 'How does annual billing work?',
-    a: 'You pay 12 months upfront at a 20% discount. If you cancel mid-contract, we refund unused months on a pro-rata basis minus a 10% administrative fee.',
+    a: 'You enter payment details to keep the recoveries flowing. If you do not subscribe, the service pauses automatically — no auto-billing, no surprise charges.',
   },
   {
     q: 'Is there a setup fee?',
-    a: 'No. Onboarding, template configuration, and go-live support are all included. The only thing you pay for is the monthly plan + WhatsApp conversation costs.',
-  },
-  {
-    q: 'What does Enterprise pricing look like?',
-    a: 'Enterprise pricing is based on number of locations, expected recovery volume, and integration complexity. Most multi-location chains land between ₹25,000 and ₹1,20,000/month. Book a call for a custom quote.',
+    a: 'No. Onboarding, template configuration, and go-live support are all included. You pay for your plan, any call minutes beyond your included allowance, and WhatsApp conversation costs.',
   },
 ];
 
@@ -77,20 +82,7 @@ export function PricingFAQ(): JSX.Element {
                     : 'border-neutral-300 bg-surface text-obsidian group-hover:border-primary-400',
                 )}
               >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 2v8M2 6h8"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <Plus size={12} strokeWidth={2} aria-hidden="true" />
               </span>
             </button>
 

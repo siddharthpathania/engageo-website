@@ -1,3 +1,15 @@
+import {
+  BarChart3,
+  Building2,
+  CalendarCheck,
+  Check,
+  ChevronRight,
+  type LucideIcon,
+  MessageCircle,
+  PhoneCall,
+  Repeat,
+  X,
+} from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
@@ -30,7 +42,7 @@ type Service = {
   tagline: string;
   body: string;
   benefits: readonly string[];
-  icon: JSX.Element;
+  Icon: LucideIcon;
 };
 
 const SERVICES: readonly Service[] = [
@@ -43,34 +55,18 @@ const SERVICES: readonly Service[] = [
       'Response fired in under 30 seconds, 24/7',
       'No hardware, no new app for your staff',
     ],
-    icon: (
-      <path
-        d="M7 4l3 2-1.5 3 3 3 3-1.5 2 3-1.5 2a3 3 0 01-3 .8C9.4 16 5 11.6 4.2 7.5A3 3 0 015 4.5L7 3"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: PhoneCall,
   },
   {
     title: 'WhatsApp Auto-Reply',
     tagline: 'Conversation that converts',
-    body: 'Meta-verified templates in Hindi, Marathi, Tamil, Kannada, Telugu, Bengali, and English. Messages match the patient — not the clinic owner. 94% open rate within 2 minutes.',
+    body: 'Meta-verified templates across 12 languages — the major Indian languages and Indian English. Messages match the patient — not the clinic owner. 94% open rate within 2 minutes.',
     benefits: [
       'Official Meta Business API — zero compliance risk',
-      '7 Indian languages out of the box',
+      '12 Indian languages out of the box',
       'Clinic-specific tone, doctor names, CTAs',
     ],
-    icon: (
-      <path
-        d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0zm3-6h6m-6 3h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: MessageCircle,
   },
   {
     title: 'Appointment Booking Links',
@@ -81,26 +77,7 @@ const SERVICES: readonly Service[] = [
       'Doctor-specific availability rules',
       'Confirmation + reminder automation built in',
     ],
-    icon: (
-      <>
-        <rect
-          x="3"
-          y="4"
-          width="14"
-          height="13"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-        <path
-          d="M3 8h14M7 2v4m6-4v4M7 12l2 2 4-4"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    Icon: CalendarCheck,
   },
   {
     title: 'Follow-up Sequences',
@@ -111,15 +88,7 @@ const SERVICES: readonly Service[] = [
       'A/B test message angles per sequence',
       'Auto-pause when patient books or replies',
     ],
-    icon: (
-      <path
-        d="M3 10h4l2-6 2 12 2-6h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Repeat,
   },
   {
     title: 'Analytics Dashboard',
@@ -130,15 +99,7 @@ const SERVICES: readonly Service[] = [
       'Weekly summary email, Monday 8am IST',
       'Per-doctor conversion and hour heatmap',
     ],
-    icon: (
-      <path
-        d="M3 17V7m4 10v-6m4 6V5m4 12v-8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: BarChart3,
   },
   {
     title: 'Multi-Clinic Management',
@@ -149,15 +110,7 @@ const SERVICES: readonly Service[] = [
       'Per-branch templates + doctor routing',
       'Role-based access for local managers',
     ],
-    icon: (
-      <path
-        d="M4 16V8l4-3 4 3v8M4 16h12M4 16H2m14 0h2m-6 0v-5a1 1 0 011-1h2a1 1 0 011 1v5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Building2,
   },
 ];
 
@@ -181,7 +134,7 @@ const COMPARISON: readonly ComparisonRow[] = [
   {
     label: 'Language support',
     without: 'Whatever your receptionist speaks',
-    with: '7 Indian languages, patient-matched',
+    with: '12 Indian languages, patient-matched',
   },
   {
     label: 'Follow-up on no-reply',
@@ -244,9 +197,7 @@ export default function ServicesPage(): JSX.Element {
                   aria-hidden="true"
                   className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 transition-colors group-hover:bg-primary-100"
                 >
-                  <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-                    {service.icon}
-                  </svg>
+                  <service.Icon size={24} strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-subtle">
                   {String(index + 1).padStart(2, '0')}
@@ -270,22 +221,12 @@ export default function ServicesPage(): JSX.Element {
                     key={benefit}
                     className="flex items-start gap-2.5 text-[13px] leading-snug text-obsidian/85"
                   >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
+                    <Check
+                      size={14}
+                      strokeWidth={2}
                       aria-hidden="true"
                       className="mt-0.5 shrink-0 text-primary-500"
-                    >
-                      <path
-                        d="M2.5 7l3 3 6-6"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    />
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -340,42 +281,23 @@ export default function ServicesPage(): JSX.Element {
                     </td>
                     <td className="px-6 py-5 text-[14px] leading-relaxed text-obsidian/70">
                       <span className="inline-flex items-start gap-2">
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
+                        <X
+                          size={14}
+                          strokeWidth={1.75}
                           aria-hidden="true"
                           className="mt-0.5 shrink-0 text-error-500"
-                        >
-                          <path
-                            d="M3 3l8 8M11 3l-8 8"
-                            stroke="currentColor"
-                            strokeWidth="1.75"
-                            strokeLinecap="round"
-                          />
-                        </svg>
+                        />
                         {row.without}
                       </span>
                     </td>
                     <td className="px-6 py-5 text-[14px] leading-relaxed text-obsidian">
                       <span className="inline-flex items-start gap-2">
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
+                        <Check
+                          size={14}
+                          strokeWidth={2}
                           aria-hidden="true"
                           className="mt-0.5 shrink-0 text-primary-500"
-                        >
-                          <path
-                            d="M2.5 7l3 3 6-6"
-                            stroke="currentColor"
-                            strokeWidth="1.75"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        />
                         {row.with}
                       </span>
                     </td>
@@ -426,30 +348,14 @@ export default function ServicesPage(): JSX.Element {
             className="inline-flex items-center gap-2 rounded-full border border-obsidian bg-transparent px-6 py-3 text-[13px] font-semibold text-obsidian transition-all hover:bg-obsidian hover:text-surface"
           >
             See pricing
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           </Link>
           <Link
             href="/how-it-works"
             className="inline-flex items-center gap-2 text-[13px] font-semibold text-obsidian hover:text-primary-600"
           >
             How the engine works
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>
       </SectionWrapper>

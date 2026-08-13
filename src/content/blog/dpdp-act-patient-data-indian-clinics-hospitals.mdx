@@ -1,0 +1,131 @@
+---
+title: 'The DPDP Act Is Coming for Your Patient Data. Here Is What Indian Clinics Actually Need to Do'
+description: 'India''s DPDP Act and the 2025 Rules turn every clinic and hospital into a "data fiduciary" — with penalties that top out at ₹250 crore. A plain-English compliance guide from an engineer who builds patient-data systems.'
+publishedAt: 2026-05-20
+author: Atul Hooda
+authorRole: CTO
+authorInitials: AH
+authorLinkedin: https://www.linkedin.com/in/atulhooda/
+category: 'Playbook'
+tags:
+  - dpdp act
+  - patient data privacy
+  - healthcare compliance
+  - data security
+  - india
+coverImage: /blog/covers/dpdp-act.jpg
+draft: false
+---
+
+A receptionist at a dental chain we work with keeps every patient's phone number, treatment notes, and follow-up dates in one shared Google Sheet. The link has no password. Three former employees still have access. Nobody has looked at the sharing settings in two years.
+
+That sheet is now a legal liability with a number attached to it. As of November 2025, the rules that put that number in writing are real, notified, and ticking toward a hard deadline.
+
+I run engineering at Engageo, which means I spend my days thinking about where patient phone numbers physically live, who can touch them, and what happens when something leaks. So when people ask me whether the Digital Personal Data Protection Act is "a big company problem," my answer is short: no. It is a your-clinic problem, and the clock has already started.
+
+This is not legal advice — talk to a lawyer before you make compliance decisions. But it is the practical, engineer's-eye version of what the law asks for, written for the person who actually owns the patient data: you.
+
+## What the DPDP Act actually is
+
+The Digital Personal Data Protection Act was passed in 2023. For a while it sat as text without teeth, because the operational rules weren't out. That changed on **14 November 2025**, when the government notified the DPDP Rules — the part that tells you *how* to comply, not just *that* you must.
+
+Compliance is being phased in over roughly 18 months, which puts the practical deadline at around **13 May 2027**. That sounds far away. It is not, if you have ever tried to change how a busy clinic handles data mid-flight.
+
+Here is the part most clinic owners miss. The law uses one word that decides everything: **data fiduciary**. If you decide why and how personal data gets collected and used, you are a data fiduciary. A hospital is a data fiduciary. So is a two-chair dental clinic, an IVF centre, a diagnostic lab, a standalone physiotherapist, and the Ayurvedic practice down the road. Size does not get you out of it. If you hold a patient's phone number in a digital system, you are in scope.
+
+<Callout type="warning" title="Health data is the sensitive kind">
+The DPDP framework treats personal data seriously across the board, but health information sits in the highest-risk tier in practice. A leaked marketing list is embarrassing. A leaked list of fertility patients, HIV results, or psychiatric appointments is the kind of breach that ends trust permanently — and now carries statutory penalties on top.
+</Callout>
+
+## The penalties are not a rounding error
+
+I am wary of fear-selling, so let me be precise about what the law says rather than dramatise it.
+
+The penalty slabs are maximums, and the Data Protection Board has discretion — it weighs the nature of the breach, how many people were affected, and what you did about it. You are not getting a ₹250 crore notice for a typo. But the ceilings tell you how seriously the state is treating this:
+
+| Failure | Maximum penalty |
+| --- | --- |
+| Not having reasonable security safeguards, leading to a breach | Up to ₹250 crore |
+| Failing to notify a breach to the Board and affected people | Up to ₹200 crore |
+| Breaching obligations around children's data | Up to ₹200 crore |
+
+For a clinic, the first two are the ones that should keep you up at night. Notice what triggers the biggest number: not the breach itself, but **not having taken reasonable steps to prevent it.** The law is rewarding preparation and punishing negligence. That is a distinction you can actually act on.
+
+## The six things a clinic has to get right
+
+Strip away the legal language and the obligations land in six buckets. None of them require a compliance department. All of them require a decision.
+
+### 1. Get real consent — and write down what you promised
+
+Consent under the new rules has to be specific, informed, and in plain language. "By visiting this clinic you agree to our terms" does not cut it. You need to tell the patient what you are collecting, why, and what you will do with it — itemised, in language they actually read.
+
+The practical version: a short, honest consent notice at intake. If you collect a number to send appointment reminders on WhatsApp, say that. If you later want to use it for a Diwali offer campaign, that is a different purpose, and strictly, it needs its own basis. Clinics get into trouble not by collecting data, but by quietly reusing it for something the patient never agreed to.
+
+### 2. Lock the data down with "reasonable security safeguards"
+
+This is the bucket I care most about, because it is the one with the ₹250 crore ceiling and the one clinics ignore most. The Rules spell out what "reasonable" looks like: **encryption, access control, logging, and the ability to detect and investigate a breach.** In plain terms:
+
+- Patient data should be encrypted, not sitting in a plain spreadsheet.
+- Access should be role-based — your receptionist does not need the same access as your doctor, and ex-employees should have none.
+- You should keep logs of who accessed what, so that if something goes wrong you can reconstruct it.
+- You should run a check on your systems periodically, not discover holes after the fact.
+
+That unprotected Google Sheet from the opening fails every one of these.
+
+### 3. Be able to report a breach fast
+
+If patient data leaks, you are expected to notify the Data Protection Board and the affected patients — and the widely cited standard is to do it within **72 hours**. Three days feels generous until you realise most clinics would not even *know* a breach happened in 72 days. The hard part is detection, not the email. You cannot report what you cannot see, which loops straight back to logging.
+
+### 4. Honour patient rights
+
+Patients can ask to see the data you hold on them, correct it, or have it erased. Your systems need to be able to answer those requests without a week of manual digging. If your "system" is a shared sheet and a WhatsApp history on one phone, an erasure request becomes genuinely hard to fulfil — and "we couldn't find it all" is not a defence.
+
+### 5. Collect only what you need
+
+Data minimisation is both a legal principle and, frankly, good hygiene. Every extra field you collect is extra liability you store. You probably do not need a patient's full address and ID for a teeth-cleaning appointment. The less you hold, the less you can lose.
+
+### 6. Check your vendors — they are holding your data too
+
+Here is the one almost everyone forgets. The moment you use a third-party tool — a booking platform, a reminder service, a call-handling system, an EMR — that vendor becomes a **data processor** acting on your behalf. Their security failure is *your* exposure, because you are still the fiduciary the patient trusted.
+
+So the question to ask every vendor is blunt: *Where does our patient data physically live, who can access it, and what happens to it if we leave?* If they cannot answer cleanly, that is your answer.
+
+<BlogCTA
+  title="Where does your patient data actually live?"
+  body="Engageo handles missed-call recovery and WhatsApp reminders for Indian clinics and hospitals — with patient data hosted in India and access controls built in from day one. Ask us exactly how we handle it."
+  ctaLabel="Talk to our team"
+  ctaHref="/contact"
+/>
+
+## The bucket nobody maps: patient communication data
+
+Most DPDP guides stop at records and EMRs. But there is a whole category of patient data that flows through the noisiest, least-governed channel in your clinic: the phone and WhatsApp.
+
+Think about what passes through there. A patient calls and leaves their number. Your front desk saves it to a personal phone. A reminder goes out over a random WhatsApp account. A missed-call list sits in a call log that three people can see. None of it is encrypted. None of it is logged. All of it is patient data, and all of it is in scope.
+
+When we built Engageo, the first architectural decision was not about how fast the AI picks up a call. It was about where the patient's number lives once it does. We host patient data on infrastructure inside India — AWS Mumbai — operate under ISO 27001 controls, and built role-based access and audit logging in from the start, because retrofitting security onto a live patient system is miserable. I have done it. I would not recommend it.
+
+I am not telling you to use us. I am telling you that if your patient communication runs on personal phones and ungoverned chat apps, that is the cheapest, fastest leak in your whole operation — and the easiest one to close. If you want the longer version of how automated patient communication should work, we wrote a full [guide to AI receptionists for Indian clinics](/blog/ai-receptionist-indian-clinics-guide), and a breakdown of [why missed calls quietly cost clinics lakhs every month](/blog/why-indian-clinics-lose-50k-monthly-to-missed-calls).
+
+<PullQuote>
+The biggest penalty isn't for the breach. It's for not having tried to prevent one. That is a bar you can clear with decisions, not budget.
+</PullQuote>
+
+## A 30-day starting point
+
+You do not fix this in a weekend, but you can be meaningfully better in a month. If I were running a clinic, this is the order I would do it in.
+
+1. **Find your data.** List every place a patient's personal data lives — sheets, phones, EMR, booking tool, paper. You cannot protect what you have not mapped.
+2. **Kill the obvious leaks.** That shared sheet, the ex-employee access, the data on a personal phone. Close those this week.
+3. **Write a plain consent notice** for intake, and stop reusing data for purposes patients never agreed to.
+4. **Move patient communication onto a governed system** instead of personal WhatsApp and call logs.
+5. **Interrogate your vendors** on where data lives and who can touch it. Drop the ones who can't answer.
+6. **Decide who owns this.** One named person responsible for patient data beats a policy nobody reads.
+
+The clinics that treat this as paperwork will scramble in early 2027. The ones that treat it as basic respect for the patient who trusted them with a phone number will be fine — and, quietly, will earn more of that trust than their competitors.
+
+Whether you are a single clinic or a multi-department hospital, the obligation is the same and the fix is the same: know where the data is, lock it down, and only work with people who can tell you the truth about how they handle it. If you want to see how we approach it for [clinics and hospitals](/clinics), the door is open.
+
+---
+
+*Atul Hooda is the co-founder and CTO of Engageo, where he builds the AI voice and WhatsApp systems that handle patient communication for Indian clinics and hospitals. This article is general information, not legal advice — consult a qualified data-protection lawyer before making compliance decisions. Find him on [LinkedIn](https://www.linkedin.com/in/atulhooda/).*

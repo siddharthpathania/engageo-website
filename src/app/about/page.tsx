@@ -1,12 +1,15 @@
+import { ArrowUpRight, Globe, type LucideIcon, PhoneCall, Receipt, Star } from 'lucide-react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { COMPANY } from '@/lib/constants';
+import { FOUNDERS } from '@/lib/founders';
 
 const ABOUT_TITLE = 'About Engageo — Built for Indian Clinics';
 const ABOUT_DESCRIPTION =
-  'Engageo was built in Bengaluru by operators who watched Indian clinics lose crores to missed calls. Our mission: every patient call gets a reply in 8 seconds.';
+  'Engageo was built in Pune by operators who watched Indian clinics lose crores to missed calls. Our mission: every patient call gets a reply in 8 seconds.';
 
 export const metadata: Metadata = {
   title: { absolute: `${ABOUT_TITLE} | Engageo` },
@@ -25,105 +28,32 @@ export const metadata: Metadata = {
   },
 };
 
-type TeamMember = {
-  name: string;
-  role: string;
-  bio: string;
-  initials: string;
-  accent: string;
-};
-
-const TEAM: readonly TeamMember[] = [
-  {
-    name: 'Arjun Mehta',
-    role: 'Co-founder & CEO',
-    bio: 'Built growth ops for 3 Indian healthcare startups. Watched 60% of clinic inbound leak through voicemail. Decided to fix it.',
-    initials: 'AM',
-    accent: 'from-primary-400 to-primary-600',
-  },
-  {
-    name: 'Kavya Iyer',
-    role: 'Co-founder & CTO',
-    bio: 'Previously staff engineer at a voice AI company. Speaks fluent webhook, telephony, and Meta WABA.',
-    initials: 'KI',
-    accent: 'from-accent-400 to-accent-600',
-  },
-  {
-    name: 'Rohit Khanna',
-    role: 'Head of Clinics',
-    bio: 'Ran operations at a 12-clinic dental chain. Knows exactly where the front desk breaks down at 6:47 PM on a Tuesday.',
-    initials: 'RK',
-    accent: 'from-premium-400 to-premium-600',
-  },
-  {
-    name: 'Meera Bhat',
-    role: 'Head of Patient Experience',
-    bio: 'Built conversational flows at a unicorn fintech. Now tunes message tone so it sounds like a clinic, not a bot.',
-    initials: 'MB',
-    accent: 'from-success-400 to-success-600',
-  },
-];
-
 type Value = {
   title: string;
   body: string;
-  icon: JSX.Element;
+  Icon: LucideIcon;
 };
 
 const VALUES: readonly Value[] = [
   {
     title: 'No patient walks away unheard',
     body: 'This is the only metric that matters. Everything we build starts and ends with the unanswered call on a Sunday night.',
-    icon: (
-      <path
-        d="M4 16l1-3a7 7 0 1110 0 7 7 0 01-10 0z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: PhoneCall,
   },
   {
     title: 'Built in India, for Indian clinics',
-    body: 'Hindi, Marathi, Tamil on day one. Indian telecom quirks understood. Indian price points respected. This is not a Bay Area SaaS tool with a localisation pass.',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path
-          d="M3 10h14M10 3c2 2 3 4 3 7s-1 5-3 7c-2-2-3-4-3-7s1-5 3-7z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
+    body: 'Twelve Indian languages from day one. Indian telecom quirks understood. Indian price points respected. This is not a Bay Area SaaS tool with a localisation pass.',
+    Icon: Globe,
   },
   {
     title: 'Receipts, not rhetoric',
     body: 'Every claim we make is backed by a live ledger in your dashboard. If we do not recover 15 bookings in your first 30 days, you do not pay.',
-    icon: (
-      <path
-        d="M5 3h7l3 3v11a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1zm2 7h6m-6 3h4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Receipt,
   },
   {
     title: 'Ship on Friday',
     body: 'Clinics do not care about our sprint ceremonies. They care about whether the WhatsApp goes out when the 9 PM toothache call comes in. We ship weekly.',
-    icon: (
-      <path
-        d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8L10 2z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    ),
+    Icon: Star,
   },
 ];
 
@@ -159,7 +89,7 @@ export default function AboutPage(): JSX.Element {
             <span className="serif-hero">9 PM toothache call.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-subtle md:text-lg">
-            Engageo started in Bengaluru in {COMPANY.foundingYear}, after
+            Engageo started in Pune in {COMPANY.foundingYear}, after
             we watched {COMPANY.liveClinics}+ clinics leak lakhs every
             month through the same hole: the unanswered phone.
           </p>
@@ -226,9 +156,7 @@ export default function AboutPage(): JSX.Element {
                 aria-hidden="true"
                 className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600"
               >
-                <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
-                  {value.icon}
-                </svg>
+                <value.Icon size={22} strokeWidth={1.75} aria-hidden="true" />
               </span>
               <h3 className="mt-5 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
                 {value.title}
@@ -250,32 +178,74 @@ export default function AboutPage(): JSX.Element {
             <span className="serif-hero">consultants.</span>
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-subtle md:text-base">
-            Every person on the founding team has lived the pain they
-            are now building against.
+            Two founders. One from product, one from ML. Both have lived
+            the problem they built Engageo to solve.
           </p>
         </div>
 
-        <ul className="mt-14 grid gap-5 md:mt-18 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {TEAM.map((member) => (
+        <ul className="mx-auto mt-14 grid max-w-2xl gap-5 md:mt-18 md:grid-cols-2 lg:gap-6">
+          {FOUNDERS.map((member) => (
             <li
-              key={member.name}
-              className="rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover"
+              key={member.slug}
+              className="group rounded-2xl border border-neutral-200 bg-surface p-6 transition-all duration-350 hover:-translate-y-1 hover:border-primary-300 hover:shadow-card-hover md:p-7"
             >
-              <span
-                aria-hidden="true"
-                className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${member.accent} font-display text-lg font-semibold text-surface shadow-subtle`}
-              >
-                {member.initials}
-              </span>
-              <h3 className="mt-5 font-display text-[16px] font-semibold leading-tight tracking-tight text-obsidian md:text-[17px]">
-                {member.name}
+              <div className="relative">
+                <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-neutral-100 shadow-subtle">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={member.photo}
+                    alt={member.photoAlt}
+                    width={80}
+                    height={80}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <h3 className="mt-5 font-display text-lg font-semibold leading-tight tracking-tight text-obsidian">
+                <Link
+                  href={`/about/${member.slug}`}
+                  className="transition-colors hover:text-primary-600"
+                >
+                  {member.name}
+                </Link>
               </h3>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-primary-600">
                 {member.role}
               </p>
-              <p className="mt-3 text-[13px] leading-relaxed text-subtle">
+              <p className="mt-3 text-sm leading-relaxed text-subtle">
                 {member.bio}
               </p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <Link
+                  href={`/about/${member.slug}`}
+                  className="inline-flex items-center gap-1 text-[12px] font-medium text-primary-600 transition-colors hover:text-primary-700"
+                >
+                  Full profile
+                  <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
+                </Link>
+
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${member.name} on LinkedIn (opens in new tab)`}
+                  className="inline-flex items-center gap-1.5 text-[12px] font-medium text-obsidian/60 transition-colors hover:text-primary-600"
+                >
+                  <svg
+                    width={14}
+                    height={14}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+              </div>
             </li>
           ))}
         </ul>
@@ -345,7 +315,7 @@ export default function AboutPage(): JSX.Element {
                   <div className="flex-1 bg-[#138808]" />
                 </div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-obsidian/70">
-                  Made in Bengaluru · HQ in Koramangala
+                  Made in Pune · Built for Indian clinics
                 </p>
               </div>
             </div>

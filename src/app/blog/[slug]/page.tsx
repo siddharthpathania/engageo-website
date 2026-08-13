@@ -1,5 +1,7 @@
+import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -70,6 +72,7 @@ const CATEGORY_TONE: Record<BlogCategory, string> = {
   Playbook: 'text-success-700 bg-success-50 border-success-100',
   Product: 'text-primary-700 bg-primary-50 border-primary-100',
   Announcements: 'text-premium-700 bg-premium-50 border-premium-200',
+  'Research Paper': 'text-warning-700 bg-warning-50 border-warning-100',
 };
 
 export default function BlogPostPage({
@@ -98,6 +101,7 @@ export default function BlogPostPage({
         publishedAt={post.publishedAt}
         updatedAt={post.updatedAt}
         author={post.author}
+        authorUrl={post.authorLinkedin}
         cover={post.coverImage}
       />
 
@@ -108,21 +112,7 @@ export default function BlogPostPage({
             href="/blog"
             className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-subtle transition-colors hover:text-primary-700"
           >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronLeft size={12} strokeWidth={2} aria-hidden="true" />
             Back to all posts
           </Link>
 
@@ -157,8 +147,27 @@ export default function BlogPostPage({
                 {post.authorInitials ?? post.author.slice(0, 2).toUpperCase()}
               </span>
               <div className="leading-tight">
-                <p className="text-[13.5px] font-semibold text-obsidian">
+                <p className="flex items-center gap-2 text-[13.5px] font-semibold text-obsidian">
                   {post.author}
+                  {post.authorLinkedin ? (
+                    <a
+                      href={post.authorLinkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${post.author} on LinkedIn (opens in new tab)`}
+                      className="inline-flex h-5 w-5 items-center justify-center rounded-full text-subtle transition-colors hover:text-primary-700"
+                    >
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </a>
+                  ) : null}
                 </p>
                 {post.authorRole ? (
                   <p className="text-[11.5px] text-subtle">{post.authorRole}</p>
@@ -176,6 +185,37 @@ export default function BlogPostPage({
             </time>
           </div>
         </div>
+
+        {post.coverImage ? (
+          <div className="mx-auto mt-10 max-w-5xl md:mt-14">
+            {post.coverWidth && post.coverHeight ? (
+              /* Natural-aspect render — no crop. Used when the post supplies
+                 explicit pixel dimensions (e.g. a portrait scanned letter). */
+              <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  width={post.coverWidth}
+                  height={post.coverHeight}
+                  priority
+                  sizes="(min-width: 1024px) 960px, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
+            ) : (
+              <div className="relative aspect-[1200/630] overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100">
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 960px, 100vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            )}
+          </div>
+        ) : null}
       </header>
 
       {/* ─── Article body + TOC sidebar ──────────────────────────── */}
@@ -242,7 +282,7 @@ export default function BlogPostPage({
       {related.length > 0 ? (
         <section
           aria-label="Related posts"
-          className="container mt-20 md:mt-28"
+          className="container mt-20 mb-20 md:mt-28 md:mb-28"
         >
           <div className="mx-auto max-w-6xl">
             <div className="flex items-end justify-between gap-4 border-b border-neutral-200 pb-5">

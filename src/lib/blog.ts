@@ -9,7 +9,8 @@ export type BlogCategory =
   | 'Comparison'
   | 'Playbook'
   | 'Product'
-  | 'Announcements';
+  | 'Announcements'
+  | 'Research Paper';
 
 export type BlogFrontmatter = {
   title: string;
@@ -19,9 +20,19 @@ export type BlogFrontmatter = {
   author: string;
   authorRole?: string;
   authorInitials?: string;
+  authorLinkedin?: string;
   category: BlogCategory;
   tags?: string[];
   coverImage?: string;
+  /** Native pixel dimensions of coverImage. When both are provided, the
+   *  detail-page header renders the cover at its natural aspect ratio
+   *  (no crop). Cards in the index always crop to the 1200/630 slot. */
+  coverWidth?: number;
+  coverHeight?: number;
+  /** Optional alternative image used only by the blog index cards.
+   *  Falls back to coverImage if absent. Useful when the cover is a tall
+   *  portrait that would crop poorly in the landscape card slot. */
+  cardImage?: string;
   draft?: boolean;
 };
 
@@ -52,6 +63,7 @@ const VALID_CATEGORIES: readonly BlogCategory[] = [
   'Playbook',
   'Product',
   'Announcements',
+  'Research Paper',
 ];
 
 function isValidCategory(value: unknown): value is BlogCategory {
@@ -93,9 +105,15 @@ export function getAllPosts(): BlogPost[] {
         author: frontmatter.author ?? 'Engageo Team',
         authorRole: frontmatter.authorRole,
         authorInitials: frontmatter.authorInitials,
+        authorLinkedin: frontmatter.authorLinkedin,
         category,
         tags: frontmatter.tags ?? [],
         coverImage: frontmatter.coverImage ?? frontmatter.cover,
+        coverWidth:
+          typeof frontmatter.coverWidth === 'number' ? frontmatter.coverWidth : undefined,
+        coverHeight:
+          typeof frontmatter.coverHeight === 'number' ? frontmatter.coverHeight : undefined,
+        cardImage: frontmatter.cardImage,
         draft: frontmatter.draft ?? false,
         content,
         readingMinutes: readingTime(content),

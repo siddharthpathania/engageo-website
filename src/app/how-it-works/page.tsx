@@ -1,8 +1,11 @@
+import { ChevronRight, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
+import { ProviderWall } from '@/components/home/ProviderWall';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { cn } from '@/lib/utils';
 
 const HIW_TITLE = 'How It Works — Patient Follow-Up Automation India';
 const HIW_DESCRIPTION =
@@ -51,7 +54,7 @@ const FLOW: readonly FlowStage[] = [
   {
     stage: '00:08',
     title: 'AI classifies intent + picks language',
-    body: 'Was this a booking query, a follow-up, or a billing call? Language detection uses the caller\u2019s state code and prior history. Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, English.',
+    body: 'Was this a booking query, a follow-up, or a billing call? Language detection uses the caller\u2019s state code and prior history. Across all 12 of our supported languages.',
     latency: '+5 seconds',
     side: 'left',
   },
@@ -76,26 +79,6 @@ const FLOW: readonly FlowStage[] = [
     latency: 'Live in ledger',
     side: 'right',
   },
-];
-
-type Provider = {
-  name: string;
-  type: string;
-};
-
-const PROVIDERS: readonly Provider[] = [
-  { name: 'Exotel', type: 'Cloud telephony' },
-  { name: 'Knowlarity', type: 'Cloud telephony' },
-  { name: 'Ozonetel', type: 'Cloud telephony' },
-  { name: 'MyOperator', type: 'IVR + telephony' },
-  { name: 'Airtel', type: 'Landline / mobile' },
-  { name: 'Jio', type: 'Mobile / VoIP' },
-  { name: 'Vi (Vodafone Idea)', type: 'Mobile' },
-  { name: 'BSNL / MTNL', type: 'Landline' },
-  { name: 'Tata Tele', type: 'Enterprise telephony' },
-  { name: 'Twilio India', type: 'Programmable voice' },
-  { name: 'Plivo', type: 'Programmable voice' },
-  { name: 'Your existing setup', type: 'Any forwarding-capable line' },
 ];
 
 type TimelineStep = {
@@ -186,45 +169,51 @@ export default function HowItWorksPage(): JSX.Element {
       </SectionWrapper>
 
       {/* Timeline flow */}
-      <SectionWrapper id="flow" className="bg-sand/40 pt-0 md:pt-0">
+      <SectionWrapper id="flow" className="bg-sand/40 pt-12 md:pt-16">
         <div className="mx-auto max-w-4xl">
           <ol className="relative">
             {/* Vertical rail */}
             <div
               aria-hidden="true"
-              className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-primary-300 via-neutral-300 to-transparent md:left-1/2"
+              className="absolute left-4 -top-16 bottom-8 w-px bg-gradient-to-b from-transparent via-primary-300 to-transparent md:-top-20 md:left-1/2"
             />
 
-            {FLOW.map((item) => (
-              <li
-                key={item.stage}
-                className={`relative pb-12 last:pb-0 md:grid md:grid-cols-2 md:gap-12 ${
-                  item.side === 'right' ? 'md:[&>div:first-child]:order-2' : ''
-                }`}
-              >
-                {/* Dot */}
-                <div
-                  aria-hidden="true"
-                  className="absolute left-4 top-1.5 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary-500 bg-surface shadow-subtle md:left-1/2"
-                />
+            {FLOW.map((item) => {
+              const isLeft = item.side === 'left';
+              return (
+                <li
+                  key={item.stage}
+                  className="relative pb-12 last:pb-0"
+                >
+                  {/* Dot on center rail */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-4 top-1.5 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary-500 bg-surface shadow-subtle md:left-1/2"
+                  />
 
-                <div className={`ml-10 md:ml-0 ${item.side === 'left' ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-700">
-                    <span className="h-1 w-1 rounded-full bg-primary-500" />
-                    {item.stage} · {item.latency}
-                  </span>
-                  <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-subtle md:text-[15px]">
-                    {item.body}
-                  </p>
-                </div>
-
-                {/* Spacer column */}
-                <div className="hidden md:block" aria-hidden="true" />
-              </li>
-            ))}
+                  {/* Card — anchored left or right of the rail */}
+                  <div
+                    className={cn(
+                      'ml-10 rounded-2xl border border-neutral-200 bg-surface p-5 shadow-subtle md:ml-0 md:w-[calc(50%-2rem)] md:p-6',
+                      isLeft
+                        ? 'md:mr-auto md:text-right'
+                        : 'md:ml-auto md:text-left',
+                    )}
+                  >
+                    <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-700">
+                      <span className="h-1 w-1 rounded-full bg-primary-500" />
+                      {item.stage} · {item.latency}
+                    </span>
+                    <h3 className="mt-3 font-display text-[18px] font-semibold leading-tight tracking-tight text-obsidian md:text-xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[14px] leading-relaxed text-subtle md:text-[15px]">
+                      {item.body}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
 
           <div className="mt-10 flex flex-col items-center gap-2 text-center">
@@ -251,21 +240,7 @@ export default function HowItWorksPage(): JSX.Element {
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-2 gap-3 md:mt-18 md:grid-cols-3 lg:grid-cols-4">
-          {PROVIDERS.map((provider) => (
-            <li
-              key={provider.name}
-              className="rounded-2xl border border-neutral-200 bg-surface p-5 transition-colors hover:border-primary-300 hover:bg-primary-50/40"
-            >
-              <p className="font-display text-[14px] font-semibold text-obsidian">
-                {provider.name}
-              </p>
-              <p className="mt-1 text-[11px] uppercase tracking-widest text-subtle">
-                {provider.type}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <ProviderWall />
       </SectionWrapper>
 
       {/* Setup timeline */}
@@ -344,21 +319,7 @@ export default function HowItWorksPage(): JSX.Element {
                 aria-hidden="true"
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-success-50 text-success-600"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path
-                    d="M10 2l6 3v5c0 3.5-2.5 6.5-6 8-3.5-1.5-6-4.5-6-8V5l6-3z"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M7 10l2 2 4-4"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ShieldCheck size={20} strokeWidth={1.75} aria-hidden="true" />
               </span>
               <h3 className="mt-4 font-display text-[15px] font-semibold leading-tight tracking-tight text-obsidian">
                 {point.title}
@@ -376,15 +337,7 @@ export default function HowItWorksPage(): JSX.Element {
             className="inline-flex items-center gap-2 text-[13px] font-semibold text-obsidian hover:text-primary-600"
           >
             Request our security whitepaper
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>
       </SectionWrapper>

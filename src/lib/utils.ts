@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { SITE_CONFIG } from './constants';
 
 /**
  * Merge Tailwind class names safely, resolving conflicts in favour of the last value.
@@ -12,11 +13,18 @@ export function cn(...inputs: ClassValue[]): string {
 /**
  * Build a fully-qualified URL against the configured site origin.
  * Accepts an absolute path (must start with "/") and returns an absolute URL.
+ *
+ * The origin comes from SITE_CONFIG so there is exactly one definition of
+ * "this site's domain". This previously carried its own fallback of
+ * `https://engageo.com` while SITE_CONFIG fell back to
+ * `https://www.engageoagency.com` — so any build without
+ * NEXT_PUBLIC_SITE_URL set emitted structured data, canonical images, and
+ * breadcrumbs pointing at a domain the site does not serve. Entity and
+ * canonical signals only work if every URL agrees.
  */
 export function absoluteUrl(path: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://engageo.com';
   const normalised = path.startsWith('/') ? path : `/${path}`;
-  return `${base.replace(/\/$/, '')}${normalised}`;
+  return `${SITE_CONFIG.url}${normalised}`;
 }
 
 /**

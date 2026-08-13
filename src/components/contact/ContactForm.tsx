@@ -1,5 +1,6 @@
 'use client';
 
+import { Check, ChevronRight } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -110,15 +111,7 @@ export function ContactForm(): JSX.Element {
           aria-hidden="true"
           className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success-500 text-surface"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M5 12l5 5L20 7"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <Check size={24} strokeWidth={2} aria-hidden="true" />
         </span>
         <h3 className="mt-5 font-display text-[22px] font-semibold tracking-tight text-obsidian md:text-2xl">
           Message received.
@@ -244,15 +237,7 @@ export function ContactForm(): JSX.Element {
         >
           {status === 'submitting' ? 'Sending…' : 'Send message'}
           {status === 'submitting' ? null : (
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M5 3l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
           )}
         </button>
       </div>

@@ -94,6 +94,35 @@ async function emailLead(data: LeadPayload, callSid: string | undefined): Promis
   }
 }
 
+/**
+ * Append the verified lead to a Google Sheet via a Google Apps Script web app.
+ * Set GOOGLE_SHEETS_WEBHOOK_URL to the deployed web-app URL (the script's
+ * doPost appends a row). Fire-and-forget — never blocks or fails the response.
+ */
+async function appendToSheet(data: LeadPayload, callSid: string | undefined): Promise<void> {
+  const url = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  if (!url) return;
+
+  try {
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name,
+        clinic: data.clinic,
+        phone: data.phone,
+        email: data.email,
+        state: data.state,
+        country: data.country,
+        callSid: callSid ?? '',
+        source: 'website (OTP-verified)',
+      }),
+    });
+  } catch (err) {
+    console.error('[otp/verify] Google Sheet append exception:', err);
+  }
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   let body: unknown;
   try {
@@ -129,6 +158,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const call = await triggerExotelDemoCall(result.payload.phone);
   void emailLead(result.payload, call.sid);
+  void appendToSheet(result.payload, call.sid);
 
   const callQueued = call.ok;
   const callConfigured = call.error !== 'exotel-call-not-configured';

@@ -14,11 +14,13 @@ const BILLING_OPTIONS: readonly { value: Billing; label: string }[] = [
 ];
 
 type PriceView = {
-  label: string;
-  cadence: string;
-  /** Effective / alternative-cadence note under the price. */
-  alt: string;
-  /** Call-allowance line under the price. */
+  /** Big, per-month figure — the first thing the eye lands on. */
+  hero: string;
+  /** Cadence after the hero (usually "/ month"; empty for Custom). */
+  heroCadence: string;
+  /** Sub-line: the actual amount billed for the term. */
+  sub: string;
+  /** Call-allowance line. */
   meter: string;
 };
 
@@ -42,21 +44,21 @@ const TIERS: readonly Tier[] = [
     tagline: 'One number, never a missed call.',
     price: {
       monthly: {
-        label: '₹7,499',
-        cadence: '/ month',
-        alt: 'or ₹81,999 for 12 months',
+        hero: '₹7,499',
+        heroCadence: '/ month',
+        sub: 'Billed monthly · cancel anytime',
         meter: '150 calls included each month, then ₹7 / minute.',
       },
       quarterly: {
-        label: '₹20,999',
-        cadence: '/ 3 months',
-        alt: '≈ ₹7,000 / month, billed quarterly',
+        hero: '₹7,000',
+        heroCadence: '/ month',
+        sub: '₹20,999 billed every 3 months',
         meter: '150 calls each month (450 over 3 months), then ₹7 / minute.',
       },
       annual: {
-        label: '₹81,999',
-        cadence: '/ 12 months',
-        alt: '≈ ₹6,833 / month, billed yearly',
+        hero: '₹6,833',
+        heroCadence: '/ month',
+        sub: '₹81,999 billed yearly',
         meter: '150 calls each month (1,800 / year), then ₹7 / minute.',
       },
     },
@@ -78,21 +80,21 @@ const TIERS: readonly Tier[] = [
     tagline: 'Multi-doctor clinics and small chains.',
     price: {
       monthly: {
-        label: '₹22,497',
-        cadence: '/ month',
-        alt: 'or ₹2,45,997 for 12 months',
+        hero: '₹22,497',
+        heroCadence: '/ month',
+        sub: 'Billed monthly · cancel anytime',
         meter: '450 calls included each month, then ₹7 / minute.',
       },
       quarterly: {
-        label: '₹62,997',
-        cadence: '/ 3 months',
-        alt: '≈ ₹21,000 / month, billed quarterly',
+        hero: '₹20,999',
+        heroCadence: '/ month',
+        sub: '₹62,997 billed every 3 months',
         meter: '450 calls each month (1,350 over 3 months), then ₹7 / minute.',
       },
       annual: {
-        label: '₹2,45,997',
-        cadence: '/ 12 months',
-        alt: '≈ ₹20,500 / month, billed yearly',
+        hero: '₹20,500',
+        heroCadence: '/ month',
+        sub: '₹2,45,997 billed yearly',
         meter: '450 calls each month (5,400 / year), then ₹7 / minute.',
       },
     },
@@ -116,21 +118,21 @@ const TIERS: readonly Tier[] = [
     tagline: 'For chains expanding across cities.',
     price: {
       monthly: {
-        label: 'Custom',
-        cadence: '',
-        alt: 'Annual contract · volume pricing',
+        hero: 'Custom',
+        heroCadence: '',
+        sub: 'Annual contract · volume pricing',
         meter: 'Unlimited calls and locations — custom quote.',
       },
       quarterly: {
-        label: 'Custom',
-        cadence: '',
-        alt: 'Annual contract · volume pricing',
+        hero: 'Custom',
+        heroCadence: '',
+        sub: 'Annual contract · volume pricing',
         meter: 'Unlimited calls and locations — custom quote.',
       },
       annual: {
-        label: 'Custom',
-        cadence: '',
-        alt: 'Annual contract · volume pricing',
+        hero: 'Custom',
+        heroCadence: '',
+        sub: 'Annual contract · volume pricing',
         meter: 'Unlimited calls and locations — custom quote.',
       },
     },
@@ -148,7 +150,7 @@ const TIERS: readonly Tier[] = [
 ];
 
 export function PricingTable(): JSX.Element {
-  const [billing, setBilling] = useState<Billing>('annual');
+  const [billing, setBilling] = useState<Billing>('monthly');
 
   return (
     <div>
@@ -233,16 +235,16 @@ export function PricingTable(): JSX.Element {
                     featured ? 'text-surface' : 'text-obsidian',
                   )}
                 >
-                  {view.label}
+                  {view.hero}
                 </span>
-                {view.cadence ? (
+                {view.heroCadence ? (
                   <span className={cn('text-sm font-medium', featured ? 'text-surface/70' : 'text-subtle')}>
-                    {view.cadence}
+                    {view.heroCadence}
                   </span>
                 ) : null}
               </div>
               <p className={cn('mt-1 text-[12px]', featured ? 'text-surface/60' : 'text-subtle')}>
-                {view.alt}
+                {view.sub}
               </p>
               <p className={cn('mt-2 text-[12px]', featured ? 'text-surface/70' : 'text-subtle')}>
                 {view.meter}

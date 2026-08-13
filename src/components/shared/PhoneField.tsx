@@ -3,7 +3,6 @@
 import { Check, ChevronDown, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useState } from 'react';
 import { COUNTRIES, dialFor, flagEmoji } from '@/lib/countries';
 import { cn } from '@/lib/utils';
 
@@ -28,10 +27,6 @@ type Rect = { top: number; left: number; width: number };
  * the country code — the component combines the selected dial code with the
  * digits and emits E.164. The dropdown is portalled to <body> and positioned
  * with fixed coords so it's never clipped by a scrollable modal.
-/**
- * International phone input: a scrollable country picker (flag + dial code)
- * plus a local-number field. The user never types the country code — the
- * component combines the selected dial code with the digits and emits E.164.
  */
 export function PhoneField({
   label,
@@ -153,27 +148,6 @@ export function PhoneField({
         </button>
 
         <span aria-hidden="true" className="my-2 w-px shrink-0 bg-neutral-200" />
-        className={cn(
-          'mt-1.5 flex items-stretch overflow-hidden rounded-xl border bg-surface transition focus-within:ring-2 focus-within:ring-primary-500/30',
-          error ? 'border-error-400 focus-within:border-error-500' : 'border-neutral-300 focus-within:border-primary-500',
-        )}
-      >
-        <select
-          aria-label="Country code"
-          value={iso}
-          onChange={(e) => {
-            setIso(e.target.value);
-            emit(e.target.value, number);
-          }}
-          onBlur={onBlur}
-          className="max-w-[8.5rem] shrink-0 cursor-pointer border-r border-neutral-200 bg-surface px-2.5 py-2.5 text-[14px] text-obsidian focus:outline-none"
-        >
-          {COUNTRIES.map((c) => (
-            <option key={c.iso2} value={c.iso2}>
-              {flagEmoji(c.iso2)}  {c.dial}  {c.name}
-            </option>
-          ))}
-        </select>
 
         <input
           id={inputId}
@@ -193,7 +167,6 @@ export function PhoneField({
           onBlur={onBlur}
           placeholder="98765 43210"
           className="w-full rounded-r-xl bg-transparent px-3.5 py-2.5 text-[14px] text-obsidian placeholder:text-subtle focus:outline-none"
-          className="w-full bg-surface px-3.5 py-2.5 text-[14px] text-obsidian placeholder:text-subtle focus:outline-none"
         />
       </div>
 

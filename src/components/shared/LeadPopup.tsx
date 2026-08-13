@@ -3,6 +3,7 @@
 import { Check, RefreshCw, ShieldCheck, X } from 'lucide-react';
 import { forwardRef, useEffect, useRef, useState, type FormEvent } from 'react';
 import { OtpInput } from '@/components/shared/OtpInput';
+import { PhoneField } from '@/components/shared/PhoneField';
 import { cn } from '@/lib/utils';
 
 const SESSION_KEY = 'engageo:lead-popup-shown';
@@ -408,16 +409,12 @@ export function LeadPopup(): JSX.Element | null {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field
+                <PhoneField
                   label="Phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  value={values.phone}
+                  idPrefix="lead"
                   error={touched.phone ? errors.phone : undefined}
                   onChange={(v) => setField('phone', v)}
                   onBlur={() => handleBlur('phone')}
-                  placeholder="+91 98765 43210"
                   hint="We send the code to this number on WhatsApp."
                 />
                 <Field

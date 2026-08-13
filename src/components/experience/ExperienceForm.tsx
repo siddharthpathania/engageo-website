@@ -3,6 +3,7 @@
 import { ArrowRight, Check, Phone, RefreshCw, ShieldCheck } from 'lucide-react';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { OtpInput } from '@/components/shared/OtpInput';
+import { PhoneField } from '@/components/shared/PhoneField';
 import { cn } from '@/lib/utils';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -437,16 +438,12 @@ export function ExperienceForm(): JSX.Element {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <DetailField
+            <PhoneField
               label="Phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              value={details.phone}
+              idPrefix="exp"
               error={detailsTouched.phone ? detailsErrors.phone : undefined}
               onChange={(v) => setDetailField('phone', v)}
               onBlur={() => handleDetailsBlur('phone')}
-              placeholder="+91 98765 43210"
               hint="We send the code to this number on WhatsApp."
             />
             <DetailField

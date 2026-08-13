@@ -37,9 +37,9 @@ const TIERS: readonly Tier[] = [
     name: 'Solo',
     audience: '1 clinic',
     view: {
-      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'or ₹81,999 for 12 months' },
-      quarterly: { price: '₹20,999', cadence: '/ 3 months', altNote: '≈ ₹7,000 / month' },
-      annual: { price: '₹81,999', cadence: '/ 12 months', altNote: '≈ ₹6,833 / month' },
+      monthly: { price: '₹7,499', cadence: '/ month', altNote: 'Billed monthly · cancel anytime' },
+      quarterly: { price: '₹7,000', cadence: '/ month', altNote: '₹20,999 billed every 3 months' },
+      annual: { price: '₹6,833', cadence: '/ month', altNote: '₹81,999 billed yearly' },
     },
     features: [
       '1 clinic number',
@@ -57,9 +57,9 @@ const TIERS: readonly Tier[] = [
     name: 'Growth',
     audience: 'Up to 3 clinics',
     view: {
-      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'or ₹2,45,997 for 12 months' },
-      quarterly: { price: '₹62,997', cadence: '/ 3 months', altNote: '≈ ₹21,000 / month' },
-      annual: { price: '₹2,45,997', cadence: '/ 12 months', altNote: '≈ ₹20,500 / month' },
+      monthly: { price: '₹22,497', cadence: '/ month', altNote: 'Billed monthly · cancel anytime' },
+      quarterly: { price: '₹20,999', cadence: '/ month', altNote: '₹62,997 billed every 3 months' },
+      annual: { price: '₹20,500', cadence: '/ month', altNote: '₹2,45,997 billed yearly' },
     },
     features: [
       'Up to 3 clinic numbers / locations',
@@ -95,7 +95,7 @@ const TIERS: readonly Tier[] = [
 ];
 
 export function PricingPreview(): JSX.Element {
-  const [billing, setBilling] = useState<Billing>('annual');
+  const [billing, setBilling] = useState<Billing>('monthly');
 
   return (
     <SectionWrapper id="pricing" ariaLabel="Pricing plans">

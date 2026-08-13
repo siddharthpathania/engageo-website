@@ -123,6 +123,76 @@ async function appendToSheet(data: LeadPayload, callSid: string | undefined): Pr
   }
 }
 
+/**
+ * Tell the Funnel Agent who this visitor is, now that the OTP has proved it.
+ *
+ * `fa_anon` is the first-party cookie track.js sets on this domain, and it is
+ * the only link between the anonymous history already recorded for this browser
+ * (pages, clicks, dwell time) and the person who just verified. Without it the
+ * lead still appears, just with no journey attached.
+ *
+ * `phone_verified` is only honoured for callers holding the server key: the
+ * publishable key in Analytics.tsx ships in page source, so anything a browser
+ * can send could otherwise forge a verified lead.
+ *
+ * Fire-and-forget, like emailLead/appendToSheet — analytics must never delay or
+ * fail someone's verification.
+ */
+async function identifyToFunnelAgent(
+  data: LeadPayload,
+  anonymousId: string | undefined,
+): Promise<void> {
+  if (!anonymousId) return; // never browsed with tracking on — nothing to link
+
+  const api =
+    process.env.NEXT_PUBLIC_FUNNEL_API || 'https://funnel-agent-production-669a.up.railway.app';
+  const writeKey =
+    process.env.NEXT_PUBLIC_FUNNEL_KEY || 'pk_live_e3xCWaiCb_WBkLK8MusyRSCz0zinCRGx';
+  const serverKey = process.env.FUNNEL_SERVER_KEY;
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'X-Write-Key': writeKey,
+  };
+  if (serverKey) headers['X-Server-Key'] = serverKey;
+
+  try {
+    const res = await fetch(`${api}/identify`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        anonymous_id: anonymousId,
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        // Proof of ownership, not permission to market. Opt-ins are deliberately
+        // omitted: this must not grant consent nobody gave, and omitting them
+        // leaves consent captured elsewhere untouched.
+        phone_verified: Boolean(serverKey),
+        consent_source: 'otp_verified',
+      }),
+    });
+    if (!res.ok) {
+      console.error(
+        '[otp/verify] Funnel Agent identify failed:',
+        res.status,
+        await res.text().catch(() => ''),
+      );
+      return;
+    }
+    // A mismatched key is accepted silently — the lead is still created, just
+    // never marked verified — so say so rather than letting it go unnoticed.
+    const out = (await res.json().catch(() => ({}))) as { phone_verified?: boolean };
+    if (serverKey && !out.phone_verified) {
+      console.error(
+        '[otp/verify] Funnel Agent ignored phone_verified — FUNNEL_SERVER_KEY does not match SERVER_KEY on the Funnel Agent',
+      );
+    }
+  } catch (err) {
+    console.error('[otp/verify] Funnel Agent identify exception:', err);
+  }
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   let body: unknown;
   try {
@@ -159,6 +229,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const call = await triggerExotelDemoCall(result.payload.phone);
   void emailLead(result.payload, call.sid);
   void appendToSheet(result.payload, call.sid);
+  void identifyToFunnelAgent(result.payload, request.cookies.get('fa_anon')?.value);
 
   const callQueued = call.ok;
   const callConfigured = call.error !== 'exotel-call-not-configured';

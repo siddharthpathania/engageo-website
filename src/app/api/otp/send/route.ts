@@ -162,7 +162,27 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const devMock = delivery.error === 'whatsapp-not-configured';
   if (devMock) {
-    console.log(`[otp/send] DEV MOCK — OTP for ${data.phone}: ${code}`);
+    // Which of the required WhatsApp env vars are actually present at runtime?
+    // Logs booleans only (never the values) so the missing one is obvious in
+    // the Vercel function logs.
+    const present = {
+      WHATSAPP_PHONE_NUMBER_ID: Boolean(process.env.WHATSAPP_PHONE_NUMBER_ID),
+      WHATSAPP_ACCESS_TOKEN: Boolean(process.env.WHATSAPP_ACCESS_TOKEN),
+      WHATSAPP_OTP_TEMPLATE_NAME: Boolean(process.env.WHATSAPP_OTP_TEMPLATE_NAME),
+    };
+
+    // In production, do NOT fake success — the message wasn't sent. Fail loudly
+    // so the UI shows an error instead of a code screen for a code that will
+    // never arrive.
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[otp/send] WhatsApp NOT configured in production — present:', present);
+      return NextResponse.json(
+        { error: 'OTP delivery is not configured yet. Please try again shortly.' },
+        { status: 503 },
+      );
+    }
+
+    console.log(`[otp/send] DEV MOCK — OTP for ${data.phone}: ${code} — present:`, present);
   }
 
   return NextResponse.json({

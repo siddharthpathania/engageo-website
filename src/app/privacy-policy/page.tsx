@@ -172,7 +172,65 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="retention" heading="6. How long we keep it">
+      {/*
+        Vendors below mirror the analytics loaded in
+        src/components/shared/Analytics.tsx. Keep them in sync if a tool is
+        added or removed. Loading of these tools is consent-gated by
+        src/components/shared/ConsentManager.tsx.
+      */}
+      <LegalSection id="website-analytics" heading="6. Website analytics and tracking">
+        <p>
+          This section covers our own marketing website (engageoagency.com),
+          separate from the patient data we process for clinics. When you browse
+          the site, we and the analytics providers below collect technical and
+          usage data &mdash; including your <strong>IP address</strong>, device
+          and browser details, pages viewed, referring links, and on-page
+          interactions &mdash; to measure traffic and understand and improve how
+          visitors use the site.
+        </p>
+        <p>
+          We use the following third-party analytics tools, which may set cookies
+          or similar identifiers on your device:
+        </p>
+        <ul className="list-disc space-y-2 pl-5 marker:text-neutral-400">
+          <li>
+            <strong>Google Analytics 4</strong> (Google LLC) &mdash; aggregate
+            traffic and audience analytics.
+          </li>
+          <li>
+            <strong>Microsoft Clarity</strong> (Microsoft Corporation) &mdash;
+            session replay and heatmaps that record page interactions such as
+            mouse movement, clicks, and scrolling to show how visitors navigate.
+          </li>
+          <li>
+            <strong>Funnel Agent</strong> &mdash; journey and funnel analytics
+            that follow how a visitor progresses toward requesting a demo.
+          </li>
+          <li>
+            <strong>Vercel Analytics &amp; Speed Insights</strong> (Vercel Inc.)
+            &mdash; privacy-friendly, aggregate traffic and performance
+            measurement.
+          </li>
+        </ul>
+        <p>
+          <strong>Linking site activity to you.</strong> If you submit a demo or
+          contact request and verify your phone number with a one-time code, we
+          may connect the activity recorded on your device before that point to
+          the contact details you provide, so our team understands your interest
+          before getting in touch. We do this only after you have voluntarily
+          provided and verified those details.
+        </p>
+        <p>
+          <strong>Your choice.</strong> We ask for your consent before loading
+          these non-essential analytics tools. You can accept or decline when you
+          first visit, and change your choice at any time using the
+          &ldquo;Cookie preferences&rdquo; link in the footer. Declining does not
+          affect your ability to use the site, and you can also block cookies
+          through your browser settings.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="retention" heading="7. How long we keep it">
         <p>
           We retain personal data only as long as needed for the purposes above
           or as required by law, after which it is deleted or anonymised. Current
@@ -207,7 +265,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="your-rights" heading="7. Your rights under the DPDP Act 2023">
+      <LegalSection id="your-rights" heading="8. Your rights under the DPDP Act 2023">
         <p>
           Subject to the conditions in the DPDP Act, individuals (&ldquo;Data
           Principals&rdquo;) have the right to:
@@ -226,7 +284,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="data-deletion" heading="8. How to delete your data">
+      <LegalSection id="data-deletion" heading="9. How to delete your data">
         <p>
           You can ask us to delete the personal data we hold about you. Because
           most data is processed on a clinic&rsquo;s behalf, you can either ask the
@@ -265,7 +323,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="grievance-officer" heading="9. Grievance Officer">
+      <LegalSection id="grievance-officer" heading="10. Grievance Officer">
         <p>
           In accordance with the DPDP Act 2023, you may contact our Grievance
           Officer with any privacy concern or to exercise your rights:
@@ -290,7 +348,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="security" heading="10. Security and breach notification">
+      <LegalSection id="security" heading="11. Security and breach notification">
         <p>
           We apply technical and organisational safeguards &mdash; including
           encryption in transit and access controls &mdash; to protect personal data.
@@ -305,7 +363,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="children" heading="11. Children's data">
+      <LegalSection id="children" heading="12. Children's data">
         <p>
           Our service is intended for use by clinics and adult patients. Where a
           minor&rsquo;s data is processed in the course of a clinic booking, Engageo
@@ -322,7 +380,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="changes" heading="12. Changes to this policy">
+      <LegalSection id="changes" heading="13. Changes to this policy">
         <p>
           We may update this policy from time to time. Material changes will be
           reflected by updating the &ldquo;Last updated&rdquo; date above and, where
@@ -330,7 +388,7 @@ export default function PrivacyPolicyPage(): JSX.Element {
         </p>
       </LegalSection>
 
-      <LegalSection id="contact" heading="13. Contact us">
+      <LegalSection id="contact" heading="14. Contact us">
         <p>
           For any question about this policy or our data practices, contact{' '}
           {COMPANY.legalName} via our{' '}

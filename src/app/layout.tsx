@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { PageTransition } from '@/components/layout/PageTransition';
-import { FunnelAgent, GoogleAnalytics, MicrosoftClarity } from '@/components/shared/Analytics';
+import { ConsentManager } from '@/components/shared/ConsentManager';
 import { LeadPopup } from '@/components/shared/LeadPopup';
 import { ReducedMotionProvider } from '@/components/shared/ReducedMotionProvider';
 import { ScrollProgress } from '@/components/shared/ScrollProgress';
@@ -134,11 +134,11 @@ export default function RootLayout({
           <Footer />
         </ReducedMotionProvider>
         <LeadPopup />
+        {/* Cookieless + aggregate — kept ungated, disclosed in the Privacy Policy. */}
         <Analytics />
         <SpeedInsights />
-        <GoogleAnalytics />
-        <MicrosoftClarity />
-        <FunnelAgent />
+        {/* GA + Clarity load only after cookie consent; Funnel Agent runs always. */}
+        <ConsentManager />
       </body>
     </html>
   );

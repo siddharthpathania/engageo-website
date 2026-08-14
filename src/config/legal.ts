@@ -71,7 +71,7 @@ export type LegalConfig = {
 
 export const LEGAL: LegalConfig = {
   // Update whenever any of the three documents materially changes.
-  lastUpdated: '2 June 2026',
+  lastUpdated: '14 August 2026',
 
   company: {
     legalName: COMPANY.legalName,

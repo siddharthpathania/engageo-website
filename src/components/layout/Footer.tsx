@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowUp, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CONSENT_EVENT } from '@/components/shared/ConsentManager';
 import { COMPANY, CONTACT, LEGAL_LINKS, SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 // Email address is intentionally NOT rendered in HTML. Cloudflare Email
 // Obfuscation rewrites any visible email into /cdn-cgi/l/email-protection,
@@ -266,6 +267,19 @@ export function Footer(): JSX.Element {
                   </Link>
                 </span>
               ))}
+              <span className="inline-flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className="h-1 w-1 rounded-full bg-neutral-300"
+                />
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event(CONSENT_EVENT))}
+                  className="transition-colors hover:text-obsidian"
+                >
+                  Cookie preferences
+                </button>
+              </span>
             </nav>
 
             <button

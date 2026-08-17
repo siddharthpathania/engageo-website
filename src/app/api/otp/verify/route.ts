@@ -128,8 +128,12 @@ async function appendToSheet(data: LeadPayload, callSid: string | undefined): Pr
  *
  * `fa_anon` is the first-party cookie track.js sets on this domain, and it is
  * the only link between the anonymous history already recorded for this browser
- * (pages, clicks, dwell time) and the person who just verified. Without it the
- * lead still appears, just with no journey attached.
+ * (pages, clicks, dwell time) and the person who just verified.
+ *
+ * It is sent when present and omitted when not. A blocked tracker, a private
+ * window or a second device all arrive without it, and dropping the lead in
+ * those cases would throw away a phone number someone just proved they own —
+ * far more valuable than the pages they happened to read.
  *
  * `phone_verified` is only honoured for callers holding the server key: the
  * publishable key in Analytics.tsx ships in page source, so anything a browser
@@ -142,8 +146,6 @@ async function identifyToFunnelAgent(
   data: LeadPayload,
   anonymousId: string | undefined,
 ): Promise<void> {
-  if (!anonymousId) return; // never browsed with tracking on — nothing to link
-
   const api =
     process.env.NEXT_PUBLIC_FUNNEL_API || 'https://funnel-agent-production-669a.up.railway.app';
   const writeKey =
@@ -161,7 +163,7 @@ async function identifyToFunnelAgent(
       method: 'POST',
       headers,
       body: JSON.stringify({
-        anonymous_id: anonymousId,
+        ...(anonymousId ? { anonymous_id: anonymousId } : {}),
         name: data.name,
         phone: data.phone,
         email: data.email,

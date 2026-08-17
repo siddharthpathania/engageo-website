@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { generateOtp, setOtp, type LeadPayload } from '@/lib/otp-store';
+import { identifyLead } from '@/lib/funnel-agent';
 
 const RATE_LIMIT_PER_IP = Number(process.env.OTP_RATE_LIMIT_IP) || 10;
 const RATE_LIMIT_PER_PHONE = Number(process.env.OTP_RATE_LIMIT_PHONE) || 3;
@@ -150,6 +151,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const code = generateOtp();
   await setOtp(data.phone, code, data);
+
+  // Capture the lead now, not after verification. They have already given us
+  // their name, number and email; most drop-off happens at the code screen, and
+  // waiting would throw those details away. Verification upgrades this same row.
+  void identifyLead(data, request.cookies.get('fa_anon')?.value, { verified: false });
 
   const delivery = await sendWhatsAppOtp(data.phone, code);
 

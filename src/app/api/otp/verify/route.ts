@@ -1,3 +1,4 @@
+import { waitUntil } from '@vercel/functions';
 import { NextResponse, type NextRequest } from 'next/server';
 import { verifyOtp, type LeadPayload } from '@/lib/otp-store';
 
@@ -229,9 +230,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const call = await triggerExotelDemoCall(result.payload.phone);
-  void emailLead(result.payload, call.sid);
-  void appendToSheet(result.payload, call.sid);
-  void identifyToFunnelAgent(result.payload, request.cookies.get('fa_anon')?.value);
+
+  // Deliver the lead to every sink (email, Google Sheet, Funnel Agent). On
+  // Vercel a serverless function can be frozen the instant it returns, dropping
+  // un-awaited work — so we register these with waitUntil to keep the function
+  // alive until they finish, and fall back to awaiting if that context is
+  // unavailable (e.g. local dev). allSettled ensures one failure never blocks
+  // the others. This is what makes the sheet update reliably instead of racing
+  // the freeze.
+  const deliverLead = Promise.allSettled([
+    emailLead(result.payload, call.sid),
+    appendToSheet(result.payload, call.sid),
+    identifyToFunnelAgent(result.payload, request.cookies.get('fa_anon')?.value),
+  ]);
+  try {
+    waitUntil(deliverLead);
+  } catch {
+    await deliverLead;
+  }
 
   const callQueued = call.ok;
   const callConfigured = call.error !== 'exotel-call-not-configured';

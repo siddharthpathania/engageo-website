@@ -25,6 +25,9 @@ export type LeadPayload = {
   phone: string;
   state: string;
   country: string;
+  // Marketing consent for WhatsApp, captured with the details and reused when
+  // the code is verified.
+  whatsapp_opt_in?: boolean;
 };
 
 type OtpRecord = {

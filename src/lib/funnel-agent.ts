@@ -52,6 +52,10 @@ export async function identifyLead(
         // this cannot grant consent nobody gave, and omitting them leaves any
         // consent captured elsewhere untouched.
         phone_verified: opts.verified && Boolean(serverKey),
+        // Sent only when ticked. Omitting it leaves existing consent untouched,
+        // so an unticked box on a later submission never silently revokes a
+        // choice made earlier.
+        ...(data.whatsapp_opt_in ? { whatsapp_opt_in: true } : {}),
         consent_source: opts.verified ? 'otp_verified' : 'otp_requested',
       }),
     });

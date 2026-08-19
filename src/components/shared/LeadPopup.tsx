@@ -20,6 +20,11 @@ type FormState = {
   email: string;
   state: string;
   country: string;
+  // Marketing consent, separate from the verification message they consented to
+  // by asking for a code. Defaults to false: a pre-ticked box is not consent
+  // under the DPDP Act or Meta's policy, and Meta can penalise the number's
+  // quality rating for it.
+  whatsapp_opt_in: boolean;
 };
 type FormErrors = Partial<Record<keyof FormState, string>>;
 type Step = 'details' | 'otp' | 'success';
@@ -32,6 +37,7 @@ const INITIAL: FormState = {
   email: '',
   state: '',
   country: 'India',
+  whatsapp_opt_in: false,
 };
 
 function normalisePhoneClient(raw: string): string {
@@ -460,6 +466,21 @@ export function LeadPopup(): JSX.Element | null {
                   {detailsError ?? 'Something went wrong. Try again, or email us directly.'}
                 </div>
               ) : null}
+
+              <label className="flex cursor-pointer items-start gap-2.5 text-[12px] leading-snug text-subtle">
+                <input
+                  type="checkbox"
+                  checked={values.whatsapp_opt_in}
+                  onChange={(e) =>
+                    setValues((v) => ({ ...v, whatsapp_opt_in: e.target.checked }))
+                  }
+                  className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-obsidian"
+                />
+                <span>
+                  Send me clinic growth tips and Engageo updates on WhatsApp. You can
+                  reply STOP at any time.
+                </span>
+              </label>
 
               <button
                 type="submit"

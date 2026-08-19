@@ -47,7 +47,10 @@ function validateBody(
   if (!state || state.length < 2) return { ok: false, error: 'State is required.' };
 
   const phone = normalisePhone(phoneRaw);
-  return { ok: true, data: { name, clinic, email, phone, state, country } };
+  // Only an explicit true counts as consent — absent, a string, or any other
+  // truthy value is treated as not given.
+  const whatsapp_opt_in = b.whatsapp_opt_in === true;
+  return { ok: true, data: { name, clinic, email, phone, state, country, whatsapp_opt_in } };
 }
 
 /**

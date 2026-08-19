@@ -1,5 +1,6 @@
 import { waitUntil } from '@vercel/functions';
 import { NextResponse, type NextRequest } from 'next/server';
+import { saveLead } from '@/lib/lead-store';
 import { verifyOtp, type LeadPayload } from '@/lib/otp-store';
 
 function escapeHtml(str: string): string {
@@ -230,6 +231,22 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const call = await triggerExotelDemoCall(result.payload.phone);
+
+  // Durable system of record FIRST: persist the lead to our own store (the
+  // Upstash Redis this app already uses), awaited, before any external delivery.
+  // Redis just served the OTP verify above, so it's known-up here. A failure
+  // must never fail the user's verification, so it's caught and logged — the
+  // waitUntil deliveries below still act as a backup path.
+  try {
+    await saveLead({
+      ...result.payload,
+      callSid: call.sid ?? '',
+      source: 'website (OTP-verified)',
+      verifiedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error('[otp/verify] Durable lead save failed:', err);
+  }
 
   // Deliver the lead to every sink (email, Google Sheet, Funnel Agent). On
   // Vercel a serverless function can be frozen the instant it returns, dropping

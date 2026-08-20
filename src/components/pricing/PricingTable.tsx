@@ -64,7 +64,7 @@ const TIERS: readonly Tier[] = [
     },
     features: [
       '1 clinic number',
-      'Up to 150 patient appointments booked / month',
+      '150 patient calls answered each month',
       'Free CRM to track every patient',
       'WhatsApp recovery (Meta-verified) + reminders',
       'Google Calendar sync',
@@ -100,7 +100,7 @@ const TIERS: readonly Tier[] = [
     },
     features: [
       'Up to 3 clinic numbers / locations',
-      'Up to 450 patient appointments booked / month',
+      '450 patient calls answered each month',
       'Multi-clinic dashboard + call routing',
       'Free CRM to track every patient',
       'WhatsApp recovery + reminders',

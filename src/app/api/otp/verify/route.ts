@@ -1,4 +1,6 @@
+import { waitUntil } from '@vercel/functions';
 import { NextResponse, type NextRequest } from 'next/server';
+import { saveLead } from '@/lib/lead-store';
 import { verifyOtp, type LeadPayload } from '@/lib/otp-store';
 
 function escapeHtml(str: string): string {
@@ -229,9 +231,40 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const call = await triggerExotelDemoCall(result.payload.phone);
-  void emailLead(result.payload, call.sid);
-  void appendToSheet(result.payload, call.sid);
-  void identifyToFunnelAgent(result.payload, request.cookies.get('fa_anon')?.value);
+
+  // Durable system of record FIRST: persist the lead to our own store (the
+  // Upstash Redis this app already uses), awaited, before any external delivery.
+  // Redis just served the OTP verify above, so it's known-up here. A failure
+  // must never fail the user's verification, so it's caught and logged — the
+  // waitUntil deliveries below still act as a backup path.
+  try {
+    await saveLead({
+      ...result.payload,
+      callSid: call.sid ?? '',
+      source: 'website (OTP-verified)',
+      verifiedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error('[otp/verify] Durable lead save failed:', err);
+  }
+
+  // Deliver the lead to every sink (email, Google Sheet, Funnel Agent). On
+  // Vercel a serverless function can be frozen the instant it returns, dropping
+  // un-awaited work — so we register these with waitUntil to keep the function
+  // alive until they finish, and fall back to awaiting if that context is
+  // unavailable (e.g. local dev). allSettled ensures one failure never blocks
+  // the others. This is what makes the sheet update reliably instead of racing
+  // the freeze.
+  const deliverLead = Promise.allSettled([
+    emailLead(result.payload, call.sid),
+    appendToSheet(result.payload, call.sid),
+    identifyToFunnelAgent(result.payload, request.cookies.get('fa_anon')?.value),
+  ]);
+  try {
+    waitUntil(deliverLead);
+  } catch {
+    await deliverLead;
+  }
 
   const callQueued = call.ok;
   const callConfigured = call.error !== 'exotel-call-not-configured';

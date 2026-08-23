@@ -20,6 +20,7 @@ type FormState = {
   email: string;
   state: string;
   country: string;
+  whatsappOptIn: boolean;
 };
 type FormErrors = Partial<Record<keyof FormState, string>>;
 type Step = 'details' | 'otp' | 'success';
@@ -32,6 +33,8 @@ const INITIAL: FormState = {
   email: '',
   state: '',
   country: 'India',
+  // Marketing opt-in — must start unticked; a pre-ticked box is not valid consent.
+  whatsappOptIn: false,
 };
 
 function normalisePhoneClient(raw: string): string {
@@ -428,6 +431,26 @@ export function LeadPopup(): JSX.Element | null {
                   onBlur={() => handleBlur('email')}
                   placeholder="priya@clinic.com"
                 />
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <input
+                  id="lead-whatsapp-optin"
+                  name="whatsappOptIn"
+                  type="checkbox"
+                  checked={values.whatsappOptIn}
+                  onChange={(e) => setField('whatsappOptIn', e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-neutral-300 accent-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500/30"
+                />
+                <label
+                  htmlFor="lead-whatsapp-optin"
+                  className="cursor-pointer text-[12.5px] leading-relaxed text-obsidian"
+                >
+                  Send me updates and offers from Engageo on WhatsApp.
+                  <span className="mt-0.5 block text-[11px] text-subtle">
+                    You can reply STOP any time to stop receiving them.
+                  </span>
+                </label>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">

@@ -169,11 +169,17 @@ async function identifyToFunnelAgent(
         name: data.name,
         phone: data.phone,
         email: data.email,
-        // Proof of ownership, not permission to market. Opt-ins are deliberately
-        // omitted: this must not grant consent nobody gave, and omitting them
-        // leaves consent captured elsewhere untouched.
+        // Proof of ownership, not permission to market — verifying a number
+        // never sets whatsapp_opt_in. The lead form's marketing checkbox is the
+        // ONLY thing that does.
         phone_verified: Boolean(serverKey),
-        consent_source: 'otp_verified',
+        // Ticked → send the consent explicitly. Not ticked → OMIT the field (do
+        // NOT send false): to the funnel, false actively revokes an opt-in given
+        // earlier, while omitting leaves any existing consent untouched. The
+        // opt-out path is replying STOP on WhatsApp, which the backend honours.
+        ...(data.whatsappOptIn
+          ? { whatsapp_opt_in: true, consent_source: 'popup_whatsapp_optin' }
+          : { consent_source: 'otp_verified' }),
       }),
     });
     if (!res.ok) {

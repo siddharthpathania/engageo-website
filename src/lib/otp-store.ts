@@ -25,6 +25,13 @@ export type LeadPayload = {
   phone: string;
   state: string;
   country: string;
+  /**
+   * Whether the user ticked the WhatsApp marketing opt-in on the lead form.
+   * Set ONLY by that checkbox — never by completing OTP verification. Stored
+   * with the pending challenge so the funnel receives the value the user
+   * actually saw when they ticked.
+   */
+  whatsappOptIn: boolean;
 };
 
 type OtpRecord = {

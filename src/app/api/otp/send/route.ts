@@ -38,6 +38,9 @@ function validateBody(
   const phoneRaw = String(b.phone ?? '').trim();
   const state = String(b.state ?? '').trim();
   const country = String(b.country ?? '').trim() || 'India';
+  // Marketing opt-in checkbox. Optional and never required to submit; only an
+  // explicit `true` counts as consent (a missing/false value is not consent).
+  const whatsappOptIn = b.whatsappOptIn === true;
 
   if (!name || name.length < 2) return { ok: false, error: 'Name is required.' };
   if (!clinic || clinic.length < 2) return { ok: false, error: 'Clinic or hospital name is required.' };
@@ -46,7 +49,7 @@ function validateBody(
   if (!state || state.length < 2) return { ok: false, error: 'State is required.' };
 
   const phone = normalisePhone(phoneRaw);
-  return { ok: true, data: { name, clinic, email, phone, state, country } };
+  return { ok: true, data: { name, clinic, email, phone, state, country, whatsappOptIn } };
 }
 
 /**

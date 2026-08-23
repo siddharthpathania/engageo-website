@@ -36,6 +36,7 @@ type Details = {
   email: string;
   state: string;
   country: string;
+  whatsappOptIn: boolean;
 };
 
 type DetailsErrors = Partial<Record<keyof Details, string>>;
@@ -47,6 +48,8 @@ const INITIAL_DETAILS: Details = {
   email: '',
   state: '',
   country: 'India',
+  // Marketing opt-in — must start unticked; a pre-ticked box is not valid consent.
+  whatsappOptIn: false,
 };
 
 function validateDetails(v: Details): DetailsErrors {
@@ -457,6 +460,26 @@ export function ExperienceForm(): JSX.Element {
               onBlur={() => handleDetailsBlur('email')}
               placeholder="priya@clinic.com"
             />
+          </div>
+
+          <div className="flex items-start gap-2.5">
+            <input
+              id="exp-whatsapp-optin"
+              name="whatsappOptIn"
+              type="checkbox"
+              checked={details.whatsappOptIn}
+              onChange={(e) => setDetailField('whatsappOptIn', e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-neutral-300 accent-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500/30"
+            />
+            <label
+              htmlFor="exp-whatsapp-optin"
+              className="cursor-pointer text-[12.5px] leading-relaxed text-obsidian"
+            >
+              Send me updates and offers from Engageo on WhatsApp.
+              <span className="mt-0.5 block text-[11px] text-subtle">
+                You can reply STOP any time to stop receiving them.
+              </span>
+            </label>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">

@@ -1,0 +1,118 @@
+---
+title: 'How to Message Patients on WhatsApp Without Getting Your Number Banned'
+description: 'Meta restricts clinic WhatsApp numbers every day for breaking rules most clinics have never read. Here is the exact line between allowed and banned — utility vs marketing messages, what actually counts as consent, and the quality score that quietly decides your reach.'
+publishedAt: 2026-09-13
+author: Atul Hooda
+authorRole: CTO
+authorInitials: AH
+authorLinkedin: https://www.linkedin.com/in/atulhooda/
+category: 'Playbook'
+tags:
+  - whatsapp
+  - compliance
+  - patient communication
+  - meta policy
+  - playbook
+coverImage: /blog/covers/whatsapp-automation-tips.jpg
+draft: false
+---
+
+Almost every clinic in India runs on WhatsApp. Appointment confirmations, reports, reminders, the occasional festival offer — it all goes out on the same number the front desk carries around all day.
+
+And every week, we watch one of those numbers get restricted or banned by Meta. The clinic has no idea why. One morning the messages just stop delivering, or WhatsApp shows a warning, and a channel they built their whole patient flow around is suddenly gone.
+
+It is almost never bad intent. It is that Meta&rsquo;s WhatsApp Business rules are strict, mostly invisible, and enforced automatically. This post is the map: what you are actually allowed to send, what quietly gets you flagged, and how to message patients for years without a single warning.
+
+<Callout type="warning" title="The rule that catches most clinics">
+Handing you a phone number to verify an appointment is **not** permission to send that number offers and promotions. Meta treats those as two completely different things — and blasting marketing to numbers that only agreed to a booking is the single fastest way to a banned number.
+</Callout>
+
+## The one distinction that decides everything
+
+Meta sorts every business message into a category. Two of them matter for a clinic, and they are governed by completely different rules.
+
+| | Utility messages | Marketing messages |
+| --- | --- | --- |
+| **What they are** | Tied to a specific action the patient took | Promotions, offers, re-engagement, "we miss you" |
+| **Examples** | OTP, appointment confirmed, report ready, reminder | Diwali discount, new treatment launch, "book a checkup" |
+| **Consent needed** | The action itself (they booked, they asked) | **Explicit opt-in to marketing** |
+| **Risk if you get it wrong** | Low | **This is what gets numbers banned** |
+
+Utility messages are safe. If a patient books an appointment, confirming it on WhatsApp is expected and welcome. Nobody blocks a clinic for confirming their own appointment.
+
+Marketing messages are where clinics get into trouble — because they feel harmless (&ldquo;it&rsquo;s just one offer&rdquo;) but Meta polices them hard. Send a promotion to someone who never agreed to receive promotions, and if enough people block or report you, your number&rsquo;s reputation collapses.
+
+## What actually counts as consent
+
+This is the part clinics get wrong most often. Valid marketing opt-in on WhatsApp has to be **explicit and specific**. That means the patient actively agreed to receive marketing messages *from your clinic* *on WhatsApp* — and you can prove when and where they agreed.
+
+What counts:
+
+- A ticked (never pre-ticked) checkbox at booking that says, in plain words, that they&rsquo;ll receive updates and offers from your clinic on WhatsApp.
+- A clear "message us on WhatsApp for offers" opt-in where the patient initiated it.
+
+What does **not** count:
+
+- A phone number collected to verify an appointment or send an OTP.
+- A number scraped from a booking, a walk-in register, or an old Excel sheet.
+- A bought "patient list." (If you take one thing from this post: **never buy a list and blast it.** It is the most common cause of an instant ban we see.)
+
+<PullQuote attribution="A dermatology clinic we onboarded in Pune">
+We had 4,000 numbers from three years of bookings. We sent one festival offer to all of them. By evening our WhatsApp was restricted and our appointment reminders stopped going out. We lost the reminders — the thing that actually worked — chasing an offer nobody asked for.
+</PullQuote>
+
+That clinic&rsquo;s mistake was not the offer. It was sending a *marketing* message to people who had only ever consented to a *booking*. The reminders were utility, and perfectly fine. Bundling them onto the same reputation-damaged number is what took everything down.
+
+## The quality score you can&rsquo;t see — but Meta can
+
+Every WhatsApp Business number carries a **quality rating**: green (high), yellow (medium), or red (low). You mostly can&rsquo;t see it, but it silently governs how many people you can reach.
+
+It is driven by two signals, both from the patient&rsquo;s side:
+
+1. **Blocks** — how often people block your number.
+2. **Reports** — how often people report it as spam.
+
+Send relevant, expected messages and it stays green. Send unwanted promotions and blocks pile up, the rating drops to red, and Meta throttles or restricts you. The messages that trigger blocks are almost always marketing sent without real consent.
+
+Alongside quality sits your **messaging limit** — a cap on how many *new* people you can start conversations with in 24 hours. A fresh, unverified business number often starts at just **250 new recipients per day**. It scales up (to 1,000, 10,000, and beyond) as you complete Meta&rsquo;s Business Verification and maintain good quality over time — and it drops back down if your quality tanks.
+
+<Callout type="info" title="If new numbers suddenly stop receiving your messages">
+That is usually the daily limit, not a bug. If your own number still gets messages but new patients don&rsquo;t, you have likely hit your 24-hour new-recipient cap or your quality rating has fallen. Complete Business Verification, ease off promotional volume, and let the window reset.
+</Callout>
+
+## The 24-hour window: your safest channel
+
+Here is the rule almost no clinic uses to its advantage. When a patient messages *you* first, a **24-hour service window** opens. Inside it, you can reply freely — any content, no pre-approved template, no marketing category — because the patient started the conversation.
+
+For a clinic this is gold. A patient who WhatsApps &ldquo;is the doctor free tomorrow?&rdquo; has just handed you a full day to answer questions, share options, and book them — with zero template friction and zero policy risk. Design your flow so patients reach out first (a &ldquo;WhatsApp us&rdquo; button on your site, your Google listing, your ads), and most of your conversations happen safely inside this window.
+
+## The clinic playbook: message for years, never get banned
+
+1. **Separate transactional from promotional in your own head.** Confirmations, reminders, reports, OTPs — send freely. Offers and re-engagement — only to people who explicitly opted in.
+2. **Collect a real opt-in.** One clear, unticked checkbox at booking: *&ldquo;Send me updates and offers on WhatsApp.&rdquo;* Keep it separate from the appointment itself, and never pre-tick it. That single record is what makes marketing safe later.
+3. **Always offer a way out.** Let patients reply **STOP**, and honour it immediately. Meta rewards numbers that make opting out easy; ignoring STOP is a fast track to reports.
+4. **Never buy or blast a list.** No exceptions. It is the ban we see most.
+5. **Complete Business Verification** in Meta Business Manager. It raises your limits and steadies your reputation.
+6. **Grow volume gradually.** Don&rsquo;t go from 20 messages a day to 4,000 overnight — sudden spikes look like spam to the system.
+7. **Watch your quality rating.** If it slips to yellow, stop all promotional sending until it recovers.
+
+Do these seven things and your number stays healthy indefinitely. Skip them and you are one festival blast away from losing the channel your whole clinic runs on.
+
+<BlogCTA
+  title="Let the compliance be someone else's problem"
+  body="Engageo sends every patient message the right way — verified opt-in captured up front, utility and marketing kept separate, STOP honoured automatically, and quality protected. You get the reach without the ban risk."
+  ctaLabel="See it work for your clinic"
+  ctaHref="/experience-engageo"
+/>
+
+## The one-line test before you hit send
+
+Before any WhatsApp message goes out to a patient, ask one question: **did this person agree to receive *this kind* of message?**
+
+If it&rsquo;s a confirmation for an appointment they booked — yes, send it. If it&rsquo;s an offer, and they never explicitly ticked a box saying they wanted offers — stop. That message is not worth your number.
+
+The clinics that treat WhatsApp as a permission-based channel keep it for years. The ones that treat it as a broadcast list lose it in an afternoon. The difference is never the software — it is whether you respected the consent behind every number you hold.
+
+---
+
+*Atul Hooda is the Co-founder and CTO of Engageo, where he builds the messaging and compliance systems behind the platform&rsquo;s WhatsApp and multilingual voice agent for Indian clinics.*

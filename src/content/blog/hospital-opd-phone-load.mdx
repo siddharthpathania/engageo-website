@@ -1,0 +1,120 @@
+---
+title: 'Cutting the phone load on a hospital OPD desk'
+description: 'The four calls that dominate an OPD line, which ones to move off the phone, how to route the rest, and what NABH expects of access and continuity.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'opd'
+  - 'hospital operations'
+  - 'front desk'
+  - 'nabh'
+  - 'patient communication'
+coverImage: '/blog/covers/hospital-opd-phone-load.jpg'
+coverWidth: 1880
+coverHeight: 1250
+draft: false
+agentPublication: 'c68fcd56a55f4eb79c4aad0b15c4752d'
+agentSource: 'competitor-analysis-agent'
+---
+
+Stand behind the OPD registration counter at 10:15 on a Monday and watch. There is a queue in front of the clerk and a phone ringing beside her. She is doing two jobs with one attention span, and the person in front of her wins, because that person can see her.
+
+Hiring a second clerk buys a few months. The phone load only comes down when the calls stop needing a clerk at all. On most OPD desks the traffic sorts into four buckets: booking, report status, timings and directions, and billing. Only one of those genuinely needs a person with a keyboard and a decision to make.
+
+## Count the calls before you change anything
+
+Give the desk a tally sheet for one week. Five columns: booking, report status, timings, billing, other. One mark per call, plus the hour. No names, no notes.
+
+The split between buckets tells you what to automate. The shape of the day tells you when the desk is underwater. Check the hour before opening and the last hour of clinic before assuming the peak sits at midday.
+
+The tally also feeds a number you already report. NABH's 6th edition standards list waiting time for outpatient consultation as a key indicator under PSQ.3, measured in minutes and collated monthly, alongside waiting time for diagnostics ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). For an appointment patient, the standard starts that clock at the scheduled appointment time rather than at arrival ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). That is the case for booking in the assessor's own words: slots do not merely calm the queue, they change the number.
+
+## The four calls, and which ones deserve a human
+
+### Booking: move it, do not answer it faster
+
+NABH requires written guidance for registering and admitting patients, and treats generating a unique identification number at the end of registration as a core element ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). It also expects access to services to be prioritised according to the patient's clinical needs ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)).
+
+Read that as a design brief. A booking channel that does not end in a UHID has not finished the job, and one that treats a two-week follow-up and a same-day complaint alike is not prioritising anything. Send a link that captures name, phone, department and a reason, writes the slot into the desk's own calendar, and returns the number. A booking that lives in a WhatsApp thread but not in the HIS is a second queue you now have to reconcile.
+
+### Report status: high volume, low value
+
+NABH expects laboratory results to be available within a defined time frame, and critical results to be intimated to the person concerned at the earliest ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). If you already have a defined turnaround, the call asking whether a report is ready is pure waste. The patient is ringing because nobody told them.
+
+Fix it at collection. State the turnaround out loud, print it on the slip, then push a message when the report is out. Pull becomes push and the call disappears.
+
+Keep the line between status and content sharp. IMS.5 requires privileged health information to be disclosed as authorised by the patient or as required by law, and requests for access to medical records to be handled consistently ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). "Your report is ready, collect it from the first floor" is a status update. Reading values to whoever picked up the phone is not.
+
+### Timings and directions: publish, do not recite
+
+AAC.1 requires the organisation to define and display the healthcare services it provides, with the scope of each department's clinical services defined and those services prominently displayed ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)).
+
+A board in the lobby satisfies the letter of that. It does nothing for someone deciding at 8:40 PM whether the orthopaedics OPD runs on Saturday. Your Google listing, your website and your WhatsApp greeting are what patients actually check, and each should carry department-level timings, not one line for the whole hospital. Whoever changes a consultant's OPD day owns updating all three that afternoon. Name that person, or it will not happen.
+
+### Billing: keep a human, move the fix upstream
+
+This is the bucket to leave on the phone. Billing calls are specific, emotional and attached to a record. They need someone who can open the account.
+
+They also have a standard behind them. PRE.6 expects patients to be made aware of the pricing policy across outpatient, emergency, ICU and inpatient settings, the tariff list to be available, expected costs explained, and the family told the financial implications when the care plan changes ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). Most billing calls are a patient discovering late what PRE.6 says they should have heard early. Better counselling at the counter removes more calls than any routing tree.
+
+## Routing between departments without building a maze
+
+One rule: a caller reaches a named desk in one hop. A menu with nine options and a submenu has only moved the queue into the phone line.
+
+- Build the menu from your tally, not your org chart. Four options, in the languages your patients speak, highest-volume bucket first.
+- Route to a desk, never a person. Dr Mehta on leave should not create a dead branch.
+- Carry context across the transfer. NABH asks for standardised handover communication during each staffing shift, between shifts and during transfers between units ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). Give the switchboard the same discipline: name, UHID, what they want, before the caller repeats themselves.
+- Define after hours. Either a human answers, or the caller hears when someone will and gets a booking option meanwhile. Silence is the default and the worst choice.
+- Anyone describing an emergency is told to come in now or call 108. That branch is never behind a menu and never goes to voicemail.
+
+Multi-specialty hospitals fail repeatedly on one thing: asking callers to choose a department they cannot name. Someone ringing about a parent's knee does not know whether they want orthopaedics or physiotherapy. Offer plain options such as new appointment and test report, and let the desk decide.
+
+## What you are allowed to send, and what it costs
+
+Moving calls onto messaging makes you a sender, with rules attached.
+
+TRAI's guidance is that an entity must register itself as a principal entity, register its headers, and register the content template structure of the message before transmitting through those headers, with consent acquired through a registered consent template ([Advice to Senders, Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)). TRAI separates service messages, whose primary purpose is to facilitate, complete or confirm a commercial transaction the recipient has already consented to enter into, from promotional messages sent without explicit consent ([Advice to Senders, Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)). Appointment confirmations sit on the service side. Camp offers do not.
+
+On WhatsApp, templates are the only type of message that can be sent outside a customer service window, and each must be categorised as authentication, marketing or utility ([Message Templates, WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/)). Meta charges per delivered template message, and a 24-hour customer service window opens when a user messages your business, during which non-template messages and utility templates are free ([Pricing, WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/pricing/)). The practical consequence: design every outbound message so the patient has a reason to reply.
+
+Under the DPDP Act, consent must be free, specific, informed, unconditional and unambiguous, given by clear affirmative action and limited to the data necessary for the specified purpose, with notice accompanying or preceding the request ([The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)). It also recognises certain legitimate uses, including the purpose for which a person voluntarily provided her data, illustrated by a pharmacy customer who gives her number and asks for a receipt by message ([The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)). A patient who gave a number to book a slot has asked for that slot's confirmation. A discount broadcast to the same list is a different purpose, and withdrawal must be as easy as consent was to give ([The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)).
+
+## Do it in four weeks
+
+1. Week one: tally only. Change nothing. You need the baseline to argue with later.
+2. Week two: publish department-level timings on the website, the Google listing and the WhatsApp greeting, and say report turnaround aloud at collection.
+3. Week three: switch on booking confirmations and report-ready messages on registered templates.
+4. Week four: rebuild the menu, write the after-hours rule, brief the desk on the handover line.
+
+Whatever catches the calls the desk cannot reach, a call centre, a rota, or a service such as Engageo, judge it on one question: does the caller get a slot without waiting for Monday?
+
+Then re-run the tally. Phone load moves rather than vanishes. Booking and report-status calls are the ones that should drop; billing calls will not, and should not. If outpatient waiting time has moved too, you have something for the assessor as well as the CFO.
+
+## Frequently asked questions
+
+### Which call should we automate first?
+
+Report status. It is high volume and the answer is a fact the hospital already holds. Booking is worth more but takes longer to wire into the HIS properly.
+
+### Can we tell a caller what their test result says?
+
+Not to an unverified caller. NABH expects privileged health information to be disclosed as authorised by the patient or as required by law ([NABH Accreditation Standards for Hospitals, 6th Edition, Effective…](https://portal.nabh.co/images/Standards/NABH%20Hospital%20Accreditation%20Standard%206th%20Edition%20January%202025.pdf)). Confirm readiness and collection point by phone; results go through a verified channel or in person.
+
+### Do we need consent to send an appointment reminder?
+
+You need a registered header and content template to send it at all ([Advice to Senders, Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)). On the data side, a patient who voluntarily gave her number to book falls under the Act's treatment of the purpose for which she provided it ([The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)). Marketing to the same number is a separate decision.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

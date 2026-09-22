@@ -1,0 +1,110 @@
+---
+title: 'Call routing for clinics with more than one branch'
+description: 'How to route clinic calls by branch, doctor and language, handle a branch that is closed, and stop calls dying in a forward that goes nowhere.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'multi-location clinics'
+  - 'call routing'
+  - 'cloud telephony'
+  - 'front desk'
+  - 'patient communication'
+coverImage: '/blog/covers/call-routing-multi-location-clinics.jpg'
+coverWidth: 1880
+coverHeight: 1058
+draft: false
+agentPublication: '3eb3a268a27d420e93f4eda608d04654'
+agentSource: 'competitor-analysis-agent'
+---
+
+A chain with three branches usually has three phone numbers and no clear idea what happens to a call after the third ring. Someone dials the Andheri branch at 11:30 on a Tuesday. Both desk staff are at the counter with patients. The call forwards to a receptionist's personal SIM, which is switched off, and the patient rings the clinic down the road. Nothing in your system records it.
+
+Routing is the part of front-desk operations you can fix without hiring anyone. It is a set of decisions — which number is printed where, who rings first, who rings second, for how long, what happens at 9:42 PM, what happens when Dr Mehta is on leave — and then tests proving those decisions survived the real network. Most chains decide once, never test, and hear about it in a Google review.
+
+## One number or many
+
+Publish a local number for each branch. Google's guidance for business listings is to use a local number rather than a central call centre helpline wherever possible, and to give a number that connects to the individual location ([Guidelines for representing your business on Google](https://support.google.com/business/answer/3038177?hl=en)). The same guidance says not to publish numbers that redirect people somewhere other than the actual business ([Guidelines for representing your business on Google](https://support.google.com/business/answer/3038177?hl=en)), which rules out pointing all three listings at head office.
+
+Keep a chain-wide number too, with one job: hoardings, print, the website header, campaigns. Branch numbers are what people dial when they want an appointment this week.
+
+Both should terminate in the same routing system, so your call records are one dataset rather than three. Split them across loose SIMs and a cloud system and you cannot answer the question that matters: how many people tried to reach us today and failed.
+
+## Route on branch, then reason, then person
+
+Branch is usually answered already by the number dialled. Do not make a caller press a key to confirm the branch they just rang. That wasted step is a common defect in clinic menus.
+
+Language comes next, and it belongs at the top. Set a default per branch from what your desk actually speaks, and make the switch the first option. A patient who sits through forty seconds of English to reach a Hindi option has already decided what sort of clinic this is.
+
+Then reason: new appointment, existing appointment, reports, billing. Four options at one level is plenty. A second level rarely earns its place.
+
+Route to a named doctor only where booking is genuinely doctor-specific: IVF cycles, ortho follow-ups, a hair-transplant surgeon's review slots. Otherwise route to the branch desk, which owns the calendar. A doctor's phone does not.
+
+Write the tree on one sheet with two columns: what this key does, and what happens if nobody answers on it. A key whose second column you cannot fill is a hole in the floor.
+
+## Hunt groups versus sequential forwarding
+
+A hunt group rings several desk phones at once: the right default for a two or three person desk in one building, with the fastest pickup and no dead hops. Its weakness is ownership, since a call everyone can answer is a call nobody has to.
+
+Sequential forwarding rings one destination, waits, then the next. It fits a real order — branch desk first, central desk second — but it is slow. At twenty seconds a hop, three hops is a full minute before the caller lands anywhere. Set a ceiling on total ring time: forty-five seconds is defensible, which means two hops and then something that is not another ring.
+
+SIM-level forwarding, set with a star code on the branch handset, does one thing well: a single hop to one other number. No queue, no record of who called, no visibility when the destination phone is off, no way to change the rule at 8 PM without holding that SIM. Fine as a stopgap. Not an operating model for four branches.
+
+Cloud telephony is the alternative, and the regulatory ground for it is not exotic. The Department of Telecommunications guidelines for Other Service Providers allow a distributed architecture — main exchange centralised, media gateways at individual centres across India — and allow interconnection between centres of the same company or group ([New Guidelines for Other Service Providers (OSPs)](https://www.dot.gov.in/static/uploads/2025/08/37d70ceec29374f291f3a92249bd1f02.pdf)). Agents may work from home or anywhere in India as extended or remote agent positions ([New Guidelines for Other Service Providers (OSPs)](https://www.dot.gov.in/static/uploads/2025/08/37d70ceec29374f291f3a92249bd1f02.pdf)). Those guidelines define an Other Service Provider as an entity providing voice-based business process outsourcing services ([New Guidelines for Other Service Providers (OSPs)](https://www.dot.gov.in/static/uploads/2025/08/37d70ceec29374f291f3a92249bd1f02.pdf)), so the duties land on your vendor rather than on the clinic — but they make the right checklist. For domestic operations the exchange and data centre must both sit within India ([New Guidelines for Other Service Providers (OSPs)](https://www.dot.gov.in/static/uploads/2025/08/37d70ceec29374f291f3a92249bd1f02.pdf)), and call records must cover all voice traffic on the exchange, segregated by media gateway, timestamped to Indian Standard Time and kept for a year ([New Guidelines for Other Service Providers (OSPs)](https://www.dot.gov.in/static/uploads/2025/08/37d70ceec29374f291f3a92249bd1f02.pdf)). A vendor who cannot answer those questions cannot tell you what you are missing either.
+
+## When a branch is closed
+
+Closed is not one state. After hours, the lunch hour, a doctor on leave and an unplanned shutter down for a festival or a power cut need different handling, and the caller should hear which one they hit.
+
+If another branch is open, roll the call there, but only if that desk can see the closed branch's diary. Otherwise you have moved the failure rather than fixed it, and the patient repeats everything to someone who can do nothing about it.
+
+The realistic fallback in India is WhatsApp, and the mechanics matter. Meta's platform documentation is explicit: when a user messages or calls you, a twenty-four hour customer service window opens, and while it is open you can send service messages freely; once it closes, you can only send pre-approved template messages ([Service messages - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/send-messages)). So a text-back sent the moment a call is missed lands inside an open window and can carry a booking link. The follow-up at nine next morning, if the patient never replied, must be a template you already had approved. Write them before you need them: closed-branch, doctor-unavailable, reschedule, report-ready. A text-back service, Engageo's included, is only as good as the templates approved before the night it had to use them.
+
+Treat voicemail as a dead end unless you have evidence your patients use it.
+
+Every closed-branch greeting and after-hours message must say where to go in an emergency: the nearest hospital emergency department, or 108. No assessment over the phone, no advice, no holding.
+
+## Where calls die, and how to prove they do not
+
+1. The forward is set only on busy, so a ringing but unanswered phone never rolls. Set it for no answer, busy and unreachable.
+2. Two branches forward to each other. Andheri rolls to Bandra, Bandra rolls back to Andheri, and the call loops until the network gives up. Allow one hop and one terminal destination.
+3. The menu has no way out. Zero should reach a human or trigger the text-back, from every level.
+4. The queue has no exit. Cap the hold, then offer the booking link and end cleanly.
+5. The night tree is the day tree with different words. Check it routes differently, not just greets differently.
+6. A published number rings an old SIM in a drawer. Check every published number against what each listing shows, on a set date each month.
+
+Then test it like a patient. From a number nobody at the clinic has saved, call every published number at 8:30 AM, 1:30 PM, 7 PM and 9:45 PM, timing each one to a human answer. Next morning, pull the call records and compare them with what you heard. The gap is your real problem.
+
+## The numbers you dial out from
+
+Outbound routing has its own rules. TRAI has mandated the 140xx series for promotional calls by entities in any sector; anyone wanting a 140 number must register with telecom service providers under the commercial communications framework, and subscribers can block such calls by sector on the Do Not Disturb registry ([TRAI releases clarifications regarding functioning of designated 16…](https://www.trai.gov.in/sites/default/files/2026-07/PR_No91of2026.pdf)). The 1600xx series is mandated for service and transaction calls by regulated entities in banking, financial services and insurance and by government bodies, and calls from it may not be tagged, blocked or filtered ([TRAI releases clarifications regarding functioning of designated 16…](https://www.trai.gov.in/sites/default/files/2026-07/PR_No91of2026.pdf)).
+
+Healthcare is not in that trusted-series framework yet. In August 2026 TRAI opened a 1601 series for service and transactional calls by sectors other than banking and government: Phase I covers utilities, courier and logistics, and numbers go directly to eligible entities rather than to intermediaries or aggregators ([TRAI initiates phase-wise implementation of 1601-series for service…](https://www.trai.gov.in/sites/default/files/2026-08/PR_No113of2026_1.pdf)). Clinics are not in Phase I ([TRAI initiates phase-wise implementation of 1601-series for service…](https://www.trai.gov.in/sites/default/files/2026-08/PR_No113of2026_1.pdf)), so reminders still go out from an ordinary number. The direction of travel is clear: keep reminders genuinely transactional and consented, keep promotional calls on the 140 path, and do not buy a dialler that blurs the two.
+
+## Frequently asked questions
+
+### Should each branch have its own phone number?
+
+Yes, for anything published on a listing or a map: Google's guidance is a local number connecting to the individual location rather than a central helpline ([Guidelines for representing your business on Google](https://support.google.com/business/answer/3038177?hl=en)). Keep one chain-wide number for print and campaigns, terminating in the same system.
+
+### Can one WhatsApp number serve every branch?
+
+Usually yes, with the branch captured in the first exchange and the chat handed to that branch's desk. Remember the window: free-form replies only while it is open, approved templates after it closes ([Service messages - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/send-messages)).
+
+### What should the after-hours greeting say?
+
+Which branch they reached, that it is closed, when it opens, that a WhatsApp message with a booking link is coming, and where to go in an emergency, including 108. Under fifteen seconds.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

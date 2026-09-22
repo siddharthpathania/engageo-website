@@ -1,0 +1,129 @@
+---
+title: 'Work out what missed calls actually cost your clinic'
+description: 'A method to price your clinic''s missed calls from your own call log, fees and conversion rate, with a worked example and a way to measure the recovery.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'missed calls'
+  - 'clinic operations'
+  - 'front desk'
+  - 'patient communication'
+coverImage: '/blog/covers/cost-of-missed-calls-clinic.jpg'
+coverWidth: 1880
+coverHeight: 1253
+draft: false
+agentPublication: '694d74313534434e99eef79c73968af6'
+agentSource: 'competitor-analysis-agent'
+---
+
+You have seen the slide: clinics lose some dramatic percentage of revenue to unanswered calls. Ignore it. That figure was not measured at your clinic, on your line, at your fees, and it cannot tell you whether to hire a second person at the desk, extend your phone hours, or do nothing.
+
+The number worth having is one you produce yourself, from your call log and a calculator, and it survives a conversation with your accountant. Below: four inputs, a two-week audit, a worked example with labelled assumptions, and a way to check whether the change you made did anything.
+
+One framing point first. A missed call is not a lost patient. Plenty of people ring back, walk in on Saturday, or come to you next month anyway. What you are pricing is the narrower slice that rings once, gets nothing and never returns, and that is the slice nobody at your clinic has counted.
+
+## Step 1: Pull four numbers off your own systems
+
+None require new software. All four already exist somewhere in your practice.
+
+### What a new patient is worth on the first visit
+
+Not your list price. Take the last 100 new-patient invoices, subtract discounts, camp rates and unpaid balances, and divide. For dentistry, often a consultation plus a scaling or an X-ray. For dermatology, consultation alone, with procedure revenue arriving on later visits. Decide whether you are counting first-visit value or a longer horizon, and stick to it.
+
+### Your answered-call booking rate
+
+Of the calls your desk answers from an unknown number, what share end in a booked appointment? If you have never measured this, start here. Have the desk tag 100 consecutive inbound calls as booked, not booked, or existing patient with an admin query. That last bucket carries no booking value, and you cannot size it without tagging.
+
+### Unique missed callers per month
+
+Calls, not attempts. If Mrs Iyer rings three times in twenty minutes, that is one lost opportunity, not three. Pull the raw log and de-duplicate by number across a 48-hour window.
+
+### Your self-recovery rate
+
+Of those unique missed numbers, how many appear later in your log as an answered call or an appointment within seven days? Leaving this out inflates the loss several times over. You can measure it, because both halves sit in the same log.
+
+## Step 2: Run a two-week call audit
+
+Two weeks is the minimum that survives a public holiday or a doctor's leave. Four is better.
+
+Get the log from whichever you have: the itemised call detail record on your postpaid bill, your EPABX or IVR report, the clinic handset's exported call history, or your cloud telephony dashboard. Sort every inbound call into four buckets: answered, rang out, engaged, and outside working hours.
+
+Two definitions are worth borrowing. United States Veterans Affairs primary care sites were required to meet standards of thirty seconds or less for average speed of answer and a call abandonment rate under five per cent ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)). Take the definitions, not the targets. Speed of answer is how long the phone rings before a human speaks; abandonment is the caller hanging up before that happens. Count both, and check whether abandonment clusters in particular hours.
+
+## Step 3: A worked example, with every assumption labelled
+
+Sunrise Dental, a two-chair practice in Pune. Every figure below is an assumption for illustration, not a benchmark. Yours will differ, which is the point.
+
+1. Assumption A: net realised revenue from a new patient's first visit, ₹2,400.
+2. Assumption B: of answered calls from unknown numbers, 55 per cent book.
+3. Assumption C: unique missed callers per month, 120.
+4. Assumption D: self-recovery within seven days, 40 per cent.
+
+The arithmetic. 120 unique missed callers, less the 40 per cent who come back on their own, leaves 72 genuinely gone. Of those, 55 per cent would have booked had someone answered: roughly 40 bookings. At ₹2,400 each, about ₹96,000 a month, or ₹11.5 lakh a year.
+
+Now break it deliberately. Suppose the booking rate is really 35 per cent, because a third of inbound calls were report queries all along, and first-visit value is ₹1,200 because most new patients consult and go away to think. Same 72 lost callers, and the annual figure falls to about ₹3.6 lakh.
+
+Both are honest. The difference between them is not the missed calls, it is the assumptions. So report a range, and name the assumption that moves it most. Here that is the booking rate, which is also the cheapest to measure properly. Measure it before you buy anything.
+
+## Step 4: Read the clock, not just the total
+
+A monthly total tells you the size of the problem. The hour-by-hour distribution tells you which problem it is. Tag every missed call with its hour in IST and lay the two weeks out. Three shapes are worth looking for, and each has a different fix.
+
+- Missed calls bunched between 1:30 and 3:00 PM. This is lunch cover, and it is a rota problem.
+- A Monday 10 AM spike with a flat rest of the week. This is capacity at peak. One of the sites studied brought in part-time staff specifically for peak call hours ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)).
+- A long tail after 8 PM and on Sundays. Nobody is at the desk, and no rota fixes it. This is the only shape where an automated answer or WhatsApp text-back is the obvious response. Engageo builds one version of that; the measurement that follows does not care which route you choose.
+
+Two operational facts matter if you go that route. When a patient messages or calls your WhatsApp business number, a twenty-four hour customer service window opens in which you can reply freely, and it resets each time they message again; once it closes you may only send pre-approved templates ([Service messages](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages)). TRAI's commercial communication regulations separately run on registered senders, headers, templates and recorded consent ([TCCCPR 2018](https://trai.gov.in/tcccpr)). Build both in before you promise patients anything.
+
+One rule regardless of shape. If a caller describes an emergency, the answer is emergency services or the nearest hospital, not a booking link. Write that into the script, and never count such a call as a conversion.
+
+## Step 5: Measure the recovery honestly
+
+Freeze your definitions first: four weeks of baseline, using exactly the buckets above, before you change anything.
+
+Your primary metric is the recovery rate: of unique missed callers in a week, what share book within seven days. Secondary metrics are abandonment rate and speed of answer ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)). Read them together. A system that answers everything but books nobody has moved a phone metric, not the business.
+
+Then resist counting a booking as money. It becomes revenue when the patient attends. That gap is addressable: in a Cochrane review, attendance was 67.8 per cent with no reminder and 78.6 per cent with text message reminders, a pooled risk ratio of 1.14 on low to moderate quality evidence, and two of the trials put the cost per attendance of a text reminder 55 and 65 per cent below that of a phone call reminder ([Mobile phone messaging reminders for attendance at healthcare appoi…](https://www.cochrane.org/evidence/CD007458_mobile-phone-messaging-reminders-attendance-healthcare-appointments)). A study of missed outpatient appointments at an Indian tertiary care hospital found patients rated forgetfulness and the absence of reminders above distance or geography as reasons for not turning up ([Frequency and determinants of missed appointments in the outpatient…](https://www.ijcmph.com/index.php/ijcmph/article/view/15981)). So track attended appointments, not booked ones, and if reminders are not running, fix that before you spend anything on the phones.
+
+If you can manage it, keep a holdout: alternate weeks, or one branch of a two-branch chain. Without one, a good month will be credited to whatever you installed that month.
+
+## What this method will not tell you
+
+It will not price reputation. A patient who could not reach you at 9:40 PM may say so to others, and no log records that.
+
+It will not separate the call you missed from the call you should never have received. If a chunk of your inbound volume is people asking whether their report is ready, the fix is a report status message, not a bigger desk.
+
+It will not hold still. Recompute every six months: fees change, the panel ages, and the hour-of-day pattern moves when your timings do.
+
+## Frequently asked questions
+
+### How much call data is enough?
+
+Two weeks to make a decision, four to defend one. Less than a week will be dominated by whichever day the doctor was away.
+
+### Our receptionist says she answers every call. The log disagrees. Who is right?
+
+Both, usually. She answers everything she hears. The log counts calls that rang while she was on another line, at the billing counter, or away from the handset. Show her the hour-of-day chart rather than the total: it reads as a staffing fact rather than an accusation, because that is what it is.
+
+### Should existing patients be counted in the loss?
+
+Count them separately. They rarely defect over one missed call, so counting them at new-patient value overstates the loss. Their missed calls still matter, as a service problem and often as a rescheduling problem you are paying for elsewhere.
+
+### We have no usable call log at all. Where do we start?
+
+Ask your telecom provider for the itemised call detail record on the clinic number for the last two months. It is your data. Until it arrives, have the desk keep a paper tally of calls that rang out, with the time. A week of tick marks beats a year of guessing.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

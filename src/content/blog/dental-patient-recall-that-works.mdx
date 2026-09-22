@@ -1,0 +1,122 @@
+---
+title: 'Reactivating dormant dental patients without nagging them'
+description: 'How to segment a dormant dental list, what the recall message should say, when to stop sending, where Indian consent rules sit, and how to measure it honestly.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'dental clinics'
+  - 'patient recall'
+  - 'whatsapp'
+  - 'dpdp'
+  - 'clinic operations'
+coverImage: '/blog/covers/dental-patient-recall-that-works.jpg'
+coverWidth: 1880
+coverHeight: 1253
+draft: false
+agentPublication: 'f07c8fee0ca44b13ac44f349bf407510'
+agentSource: 'competitor-analysis-agent'
+---
+
+Every dental clinic has a second patient list it never looks at. Pull your practice software and count the people you have not seen in eighteen months. Those patients already chose you once, which is more than any stranger from a search ad has done.
+
+The usual response is a Sunday morning broadcast to the whole list with a discount attached. It produces a handful of bookings, a pile of opt-outs, and a messaging number that starts getting throttled. The list gets spent rather than worked.
+
+Here is the operational version. How to cut the list, what to say, when to stop, where the consent rules sit, and how to tell working recall from nagging.
+
+## Segment by last visit and last treatment
+
+Most clinics segment on one column, the date of the last appointment, and call everything past twelve months inactive. One column produces one generic message, which is why it converts badly.
+
+Use two. Date of last completed appointment, and what that appointment was. That gives you buckets that each deserve different words.
+
+- Hygiene overdue. Last visit was a scaling or a check-up, nine to eighteen months ago, nothing pending in the chart.
+- Treatment abandoned. A plan started and never finished. A root canal with no crown. These are the highest-value names on the list and usually the fewest.
+- Review overdue. The chart says the dentist asked to see them again at a stated interval and they did not come.
+- Cold. Two years or more, no response to anything since.
+
+The clinical call is not the front desk's to make. Nobody gets a message until the dentist's note in that record says a return visit is appropriate.
+
+One thing worth knowing before you build a recall clock around six months. A Cochrane review published in October 2020, covering two studies with 1,736 participants, found high-certainty evidence of little to no difference between risk-based and six-month recall intervals for adults over four years, with the evidence for children uncertain ([How often should I visit the dentist? - Cochrane](https://www.cochrane.org/CD004346/ORAL_how-often-should-i-visit-dentist)). That does not make recall pointless. It means a blanket six-month ping has weaker backing than your practice software implies, and your attention belongs on the abandoned-treatment bucket.
+
+## What a recall message should say
+
+Four parts, in this order. Who you are. What they had done and roughly when. One specific thing to do now. One tap to stop hearing from you.
+
+Something like this, with your own clinic's details filled in. Clinic name here, Dr Surname's practice. Our records show your last cleaning with us was about a year ago and the dentist noted a follow-up. We have slots on Tuesday 11:30 AM and Thursday 6 PM this week. Reply BOOK for either, or STOP and we will not message you about this again.
+
+Three rules govern the wording.
+
+First, name the clinic. Meta requires a business obtaining opt-in to clearly state that the person is opting in to receive communication, and to clearly state the business name they are opting in to hear from ([Get Opt-in - WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/overview/getting-opt-in/)). Carry that clarity into the message itself, or the patient reads it as spam from an unknown number.
+
+Second, no clinical content. Do not name a condition, describe symptoms or suggest treatment. WhatsApp's own policy tells businesses not to use it for telemedicine or to send or request health-related information where applicable regulations prohibit distributing it to systems that do not meet heightened requirements ([WhatsApp Business Messaging Policy](https://whatsappbusiness.com/policy/)). The date of a past cleaning is a records fact. Anything beyond that belongs in the chair.
+
+Third, a human must be reachable. WhatsApp's policy expects automated responses to provide a clear path to a human agent, phone support, email or a web resource ([WhatsApp Business Messaging Policy](https://whatsappbusiness.com/policy/)). Write the out-of-hours rule down before you need it. If a reply at 11:40 PM mentions pain or swelling, the automation says one thing only, which is to go to the nearest hospital or emergency service, and flags the thread. No advice, no slot.
+
+## Cadence and stopping rules
+
+Two messages per dormant patient per quarter. That is the ceiling, and most clinics should sit under it.
+
+Message one is the specific ask above. With no reply, message two goes out ten to fourteen days later with a smaller ask, not a louder one. A question they can answer in one word, or an offer to move them to a yearly reminder. Then stop.
+
+The stopping rules have to be written down and enforced by whatever does the sending, whether that is a staff member with a spreadsheet, your practice software, or a messaging tool like Engageo. Rules that live in someone's memory fail the week they take leave.
+
+- Any reply meaning no, or STOP, means permanent suppression. Not a pause.
+- Two unanswered messages means park the record for six months.
+- A block or spam report means suppress immediately and review what that batch said.
+- Send inside clinic hours, IST. A recall message at 8 AM Sunday earns blocks.
+
+Honour the exits properly. Meta's policy requires businesses to respect all requests, on or off WhatsApp, to block, discontinue or otherwise opt out of communications ([WhatsApp Business Messaging Policy](https://whatsappbusiness.com/policy/)), and to give clear instructions for opting out of specific message categories ([Get Opt-in - WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/overview/getting-opt-in/)). Meta rate-limits and restricts businesses whose quality rating stays low for a sustained period ([Get Opt-in - WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/overview/getting-opt-in/), [WhatsApp Business Messaging Policy](https://whatsappbusiness.com/policy/)). A clinic that burns its number on recall loses its appointment reminders too, which are worth far more.
+
+## The consent position, honestly
+
+There are two separate rulebooks and clinics routinely confuse them.
+
+For SMS and voice calls on Indian telecom networks, TRAI's framework applies. The Telecom Commercial Communications Customer Preference (Second Amendment) Regulations, 2025 were notified on 12 February 2025 ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)). Commercial communication may go out only through registered headers and content templates, and an unregistered sender's telecom resources may be suspended or disconnected ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)). Health is a preference category a subscriber can block, by sending BLOCK 4 to 1909 ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)). A service message to your own patient about a service they already used does not require explicit consent, but the moment promotional content is mixed in, the whole message is treated as promotional and must carry an opt-out mechanism in the same message ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)). Where consent is taken digitally it is verified by OTP and recorded on the DLT platform, and the confirmation message itself must tell the patient how to revoke ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)).
+
+WhatsApp is governed separately, by Meta's own opt-in requirements rather than by DLT registration ([Get Opt-in - WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp/overview/getting-opt-in/)). Above both sits data protection. Parliament enacted the Digital Personal Data Protection Act on 11 August 2023, and the DPDP Rules, 2025 were notified on 14 November 2025 with an eighteen-month phased compliance period ([DPDP Rules, 2025 Notified - A Citizen-Centric Framework for Privacy…](https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf)). Every data fiduciary must issue a separate consent notice, in clear and plain language, explaining the specific purpose the data is collected for ([DPDP Rules, 2025 Notified - A Citizen-Centric Framework for Privacy…](https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf)). People may withdraw consent at any time, and requests to access, correct, update or erase personal data must be answered within ninety days ([DPDP Rules, 2025 Notified - A Citizen-Centric Framework for Privacy…](https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf)). Penalties run up to 250 crore rupees for failing to maintain reasonable security safeguards ([DPDP Rules, 2025 Notified - A Citizen-Centric Framework for Privacy…](https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf)).
+
+At the front desk tomorrow. Add a line to the intake form naming recall messages specifically, not a general permission to contact. Store the date, the channel and which wording they agreed to. Keep a suppression list no data import can overwrite, because the commonest breach of an opt-out is a spreadsheet upload that resurrects a deleted contact.
+
+## Measuring whether it returns patients or annoys them
+
+Measure per batch, not per month, and track four numbers.
+
+1. Attended within 30 days. Not replies, not bookings. Someone in the chair. Replies flatter recall badly.
+2. Revenue from those attended visits, minus what the batch cost to send and to staff. This decides whether there is a next batch.
+3. Annoyance per thousand sent. Opt-outs, blocks and complaints combined. Pick the ceiling before you send, and stop the batch when it crosses.
+4. Suppression growth. What share of the list you burn each quarter. A list shrinking several percent a quarter is being consumed, not cultivated.
+
+Then hold back a control group. Take ten percent of each segment at random and send them nothing. Compare attendance after ninety days. Some dormant patients return on their own, and without a holdout you will credit recall for all of them. Read every number by segment. Abandoned-treatment and cold-list recall behave nothing alike.
+
+## Frequently asked questions
+
+### Should every adult patient get a six-month recall?
+
+The evidence is weaker than the habit suggests. A 2020 Cochrane review found high-certainty evidence of little to no difference between risk-based and six-month intervals for adults over four years ([How often should I visit the dentist? - Cochrane](https://www.cochrane.org/CD004346/ORAL_how-often-should-i-visit-dentist)). Follow the interval the treating dentist recorded, not a database-wide default.
+
+### Can a recall message mention the treatment the patient had?
+
+Keep it to a records fact such as the date and general type of visit. Do not describe conditions, symptoms or recommended treatment. WhatsApp's policy warns against sending or requesting health-related information where regulations restrict it ([WhatsApp Business Messaging Policy](https://whatsappbusiness.com/policy/)).
+
+### Do appointment reminders need the same consent as recall offers?
+
+Differently. Under the amended TRAI regulations a service message to your own customer about a service they used needs no explicit consent, but attaching any offer turns it into a promotional message that must carry an opt-out in the same message ([Telecom Commercial Communications Customer Preference (Second Amend…](https://www.trai.gov.in/sites/default/files/2025-02/Regulation_12022025.pdf)).
+
+### A patient replied STOP two years ago. Can we message them now?
+
+No. Treat it as permanent. Under the DPDP framework consent can be withdrawn at any time, and people have the right to have data erased on request ([DPDP Rules, 2025 Notified - A Citizen-Centric Framework for Privacy…](https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf)). Rebuild the relationship when they contact you, not before.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

@@ -1,0 +1,119 @@
+---
+title: 'Aftercare and recall messages patients actually read'
+description: 'How to write clinic aftercare and recall messages that get read: length, language, timing, what to never put in writing, and who answers the replies.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'patient communication'
+  - 'whatsapp'
+  - 'clinic operations'
+  - 'aftercare'
+  - 'recall'
+coverImage: '/blog/covers/aftercare-messages-that-patients-read.jpg'
+coverWidth: 1880
+coverHeight: 1058
+draft: false
+agentPublication: '2ddb1b46e6a44dda8a0e40e3b3650ba1'
+agentSource: 'competitor-analysis-agent'
+---
+
+Clinics that send a lot of messages and hear very little back usually reach the same conclusion: patients ignore WhatsApp. They don't. They ignore messages that ask for three things at once, land at the wrong hour, and look like an advertisement with a doctor's name on top.
+
+Aftercare and recall messages are the cheapest retention work a clinic does and the easiest to do badly. What follows is about the writing and the sending, not the clinical content: what one message should carry, when it should land, what must never be in it, and who answers when the patient writes back.
+
+## One message, one job
+
+Before writing, decide what the patient should do after reading. There are three honest answers: nothing, something now, something later. Aftercare asks for nothing, a confirmation asks for something now, a recall asks for something later. A message that tries two of these fails at both.
+
+On WhatsApp, mixing also has a mechanical cost. Meta splits templates into utility and marketing. A utility template must be non-promotional, carrying no promotional or persuasive intent, and must be either requested by the user or essential to them; a template that mixes an update with a promotion is classified as marketing ([Template categorization - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)). Since 9 April 2025, a template you submit as utility that WhatsApp judges should be marketing is approved as marketing ([Template categorization - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)). Add "and get 20% off a cleaning this month" to a post-extraction message and you have not added a line, you have changed the category of the whole template.
+
+India's SMS rules cut in the same place. TRAI separates service messages, which facilitate, complete or confirm a transaction, from promotional ones, for which no explicit consent was taken. Promotional content needs consent through a registered consent template, and every commercial message needs a registered header of at most eleven characters and a registered content template ([Advice to Senders - Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)).
+
+## Length, language and what the first line has to do
+
+Assume the message is read on a lock screen, one-handed, while someone is doing something else. The first line has to carry the job on its own.
+
+A shape that works: line one names the clinic and what this is about; line two is the single action; line three is how to reach a human, and when. Then stop. Anything after that is for you, not the patient.
+
+Wording is not decoration. In two randomised trials at Barts Health NHS Trust, covering 10,111 and 9,848 patients, the only difference between arms was the sentence inside the reminder. The version that stated a specific cost for a missed appointment produced 8.4% non-attendance against 11.1% for the standard reminder ([Stating Appointment Costs in SMS Reminders Reduces Missed Hospital…](https://pmc.ncbi.nlm.nih.gov/articles/PMC4569397/)). In the second trial, a vaguer money line and an appeal to fairness both did worse ([Stating Appointment Costs in SMS Reminders Reduces Missed Hospital…](https://pmc.ncbi.nlm.nih.gov/articles/PMC4569397/)). Those are NHS patients and that sentence will not transfer to an Indian clinic, but the direction does: concrete beats emotive, and guilt underperforms information.
+
+Language: use the one the patient used at the desk. Record it as a field at registration, next to the phone number, and default to it every time afterwards. Do not infer it from the surname or the pin code, and never send in a language nobody on the desk can read a reply in. Never machine-translate a clinical instruction without someone who speaks that language reading it back.
+
+## Timing
+
+The tested bands are narrower than clinics assume. The Geneva University Hospitals trial sent its reminder 24 hours before the appointment ([Text-messaging versus telephone reminders to reduce missed appointm…](https://pmc.ncbi.nlm.nih.gov/articles/PMC3623700/)). The NHS trials sent theirs five days ahead and noted this is longer than the usual one to three days ([Stating Appointment Costs in SMS Reminders Reduces Missed Hospital…](https://pmc.ncbi.nlm.nih.gov/articles/PMC4569397/)). Both worked. Choose by job, not by habit.
+
+- Aftercare: inside the hour after the patient leaves, while the visit is still on their mind. Not at 10 PM.
+- Confirmation: once at booking, then one reminder somewhere in the one to five day band before the slot.
+- Recall: business hours only, on a day the desk can take bookings.
+
+On WhatsApp, timing also decides what you are permitted to send. A 24-hour customer service window opens when the patient messages or calls you and resets each time they do; inside it you can send free-form messages, and when it closes you can only send pre-approved templates ([Service messages - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/send-messages)). A recall sent at 11 PM that gets a reply at 11:05 PM spends most of its window while the clinic is shut. Sent at 11:30 AM, it leaves the desk the rest of that day and the next morning to talk normally.
+
+## What never goes in writing
+
+- Anything clinical beyond what the doctor handed over in person. No interpreting what the patient describes, no telling them it sounds normal. If they describe a problem, the answer is a phone call; if it sounds urgent, the nearest hospital or 108.
+- Results, values or findings as a one-liner, with nobody available to explain them.
+- Another patient's name, or a broadcast that exposes the whole list of numbers.
+- Pressure about money. A payment reminder is a service message; anything that reads as a threat is a complaint in the making.
+- An offer inside a clinical message ([Template categorization - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)).
+- Promotional content to someone who never consented through the registered route ([Advice to Senders - Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)), or to a WhatsApp user who has not opted in. Meta scores your number on blocks, reports, mutes and archives from the past seven days ([Service messages - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/send-messages)), so a bad recall campaign damages the channel you need for confirmations.
+- Anything you would not want screenshotted into a family group, because everything you send can be forwarded.
+
+## Messages you can copy
+
+### Dental
+
+Aftercare, sent within an hour of an extraction, no reply expected: "Sunrise Dental. This is about today's extraction with Dr Mehta. Please follow the printed aftercare sheet given to you at the desk. If anything worries you tonight, call us, someone answers until 9 PM. After that, or in an emergency, go to the nearest hospital or call 108."
+
+Recall, five months after a cleaning, one action: "Sunrise Dental. Your last cleaning with us was in April. Dr Mehta has you down for the next one now. Reply 1 for Tuesday 11:30 AM or 2 for Saturday 5 PM."
+
+### Dermatology
+
+Course follow-up, one action: "Skin Studio, Kalyani Nagar. Session 3 of your course is due this week. Reply YES to keep Thursday 6:30 PM, or NO and we will call you tomorrow morning to move it."
+
+Aftercare with no reply wanted, and saying so: "Skin Studio. After today's session with Dr Rao, follow the card you were given at the desk. No reply needed. If something does not look right, call us between 10 AM and 7 PM."
+
+### Physiotherapy
+
+Unused package, one action: "Bandra Physio. You have four sessions left in your package and nothing booked. Reply BOOK and we will call you today, or pick Monday 8 AM or Wednesday 7 PM."
+
+After a missed session, no guilt, with an exit: "Bandra Physio. We held Tuesday 11:30 AM for you and you could not make it, that is fine. Reply with a day that suits you and we will send Dr Kulkarni's open slots. To stop the package here, reply STOP and we will not message again."
+
+## When they reply
+
+Every message that can be replied to needs a named owner and a stated answering time, written into the message. The Geneva reminder did this: it told patients to answer NO if they did not intend to come ([Text-messaging versus telephone reminders to reduce missed appointm…](https://pmc.ncbi.nlm.nih.gov/articles/PMC3623700/)). One line of instruction saves an inbox full of guesses.
+
+Sort replies into four trays. Reschedule and cancel are front desk work and should close in one exchange. A clinical question leaves WhatsApp immediately and becomes a phone call. A complaint goes the same day to someone with the authority to fix it.
+
+Then budget for answering, not for sending. Over six months, the Geneva trial's text reminders cost about 230 euros against 8,910 euros for telephone reminders, and almost all of that gap was administrative staff time ([Text-messaging versus telephone reminders to reduce missed appointm…](https://pmc.ncbi.nlm.nih.gov/articles/PMC3623700/)). Sending is nearly free; answering is the expensive half, and the half clinics forget to staff. If nobody is at the desk after 7 PM, decide now what happens to a 9:42 PM reply: a rota, an on-call number, or an automated first response such as Engageo's. "We will see it in the morning" is also a decision, and the patient experiences it as silence.
+
+Two numbers tell you whether this works: reply rate per template, and no-show rate among patients who got the message. Retire any template that generates replies you cannot answer in the time you promised.
+
+## Frequently asked questions
+
+### How long should an aftercare message be?
+
+Short enough that the clinic name and the one action are both visible in the notification preview. If it needs scrolling, split it across two days or make it a phone call.
+
+### Can we add an offer to the end of a recall message?
+
+No. On WhatsApp it reclassifies the template as marketing ([Template categorization - WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)), and under TRAI's framework promotional content needs consent taken through a registered consent template ([Advice to Senders - Telecom Regulatory Authority of India](https://trai.gov.in/advice-to-senders)). Send the recall, and run offers separately to patients who agreed to receive them.
+
+### A patient replies with a medical question at 11 PM. What should the clinic do?
+
+Acknowledge, do not answer. Confirm receipt, say when someone will call, and give the emergency route in the same breath: the nearest hospital or 108. Then make sure the call happens, because the acknowledgement is a promise.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

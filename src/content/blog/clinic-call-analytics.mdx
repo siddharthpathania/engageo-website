@@ -1,0 +1,131 @@
+---
+title: 'Clinic call analytics: the five numbers that actually matter'
+description: 'Which phone numbers to track at an Indian clinic, how to pull them out of a handset, a PBX or a Google listing, and how to run a weekly review.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'front desk'
+  - 'call tracking'
+  - 'clinic operations'
+  - 'patient communication'
+  - 'missed calls'
+coverImage: '/blog/covers/clinic-call-analytics.jpg'
+coverWidth: 1880
+coverHeight: 1133
+draft: false
+agentPublication: '4ca5a12d415d4df78fdac125abb68ba0'
+agentSource: 'competitor-analysis-agent'
+---
+
+Most clinics judge the phone by how it feels. The front desk says the morning was mad. You say the phone never stops. Neither of you can say how many people called last Tuesday, how many hung up before anyone picked up, or how many of those ever came back.
+
+Your phone already keeps most of this. A handset keeps a call log. A PBX or cloud number writes a record for every call, answered or not. What is missing is not collection. It is the twenty minutes a week where somebody reads it and changes one thing.
+
+Here is how to pick the numbers worth the effort, get them out of an ordinary Indian clinic setup, and turn them into a review the front desk runs on a Friday without you.
+
+## Five numbers, and nothing else to begin with
+
+Start narrow. A dashboard with eleven metrics gets looked at twice.
+
+- \*\*Offered calls by hour and weekday.\*\* Not a weekly total. The count of inbound attempts in each hour of each day, in IST.
+- \*\*Answer rate.\*\* Answered inbound calls divided by all inbound calls offered, for the same hour bucket.
+- \*\*Time to answer, and where people give up.\*\* How many seconds a caller rings before somebody picks up, and the share who hang up first.
+- \*\*Callback rate.\*\* Of the unique numbers you missed, how many did somebody call back, and how many of those callbacks connected.
+- \*\*Recovery rate.\*\* Of those missed callers, how many ended up with a booked appointment they attended.
+
+The first three fall out of the phone system for free. The last two do not exist until the clinic does something and writes it down, which is exactly why they predict revenue.
+
+A cross-case study of high-performing primary care access sites in the US Veterans Health Administration found they worked to mandated standards of thirty seconds or less average speed of answer and a call abandonment rate below five per cent, with one site aiming to handle calls within two and a half minutes each ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)). Those are staffed call centres in another health system, so do not import the targets. Import the idea that speed to answer and abandonment deserve a number at all.
+
+## Where the numbers actually live
+
+### When the clinic number is a mobile handset
+
+A single handset is the hardest setup to measure, because the log sits on one phone, holds a limited window of history, and disappears the day the phone is reset or replaced.
+
+The cheap fix is to make the listed number a handset nobody takes home, and export or photograph the call log into a sheet at closing every day. Crude, but a month of that beats a year of guessing.
+
+### When there is a PBX or a cloud number
+
+If your PBX or cloud provider runs on Asterisk, or exports an Asterisk-style call detail record, you already have a record of every call carrying the fields you need: start, answer and end timestamps, duration, billsec and disposition ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)). Duration is the time from start to end; billsec is the time from answer to end ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)). Disposition takes values including ANSWERED, NO ANSWER, BUSY, CONGESTION and FAILED ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)).
+
+That last field is the whole game. A call that rang for forty seconds and was never picked up has a duration of forty seconds and a billsec of zero ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)). In a naive export it looks like a call that happened. It is a patient who gave up. Filter on disposition, not on whether a row exists.
+
+BUSY and CONGESTION are a different story from NO ANSWER ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)). NO ANSWER is a staffing problem. BUSY and CONGESTION usually mean one line and two callers, which no amount of front desk training fixes.
+
+### What Google can and cannot tell you
+
+Do not build your reporting on the Google listing. As of 31 July 2024 the chat and call history features are no longer available in a Business Profile, and the export window through Google Takeout closed on 30 August 2024 ([Changes to Google Business Profile chat and call history - Google B…](https://support.google.com/business/answer/14919056?hl=en)).
+
+What survives is the Business Profile Performance API, where the daily metric CALL\_CLICKS counts the number of times the call button on your profile was clicked ([DailyMetric | Google Business Profile APIs | Google for Developers](https://developers.google.com/my-business/reference/performance/rest/v1/DailyMetric)). It is a count of taps at daily granularity, and says nothing about whether the call connected or who picked up ([DailyMetric | Google Business Profile APIs | Google for Developers](https://developers.google.com/my-business/reference/performance/rest/v1/DailyMetric)). Set it beside your own log of offered calls for the same day, and the gap between taps and arriving calls tells you something neither system says alone.
+
+## From raw log to four ratios
+
+Keep one row per call and seven columns: timestamp, direction, caller number, disposition, ring seconds, talk seconds, and who handled it. Add an eighth column later for outcome.
+
+1. Bucket by hour of day and by weekday. Never average across the week. A single clinic-wide answer rate hides the fact that the 10 to 11 AM Monday slot is a wall.
+2. Compute answer rate per bucket, not per week.
+3. Deduplicate missed calls by number before computing callback rate. A patient who dials four times in six minutes is one missed patient, not four. That single step is why clinics both overstate their missed-call volume and understate how badly they are calling people back.
+4. For recovery, join the missed-number list to the appointment book by hand once a week and count who booked and attended within seven days. It is the only manual join here.
+
+Count a callback as connected only when billsec is above zero, since billsec runs from the answer time rather than the start ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)). An outgoing call that rang out is an attempt, not a callback, and logging it as one is the fastest way to make a broken process look healthy.
+
+## The Friday review the front desk can run
+
+Twenty minutes, same slot every week, the front desk plus one person who can authorise a change.
+
+- Read the missed-call grid and name the worst two hours out loud. Not the worst day. The worst two hours.
+- Say what is happening in those hours. Consultation start, lunch relief, shift handover, a doctor's round, the pharmacy queue spilling over the desk.
+- Go through last week's missed-number list. How many were called back, how many connected, how many are still untouched.
+- Count the recoveries by name, not percentage, while the numbers are small.
+- Pick one change, give it one owner, run it for one week. Staggering the desk's lunch break. A second handset during the 10 AM hour. Moving routine outbound reminder calls off the busiest hour.
+
+Why this beats a dashboard shows up in the same study: those sites tracked speed of answer and abandonment, but only two of six collected any data on patient experience of telephone access, and no site described holding call centre staff accountable for the quality of follow-up ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)). Measurement stopped at the pickup. Callback and recovery carry it past that point.
+
+One standing rule for after-hours logging: if someone calls in distress, the instruction is to go to the nearest hospital or call emergency services, the call is tagged as such, and it never counts as a booking opportunity in any of these numbers.
+
+## Four ways these numbers lie
+
+- \*\*Repeat dials counted as separate people.\*\* Deduplicate by number within a thirty-minute window before counting anything.
+- \*\*Weekly averages.\*\* They erase exactly the peak you are trying to staff.
+- \*\*Unanswered callbacks counted as callbacks.\*\* Check billsec, not duration ([CDR Specification](https://docs.asterisk.org/Configuration/Reporting/Call-Detail-Records-CDR/CDR-Specification/)).
+- \*\*Measuring the month you changed three things.\*\* One change, one week, one owner.
+
+A fifth trap catches clinics automating a text-back reply to missed calls, whether built in-house or bought from a service like Engageo. An SMS to a patient through an Indian operator is commercial communication, and TRAI requires the clinic to register as a principal entity, register a header of up to eleven characters, register the content template structure, take consent through a registered consent template, and supply the principal entity ID, header and content ID when handing the message to the telecom service provider ([Advice to Senders | Telecom Regulatory Authority of India | Governm…](https://trai.gov.in/advice-to-senders)). Budget that paperwork before promising the front desk an automatic reply on Monday.
+
+## Frequently asked questions
+
+### Do I need call recording to do any of this?
+
+No. Every number here comes from call metadata: who called, when, for how long, and whether anyone picked up. Recording adds quality review, plus consent and retention questions you do not need in week one.
+
+### How long before the numbers mean anything?
+
+Give it four full weeks. A single week at an Indian clinic gets distorted by one festival, one camp, or one doctor travelling.
+
+### What is a good answer rate for a clinic?
+
+Do not adopt a published benchmark. The standards of thirty seconds to answer and under five per cent abandonment come from a large staffed telephone operation, not a three-person front desk ([Telephone Access Management in Primary Care: Cross-Case Analysis of…](https://pmc.ncbi.nlm.nih.gov/articles/PMC8806007/)). Use your own first month as the baseline and compete with it.
+
+### Our listed number is the doctor's personal mobile. What now?
+
+Then you have no call analytics and no way to get any. Move the number on your listings to a line the clinic controls and forward it to whoever answers.
+
+### The front desk says they already know which hours are busy. Do we need the data?
+
+They are usually right about the busy hours and usually wrong about the missed ones, because the calls nobody picked up are the ones nobody remembers.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

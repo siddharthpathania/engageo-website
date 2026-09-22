@@ -1,0 +1,117 @@
+---
+title: 'WhatsApp Business API for clinics: the rules that actually bite'
+description: 'Putting a clinic on the official WhatsApp Business Platform, in order: number eligibility, verification, display name, templates, opt-in and quality rating.'
+publishedAt: '2026-09-23'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'whatsapp business api'
+  - 'clinic operations'
+  - 'patient communication'
+  - 'front desk'
+  - 'compliance'
+coverImage: '/blog/covers/whatsapp-business-api-setup-for-clinics.jpg'
+coverWidth: 1880
+coverHeight: 1058
+draft: false
+agentPublication: '4f823333254642099771e616a2451fc7'
+agentSource: 'competitor-analysis-agent'
+---
+
+A clinic's WhatsApp usually starts the same way. Someone installs the free WhatsApp Business app on the front desk phone, writes an away message, and for a year that is enough. Then a second branch opens, or the receptionist who owned that handset leaves, or you want tomorrow's reminders going out at 6 PM without a human typing them. That is where the app stops.
+
+The WhatsApp Business Platform is the other product: programmatic APIs built on Meta's Graph API for businesses messaging at scale, with the documentation pointing anyone who wants a different way to use WhatsApp for business back to the consumer site ([About the WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/about-the-platform)). It is not a bigger version of the app. It is a separate thing you connect your clinic software to, with rules the app never made you think about.
+
+Clinics get stuck in the same three places: the number, the templates, and opt-in. Here is the order to do it in, and what each rule means at a front desk.
+
+## Start with the number, because it decides everything else
+
+Meta's requirements for a business phone number are short and unforgiving. It must be a number you own. It needs a country code and an area code, and short codes are not accepted. It must be able to receive a voice call or an SMS. It must not currently be registered to WhatsApp Messenger, and if it is, that account has to be deleted first. A number suspended on WhatsApp in the past has to be unbanned first ([Business phone numbers](https://developers.facebook.com/documentation/business-messaging/whatsapp/business-phone-numbers/phone-numbers)).
+
+Read that again with your clinic in mind. The number patients know, the one on the prescription pad and the Google listing, is almost certainly running WhatsApp today, and moving it to the Platform means the chat history on that handset goes. Decide before you start whether you are moving the main line or bringing in a second number, and tell the front desk which.
+
+Once registered, the number carries a status, and it has to read connected before you can send or receive anything through the API ([Business phone numbers](https://developers.facebook.com/documentation/business-messaging/whatsapp/business-phone-numbers/phone-numbers)).
+
+## Business verification and the display name
+
+Business verification is Meta confirming, at the portfolio level, that your business exists. It can wait, but it is one route to a higher sending limit, alongside partner-led verification ([Messaging Limits](https://developers.facebook.com/documentation/business-messaging/whatsapp/messaging-limits)). If you plan to remind a few hundred patients a week, do it early.
+
+The display name is what patients see. Meta reviews it and returns approved or declined. You can change a display name ten times in a thirty-day period, and once a change is approved you have fourteen days to re-register the phone number ([Display names](https://developers.facebook.com/documentation/business-messaging/whatsapp/display-names)).
+
+Pick the name a patient would say out loud. If the board says Sunrise Dental and the receipts say Sunrise Dental Care Pvt Ltd, submit the board version and make the website match.
+
+The blue tick is separate again. An Official Business Account shows a blue checkmark beside your name in a patient's contacts view, and the requirements are specific: compliance with the WhatsApp Business Messaging Policy, at least thirty days registered on the Platform, a verified business portfolio, two-step verification on that number, and an approved display name. Request it in WhatsApp Manager or through the Official Business Account Status API ([Official Business Accounts](https://developers.facebook.com/documentation/business-messaging/whatsapp/official-business-accounts/)). It matters more than it looks, because a number without it will not surface in WhatsApp search unless the patient already saved you ([Official Business Accounts](https://developers.facebook.com/documentation/business-messaging/whatsapp/official-business-accounts/)).
+
+## Templates are where clinics lose
+
+Outside an open customer service window, a template is the only message you can send, and templates generally need approval first ([About the WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/about-the-platform)). Every reminder, confirmation, report-ready note and follow-up is a template.
+
+Each is categorised as marketing, utility or authentication. To pass as utility a template must be non-promotional, with no persuasive intent, and either specific to or requested by the patient, or essential to them. Anything mixing the two is marketing, and so is anything vague enough that Meta cannot tell ([Template categorization](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)). "Your appointment with Dr Mehta is confirmed for Tuesday 11:30 AM" is utility. Add a line about this month's discount on scaling and it is marketing.
+
+This is not a filing error. Meta gives one day's notice before recategorising a utility template it judges to be marketing, unless you have already been warned for abuse, and persistent miscategorisation brings rate limiting and suspension of utility templates for a minimum of seven days, rising to thirty for repeat offenders ([Template categorization](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)). You can request a review of a categorisation up to sixty days from the template's creation date ([Template categorization](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)).
+
+Keep promotional messages in their own templates. It costs nothing and it protects the reminders you cannot afford to lose.
+
+## Opt-in is the cheapest insurance you will buy
+
+Before you message anyone, you need their opt-in. Meta's requirement is that the person has given you their mobile number and given permission to receive messages, that the opt-in clearly states they are opting in to receive communication, and that it clearly names the business they are opting in to hear from, in line with local law ([Get opt-in for WhatsApp](https://developers.facebook.com/documentation/business-messaging/whatsapp/getting-opt-in)).
+
+It does not have to be collected inside WhatsApp. SMS, your website, an IVR on the phone line and a paper signature all count, and the opt-in can be general rather than WhatsApp-specific. Meta also suggests opt-ins by category where that fits, and a clear way to opt out ([Get opt-in for WhatsApp](https://developers.facebook.com/documentation/business-messaging/whatsapp/getting-opt-in)).
+
+For most clinics that means one line on the registration form, naming the clinic, with a tick box. Take it at first visit and log the date and method.
+
+## Quality rating, limits, and how a number gets restricted
+
+Template quality is rated from usage and how patients respond. Green is high quality with minimal negative feedback. Yellow means negative feedback from several users or low read rates. Red means low quality. A new template sits at unknown until data arrives, and templates that slide can be paced or paused, or move out of approved status and stop sending until that is restored ([Template quality rating](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-quality)).
+
+Sending limits stack in tiers: 250, 2,000, 10,000, 100,000 and unlimited, and a new business portfolio starts at 250. You reach 2,000 by verifying your business, through partner-led verification, or by delivering 2,000 messages outside customer service windows to unique recipients in a rolling thirty-day period on high quality templates. After that, increases are automatic when quality is high across all your numbers and templates and you have used at least half your limit in the last seven days, and the portfolio moves up a level within six hours ([Messaging Limits](https://developers.facebook.com/documentation/business-messaging/whatsapp/messaging-limits)).
+
+Enforcement is graded. A first violation brings a warning naming the policy. Repeats bring one or three day restrictions on marketing, utility or authentication messages, then five, seven or thirty day blocks on all messaging, then an indefinite lock, then permanent removal. Spam and template misclassification are both named triggers, and excessive negative feedback can limit an account on its own. Appeals usually get a decision in 24 to 48 hours, though not every spam violation can be appealed ([WhatsApp Business Platform policy and spam enforcement](https://developers.facebook.com/documentation/business-messaging/whatsapp/policy-enforcement)).
+
+The practical reading: patients blocking you is what kills the channel, and patients block clinics that message them about offers they never asked for.
+
+## A sequence that works
+
+1. Decide the number this week, and say out loud whether the front desk handset loses its chat history.
+2. Start business verification. It gates the tier you need by month two.
+3. Submit the display name that matches your board and your website.
+4. Write four utility templates first: confirmation, day-before reminder, report ready, missed-call follow-up. Nothing promotional in any of them.
+5. Add the opt-in line to the registration form and brief the desk.
+6. Switch on two-step verification, then request the Official Business Account at thirty days ([Official Business Accounts](https://developers.facebook.com/documentation/business-messaging/whatsapp/official-business-accounts/)).
+7. Check template quality weekly for a month and kill anything sitting at yellow.
+
+Run this yourself, through a solution provider, or through a service like Engageo. The rules above are Meta's either way, and they land on the clinic whose name is on the account.
+
+One thing WhatsApp is not: an emergency line. Decide with your clinicians what your out-of-hours automated reply says, and make sure it points people to your local emergency service instead of leaving them waiting.
+
+## Frequently asked questions
+
+### Can we keep using the WhatsApp Business app on the same number?
+
+No. The number cannot already be registered elsewhere on WhatsApp, and an existing account on it has to be deleted first ([Business phone numbers](https://developers.facebook.com/documentation/business-messaging/whatsapp/business-phone-numbers/phone-numbers)). Plan the switchover for a quiet afternoon, not a Monday.
+
+### How long before we can message a few thousand patients?
+
+A new portfolio starts at 250, and 2,000 is unlocked by business verification, partner-led verification, or by delivering 2,000 messages to unique recipients over thirty days on high quality templates ([Messaging Limits](https://developers.facebook.com/documentation/business-messaging/whatsapp/messaging-limits)). Verification is the faster road.
+
+### Our reminder template was rejected. What now?
+
+Check whether it reads as promotional. Utility status requires no persuasive intent and content specific to, requested by, or essential to the patient ([Template categorization](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)). If you still think it is wrong, you have sixty days from creation to request a review ([Template categorization](https://developers.facebook.com/documentation/business-messaging/whatsapp/templates/template-categorization)).
+
+### Do we need written consent from every patient?
+
+You need an opt-in that names your clinic and makes clear the person is agreeing to receive messages, collected by any reasonable method and compliant with local law ([Get opt-in for WhatsApp](https://developers.facebook.com/documentation/business-messaging/whatsapp/getting-opt-in)). A signed line on the registration form is the simplest version.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*

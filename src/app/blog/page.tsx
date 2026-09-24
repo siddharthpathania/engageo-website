@@ -56,8 +56,15 @@ export default function BlogIndexPage(): JSX.Element {
         </div>
       </SectionWrapper>
 
-      {/* Filter + posts grid */}
-      <SectionWrapper id="blog-posts" ariaLabel="Blog articles" className="pt-0 md:pt-0">
+      {/* Filter + posts grid.
+          animate={false}: the fade-up reveal is disabled here on purpose. The
+          grid grows unbounded with the post count, and SectionWrapper's
+          whileInView reveal only fires when 15% of the section is on screen —
+          once the grid is taller than ~6.5 screens, 15% never fits in the
+          viewport, the reveal never triggers, and every card stays at
+          opacity:0 (an empty-looking blog). Rendering it statically keeps the
+          cards always visible regardless of how many posts exist. */}
+      <SectionWrapper id="blog-posts" ariaLabel="Blog articles" className="pt-0 md:pt-0" animate={false}>
         {posts.length === 0 ? (
           <div className="mx-auto max-w-2xl rounded-3xl border border-dashed border-neutral-300 bg-surface p-10 text-center">
             <p className="font-display text-[18px] font-semibold text-obsidian">

@@ -120,7 +120,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" className={fontVariables} suppressHydrationWarning>
+    <html lang={SITE_CONFIG.language} className={fontVariables} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-canvas text-obsidian">
         <OrganizationSchema />
         <WebSiteSchema />

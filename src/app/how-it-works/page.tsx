@@ -6,6 +6,7 @@ import { ProviderWall } from '@/components/home/ProviderWall';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { cn } from '@/lib/utils';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const HIW_TITLE = 'How It Works — Patient Follow-Up Automation India';
 const HIW_DESCRIPTION =
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
   description: HIW_DESCRIPTION,
   alternates: { canonical: '/how-it-works' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${HIW_TITLE} | Engageo`,
     description: HIW_DESCRIPTION,
     url: '/how-it-works',

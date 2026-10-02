@@ -13,6 +13,7 @@ import { Testimonials } from '@/components/home/Testimonials';
 import { FounderStrip } from '@/components/home/FounderStrip';
 import { ExperienceForm } from '@/components/experience/ExperienceForm';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const HOME_TITLE =
   'Engageo — AI Missed Call Recovery for Indian Clinics & Hospitals';
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   description: HOME_DESCRIPTION,
   alternates: { canonical: '/' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
     url: '/',

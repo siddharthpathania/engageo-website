@@ -47,6 +47,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
     description: post.description,
     alternates: { canonical: url },
     openGraph: {
+      locale: SITE_CONFIG.locale,
       type: 'article',
       url,
       title: post.title,

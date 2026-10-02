@@ -5,6 +5,7 @@ import {
   getClinicSpecialties,
   getSpecialtyBySlug,
 } from '@/lib/specialty-data';
+import { SITE_CONFIG } from '@/lib/constants';
 
 type ClinicSpecialtyPageProps = {
   params: { specialty: string };
@@ -29,6 +30,7 @@ export function generateMetadata({
     description: specialty.metaDescription,
     alternates: { canonical: url },
     openGraph: {
+      locale: SITE_CONFIG.locale,
       title: specialty.metaTitle,
       description: specialty.metaDescription,
       url,

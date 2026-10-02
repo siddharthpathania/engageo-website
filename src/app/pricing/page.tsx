@@ -5,6 +5,7 @@ import { PricingFAQ } from '@/components/pricing/PricingFAQ';
 import { PricingTable } from '@/components/pricing/PricingTable';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const PRICING_TITLE = 'Pricing — Clinic Appointment Recovery Software';
 const PRICING_DESCRIPTION =
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   description: PRICING_DESCRIPTION,
   alternates: { canonical: '/pricing' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${PRICING_TITLE} | Engageo`,
     description: PRICING_DESCRIPTION,
     url: '/pricing',

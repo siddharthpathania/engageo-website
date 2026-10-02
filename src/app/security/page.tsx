@@ -10,7 +10,7 @@
 import type { Metadata } from 'next';
 import { Field, LegalDoc, LegalSection, ListField } from '@/components/legal/LegalDoc';
 import { LEGAL } from '@/config/legal';
-import { COMPANY } from '@/lib/constants';
+import { COMPANY, SITE_CONFIG } from '@/lib/constants';
 
 const TITLE = 'Security';
 const DESCRIPTION =
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/security' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${TITLE} | Engageo`,
     description: DESCRIPTION,
     url: '/security',

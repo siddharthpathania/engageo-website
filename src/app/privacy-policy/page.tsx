@@ -13,7 +13,7 @@
 import type { Metadata } from 'next';
 import { Field, LegalDoc, LegalSection, ListField } from '@/components/legal/LegalDoc';
 import { LEGAL } from '@/config/legal';
-import { COMPANY, CONTACT } from '@/lib/constants';
+import { COMPANY, CONTACT, SITE_CONFIG } from '@/lib/constants';
 
 const TITLE = 'Privacy Policy';
 const DESCRIPTION =
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/privacy-policy' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${TITLE} | Engageo`,
     description: DESCRIPTION,
     url: '/privacy-policy',

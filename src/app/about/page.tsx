@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-import { COMPANY } from '@/lib/constants';
+import { COMPANY, SITE_CONFIG } from '@/lib/constants';
 import { FOUNDERS } from '@/lib/founders';
 
 const ABOUT_TITLE = 'About Engageo — Built for Indian Clinics';
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   description: ABOUT_DESCRIPTION,
   alternates: { canonical: '/about' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${ABOUT_TITLE} | Engageo`,
     description: ABOUT_DESCRIPTION,
     url: '/about',

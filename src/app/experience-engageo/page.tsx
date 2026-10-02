@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { ExperienceForm } from '@/components/experience/ExperienceForm';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const TITLE = 'Experience Engageo — Hear the AI Receptionist Live';
 const DESCRIPTION =
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/experience-engageo' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: TITLE,
     description: DESCRIPTION,
     url: '/experience-engageo',

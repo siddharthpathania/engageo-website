@@ -4,6 +4,7 @@ import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
 import { getAllCategories, getAllPostsMeta } from '@/lib/blog';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const BLOG_TITLE = 'Blog — AI Clinic Automation & Missed Call Recovery';
 const BLOG_DESCRIPTION =
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   description: BLOG_DESCRIPTION,
   alternates: { canonical: '/blog' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${BLOG_TITLE} | Engageo`,
     description: BLOG_DESCRIPTION,
     url: '/blog',

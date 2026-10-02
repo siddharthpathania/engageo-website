@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const SERVICES_TITLE = 'AI Call Recovery & WhatsApp Automation';
 const SERVICES_DESCRIPTION =
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   description: SERVICES_DESCRIPTION,
   alternates: { canonical: '/services' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${SERVICES_TITLE} | Engageo`,
     description: SERVICES_DESCRIPTION,
     url: '/services',

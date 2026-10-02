@@ -48,6 +48,7 @@ export function generateMetadata({ params }: FounderPageProps): Metadata {
     description: founder.bio,
     alternates: { canonical: url },
     openGraph: {
+      locale: SITE_CONFIG.locale,
       title,
       description: founder.bio,
       url,

@@ -5,7 +5,7 @@ import { ContactForm } from '@/components/contact/ContactForm';
 import { CTASection } from '@/components/home/CTASection';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SectionWrapper } from '@/components/shared/SectionWrapper';
-import { CONTACT } from '@/lib/constants';
+import { CONTACT, SITE_CONFIG } from '@/lib/constants';
 
 const CONTACT_TITLE = 'Contact Engageo — Pune, India';
 const CONTACT_DESCRIPTION =
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   description: CONTACT_DESCRIPTION,
   alternates: { canonical: '/contact' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: `${CONTACT_TITLE} | Engageo`,
     description: CONTACT_DESCRIPTION,
     url: '/contact',

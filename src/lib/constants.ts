@@ -19,7 +19,7 @@ export const SITE_CONFIG = {
   ogImage: '/opengraph-image',
   ogImageAlt: 'Engageo — AI voice + WhatsApp recovery for Indian clinics and hospitals',
   locale: 'en_IN',
-  language: 'en',
+  language: 'en-IN',
   region: 'IN',
   currency: 'INR',
   keywords: [

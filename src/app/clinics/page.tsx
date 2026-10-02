@@ -9,6 +9,7 @@ import {
   getClinicSpecialties,
   getHospitalSpecialty,
 } from '@/lib/specialty-data';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const INDEX_TITLE =
   'AI Call Recovery for Indian Clinics & Hospitals | Engageo';
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   description: INDEX_DESCRIPTION,
   alternates: { canonical: '/clinics' },
   openGraph: {
+    locale: SITE_CONFIG.locale,
     title: INDEX_TITLE,
     description: INDEX_DESCRIPTION,
     url: '/clinics',

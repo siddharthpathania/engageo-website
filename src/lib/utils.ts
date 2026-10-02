@@ -33,7 +33,7 @@ export function absoluteUrl(path: string): string {
  */
 export function formatDate(
   input: Date | string,
-  locale: string = 'en-US',
+  locale: string = 'en-IN',
   options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' },
 ): string {
   const date = input instanceof Date ? input : new Date(input);

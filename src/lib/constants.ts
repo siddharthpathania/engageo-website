@@ -156,6 +156,7 @@ export const LEGAL_LINKS: readonly NavLink[] = [
   { label: 'Terms of Service', href: '/terms-of-service' },
   { label: 'Security', href: '/security' },
   { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Refund Policy', href: '/refund-policy' },
 ] as const;
 
 export const FOOTER_NAV: readonly FooterSection[] = [

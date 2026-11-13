@@ -104,6 +104,11 @@ export default function TermsOfServicePage(): JSX.Element {
           fees are exclusive of applicable taxes (including GST). Payment terms,
           late-payment handling, and renewal pricing are{' '}
           <Field value={LEGAL.terms.feeTerms} fallback="as set out in your order form" />.
+          Cancellations and refunds are covered by our{' '}
+          <a className="font-medium text-primary-600 hover:text-primary-700" href="/refund-policy">
+            Refund and Cancellation Policy
+          </a>
+          .
         </p>
       </LegalSection>
 

@@ -21,6 +21,7 @@ const STATIC_ROUTES: Array<{ path: string; priority: number; changeFrequency: Ch
   { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/terms-of-service', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/security', priority: 0.3, changeFrequency: 'yearly' },
+  { path: '/refund-policy', priority: 0.3, changeFrequency: 'yearly' },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -1,0 +1,119 @@
+---
+title: 'DPDP Act Vendor Due Diligence Checklist for Indian Clinic Software Purchases'
+description: 'Verify clinic DPDP Act vendor compliance in India. Use this procurement checklist to audit telephony, CRM hosting, access controls, and CERT-In logging.'
+publishedAt: '2026-11-15'
+author: 'Atul Hooda'
+authorRole: 'CTO'
+authorInitials: 'AH'
+authorLinkedin: 'https://www.linkedin.com/in/atulhooda/'
+category: 'Playbook'
+tags:
+  - 'dpdp act'
+  - 'vendor compliance'
+  - 'clinic management'
+  - 'india healthcare'
+  - 'data residency'
+  - 'cloud telephony'
+coverImage: '/blog/covers/clinic-dpdp-act-vendor-compliance-in-india.jpg'
+coverWidth: 1880
+coverHeight: 1253
+draft: false
+agentPublication: 'ea7658aba09c46e69aa0b6155fd9104b'
+agentSource: 'competitor-analysis-agent'
+---
+
+Evaluating clinic dpdp act vendor compliance is now an essential task for Indian healthcare providers. When a patient contacts your clinic to book a visit, inquire about consultation fees, or share medical records, your practice acts as the primary data fiduciary. You hold the core responsibility for protecting that personal information. Engaging third-party software vendors—whether for appointment booking, cloud telephony, customer relationship management (CRM), or patient messaging—does not relieve a practice of its operational and regulatory responsibilities towards patient records. Under Indian data privacy frameworks, your clinic remains accountable for how patient records are handled.
+
+In everyday outpatient department (OPD) operations, digital touchpoints add up quickly. Front desks collect patient names, phone numbers, preferred consultation times, clinical specialities, and call recordings. All these details enter third-party software systems. If a software vendor mismanages that information, permits unauthorised access, or suffers a security leak, regulatory bodies look directly to your clinic. You cannot pass legal responsibility to a software provider after an incident occurs.
+
+Before your clinic signs a software agreement or installs a digital tool, you must audit the vendor's technical controls. Many software tools market convenient features but neglect basic data protection safeguards. This procurement checklist gives Indian clinic owners and administrators clear criteria to evaluate software vendors before buying.
+
+## Clinic DPDP Act Vendor Compliance: Domestic Cloud Hosting
+
+Where your patient data lives matters. Digital health records, voice notes, appointment histories, and caller logs should never travel across foreign cloud servers without clear safeguards. When buying clinic software, you must demand proof that primary databases and automated backups stay in India. Major cloud providers offer local data centre regions in India, such as facilities in Mumbai. Keeping data in domestic facilities protects your practice from international jurisdictional conflicts.
+
+Many software vendors run a multi-tenant setup. Their main application servers may sit in India, but their backup storage, call processors, or analytics pipelines route traffic overseas. This hidden routing exposes patient information. You must review the vendor's data-flow diagrams and Master Service Agreements (MSAs). Confirm in writing that patient personally identifiable information (PII) never leaves Indian borders.
+
+To verify server locations, ask software vendors these direct questions during product demos:
+
+- Where are your primary production databases, backup servers, and disaster recovery sites physically located?
+- Do incoming call recordings, phone numbers, and voice transcripts get processed on servers outside India?
+- Can you provide a signed data residency document confirming that no patient data is sent abroad for processing or machine learning training?
+- How does your cloud infrastructure separate our clinic's patient records from other healthcare clients?
+
+## Patient Consent Logging and Erasure Protocol Verifications
+
+Good privacy practice requires clinics to capture patient data only for clear, lawful purposes backed by consent. Clinic software should never store phone numbers collected from missed calls or lead campaigns without recording how that contact happened. Every patient interaction needs an auditable trail.
+
+Your software vendor must keep time-stamped logs of all patient touchpoints. When a patient books an appointment online, talks to a voice agent, or messages your clinic on WhatsApp, the system must log the event. It should record the exact time, the communication channel, and the notice shown to the patient. These logs prove that your clinic collected details properly if a patient ever questions how you got their number.
+
+Software must also support clean data erasure workflows. Under privacy rules, patients can ask to delete their personal data. Your clinic software should allow staff to delete or anonymise phone numbers, call audio, and chat histories upon request. However, this process must not break your billing ledgers, appointment counts, or tax records. The software must separate personal identifiers from essential administrative data.
+
+Front-desk habits also create major privacy risks. Receptionists often save patient phone numbers on personal mobile phones to chat on messaging apps. This practice scatters patient records across unmanaged devices. Your software must channel patient communication through central dashboards to stop personal phone sprawl.
+
+## Telephony and Messaging Audits: Role-Based Access Controls
+
+Internal data leaks are a common operational risk in busy clinics. A system that lets every employee view your full patient registry invites trouble. Telephony tools, appointment schedulers, and CRM systems must use strict role-based access controls (RBAC). Staff members should only see the data they need to do their jobs.
+
+Front-desk receptionists need to see daily appointments, patient names, and arrival times. They do not need to read comprehensive doctor notes or historical clinical files from other departments. Similarly, doctors need complete patient charts for their own consultations, but they do not need permission to download the entire patient database. Software should enforce these boundaries automatically.
+
+If you run multiple clinic branches, look for centralised management tools. Owners need a single dashboard to set doctor rosters, manage communication templates, and review appointment trends across all locations. Meanwhile, branch managers should only access data for their assigned centre. Most importantly, the software must block bulk data exports so staff cannot copy your patient list onto external flash drives or spreadsheets.
+
+Examine messaging channels as well. Relying on unofficial phone numbers or third-party web scrapers to send appointment reminders is risky and unreliable. Patient messaging should run through verified channels, such as official business application interfaces. Official channels provide verified templates, reliable delivery, and secure transmission.
+
+## Mandatory Incident Reporting Clauses and Technical Log Retention
+
+Cybersecurity incidents require prompt containment and formal escalation under [national cybersecurity directives](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf) ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf)). Directions issued by the Indian Computer Emergency Response Team (CERT-In) require body corporates, service providers, intermediaries, and data centres to report specified cyber incidents within 6 hours of noticing them or being informed about them ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)). CERT-In rules explicitly designate data breaches and data leaks among the mandatory reportable incidents ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)).
+
+To meet this [6-hour reporting window established under CERT-In directions](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf) ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)), clinics need rapid communication from their vendors. If your software vendor experiences a breach or leak of patient data, you cannot wait days to find out. Your service contract should require the vendor to notify your clinic immediately upon discovering any security incident. Official CERT-In reports must be sent by email, phone, or fax following prescribed formats ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf)).
+
+Indian cyber regulations also establish specific rules for system logging ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)). CERT-In directions mandate that service providers, intermediaries, data centres, and body corporates must enable logs across all their ICT systems ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)). Furthermore, these entities must maintain those logs securely for a rolling window of 180 days within Indian jurisdiction ([Directions under sub-section (6) of section 70B of the Information…](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)). Clinics should ensure their vendors retain secure system access logs within India so technical teams can investigate incidents effectively.
+
+Ignoring these requirements carries severe legal consequences. Failing to comply with CERT-In directions can lead to a fine of up to INR 100,000, imprisonment for up to 1 year, or both ([How to comply with CERT-In's new six-hour time frame to report cybe…](https://trilegal.com/wp-content/uploads/2022/07/How-to-comply-with-CERT-Ins-new-six-hour-time-frame-to-report-cyber-incidents.pdf)). These penalties show why technical log retention and incident response clauses belong in every healthcare software contract.
+
+## Sub-Processor Disclosures, Indemnity Terms, and Vendor Selection Trade-offs
+
+Modern software platforms rely on many sub-processors to operate. A clinic appointment tool may use one telecom vendor for call routing, another voice provider for text-to-speech, and a third company for cloud hosting. If any of those downstream vendors suffer a breach, your patient data is still at risk.
+
+Ask vendors for a complete written list of all sub-processors. The contract should require advance written notice before the vendor adds any new third-party provider. This gives your clinic time to evaluate the new provider's security controls before patient information flows through their servers.
+
+Look closely at the indemnity terms in your Master Service Agreement. Many general software vendors limit their liability to the fees paid over the previous three months. This small payout offers little protection if your clinic faces regulatory penalties or legal expenses. Insist on clear indemnity terms that hold the vendor financially accountable for breaches caused by their own software flaws or staff negligence.
+
+Finally, weigh the trade-offs between cheap generic software and dedicated healthcare tools. Low-cost form builders and generic telephony tools often cut corners. They may host data abroad, lack access controls, or omit system log retention. While healthcare-specific platforms require a standard monthly fee, they protect your practice from costly compliance failures and operational disruptions.
+
+## Operationalising Clinic Compliance with Engageo Missed Call Recovery
+
+Sound vendor due diligence rests on four core pillars: domestic cloud hosting in India, clear consent tracking with data erasure workflows, strict role-based access controls, and prompt incident notification with technical log retention. Checking these four areas before signing a contract protects your patients and shields your clinic from legal liability.
+
+If your clinic wants to recover missed patient calls without adding compliance headaches, Engageo offers purpose-built healthcare call-handling software. Front desks frequently miss calls during peak OPD hours or after closing time. Engageo Missed Call Recovery intercepts calls that front desks cannot pick up and responds promptly to patients. Its AI Receptionist communicates in the caller's preferred language—spanning major Indian languages and Indian English—to answer questions regarding clinic fees, timings, and doctors. Alternatively, the system sends patients a follow-up WhatsApp message containing a direct booking link that synchronises with the clinic's calendar or management software.
+
+Engageo builds data protection principles into its technical architecture. Patient data remains stored within Indian cloud infrastructure in Mumbai with no cross-border transfers, designed to help clinics maintain their data residency standards. Patient messaging operates through verified business messaging application interfaces with pre-approved communication templates. Clinic administrators oversee operations through an integrated dashboard featuring role-based access controls designed for receptionists, doctors, and multi-location managers. Subscription pricing is structured transparently in rupees across tiers for single practices, expanding clinics, and multi-location hospital networks. With Engageo, Indian clinics recover lost patient bookings while upholding high data protection standards.
+
+## Frequently asked questions
+
+### Why is clinic DPDP Act vendor compliance the clinic's responsibility?
+
+Under Indian privacy frameworks, the clinic acts as the primary data fiduciary accountable for patient records. Using third-party software vendors for booking or telephony does not transfer that statutory responsibility away from the clinic.
+
+### What are the server location requirements for Indian clinic software?
+
+Clinics must verify that primary databases, disaster recovery sites, and automated backups remain hosted in India. Vendor agreements and data-flow diagrams should confirm that patient personal information is not routed abroad for processing.
+
+### How quickly must software vendors notify clinics about a data breach?
+
+Under CERT-In directions, specified cyber incidents like data leaks must be reported within 6 hours. Vendor contracts must require immediate breach notification so clinics can meet this reporting window.
+
+### How long must clinic software vendors maintain technical system logs in India?
+
+CERT-In directions require ICT system logs to be securely maintained for a rolling window of 180 days within Indian jurisdiction.
+
+<BlogCTA
+  title="See Engageo in action"
+  body="15 minutes, no deck. See how Engageo answers every missed call, follows up on WhatsApp and books the patient into your calendar."
+  ctaLabel="Book a demo"
+  ctaHref="/contact?intent=demo"
+/>
+
+---
+
+*Atul Hooda is CTO at Engageo, which builds AI missed-call recovery and WhatsApp automation for Indian clinics and hospitals.*
